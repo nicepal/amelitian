@@ -1,0 +1,1 @@
+{"result":{"text":"x to the power of n plus 1 end exponent space minus space x to the power of n minus x plus 1"},"status":"ok"}

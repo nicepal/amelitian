@@ -1,0 +1,1 @@
+{"result":{"text":"1 plus x plus x squared plus x cubed plus x to the power of 4 plus x to the power of 5"},"status":"ok"}

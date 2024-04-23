@@ -1,0 +1,19 @@
+{
+    "name": "amelitian",
+    "description": "Montessori Elite EM School",
+    "license": "Montessori Elite EM School",
+    "authors": [
+        {
+            "name": "amelitian",
+            "email": "support@amelitian.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+           "google/apiclient": "2.7",
+           "league/omnipay": "^3.1@dev",
+           "omnipay/paypal": "^3.0@dev",
+           "omnipay/stripe": "^3.1@dev"
+
+    }
+}

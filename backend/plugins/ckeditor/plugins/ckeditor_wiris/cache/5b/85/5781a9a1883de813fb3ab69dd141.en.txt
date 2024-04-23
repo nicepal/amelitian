@@ -1,0 +1,1 @@
+{"result":{"text":"open square brackets H to the power of plus sign close square brackets left square bracket space O H to the power of plus sign right square bracket"},"status":"ok"}

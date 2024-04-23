@@ -1,0 +1,1 @@
+{"result":{"text":"R space equals space fraction numerator 2 left parenthesis u plus v right parenthesis over denominator left parenthesis u v right parenthesis end fraction"},"status":"ok"}

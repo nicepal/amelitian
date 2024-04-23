@@ -1,0 +1,1 @@
+{"result":{"text":"fraction numerator 7 n plus 1 over denominator 4 n plus 27 end fraction"},"status":"ok"}

@@ -1,0 +1,1 @@
+{"result":{"text":"comma alpha squared plus beta squared comma 1 over alpha squared plus 1 over beta squared comma i s"},"status":"ok"}

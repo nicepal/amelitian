@@ -1,0 +1,1 @@
+{"result":{"text":"open square brackets open parentheses alpha squared divided by space beta close parentheses to the power of 1 divided by 3 end exponent plus open parentheses beta squared divided by alpha close parentheses to the power of 1 divided by 3 end exponent close square brackets space"},"status":"ok"}

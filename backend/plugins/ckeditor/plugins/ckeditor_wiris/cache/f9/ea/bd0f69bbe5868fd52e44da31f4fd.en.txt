@@ -1,0 +1,1 @@
+{"result":{"text":"R space equals space fraction numerator 2 u v over denominator u plus v end fraction"},"status":"ok"}

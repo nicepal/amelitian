@@ -1,0 +1,1 @@
+{"result":{"text":"left parenthesis a c x squared right parenthesis minus left parenthesis b squared minus 2 a c right parenthesis open parentheses a squared plus c squared close parentheses x plus open parentheses b squared minus 2 a c close parentheses squared equals 0"},"status":"ok"}

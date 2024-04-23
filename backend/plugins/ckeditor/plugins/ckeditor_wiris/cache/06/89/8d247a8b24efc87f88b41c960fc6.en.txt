@@ -1,0 +1,1 @@
+{"result":{"text":"open parentheses 1 minus x close parentheses space open parentheses 1 plus x plus x squared plus x cubed plus x to the power of 4 close parentheses space equals space fraction numerator 31 over denominator 32 space end fraction"},"status":"ok"}

@@ -1,0 +1,1 @@
+{"result":{"text":"open parentheses 5 to the power of 84 close parentheses. open parentheses 2 to the power of 86 close parentheses"},"status":"ok"}

@@ -1,0 +1,1 @@
+{"result":{"text":"4 x squared minus 7 x plus 16 equals 0"},"status":"ok"}

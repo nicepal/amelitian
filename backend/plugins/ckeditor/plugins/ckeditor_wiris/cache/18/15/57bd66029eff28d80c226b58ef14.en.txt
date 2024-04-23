@@ -1,0 +1,1 @@
+{"result":{"text":"1 fifth equals 1 over n plus 1 over m"},"status":"ok"}

@@ -38,6 +38,7 @@ class Stdtransfer extends Admin_Controller {
             $data['class_post'] = $class;
             $data['section_post'] = $section;
             $resultlist = $this->student_model->searchByClassSection($class, $section);
+         
             $data['resultlist'] = $resultlist;
             $this->load->view('layout/header', $data);
             $this->load->view('admin/stdtransfer/stdtransfer', $data);

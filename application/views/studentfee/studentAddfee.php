@@ -273,13 +273,13 @@ $language_name = $language["short_code"];
                                                 </td>
                                                
                                                 <td class="text text-right">
-<?php echo $fee_value->amount;
- if (($fee_value->due_date != "0000-00-00" && $fee_value->due_date != NULL) && (strtotime($fee_value->due_date) < strtotime(date('Y-m-d')))) {
-    ?>
-<span class="text text-danger"><?php echo " + ".($fee_value->fine_amount); ?></span>
-    <?php          
-            }
- ?>
+                                                    <?php echo $fee_value->amount;
+                                                    if (($fee_value->due_date != "0000-00-00" && $fee_value->due_date != NULL) && (strtotime($fee_value->due_date) < strtotime(date('Y-m-d')))) {
+                                                        ?>
+                                                    <span class="text text-danger"><?php echo " + ".($fee_value->fine_amount); ?></span>
+                                                        <?php          
+                                                                }
+                                                    ?>
                                                         
 
                                                     </td>
@@ -516,6 +516,88 @@ $language_name = $language["short_code"];
                                     </tr>
                                 </tbody>
                             </table>
+
+
+                            <h2>Session History</h2>
+                            
+                    <?php
+                    if (isset($resultlist)) {
+                        ?>
+                        <div class="">
+                            <!-- <div class="box-header ptbnull"></div>  -->
+                            <div class="box-header ptbnull">
+                                <!-- <h3 class="box-title titlefix"><i class="fa fa-users"></i> <?php echo $this->lang->line('session'); ?> <?php echo $this->lang->line('list'); ?>
+                                    <?php echo form_error('student'); ?></h3> -->
+                                <div class="box-tools pull-right"></div>
+                            </div>
+                            <div class="box-body table-responsive">
+
+                                <div class="download_label"><?php echo $this->lang->line('student'); ?> <?php echo $this->lang->line('list'); ?></div>
+                                <table class="table table-striped table-bordered table-hover example">
+                                    <thead>
+
+                                        <tr>
+                                            <th><?php echo $this->lang->line('session_name'); ?></th>
+                                            <th><?php echo $this->lang->line('class'); ?></th>
+                                            <th><?php echo $this->lang->line('section'); ?></th>
+
+                                            <th><?php echo $this->lang->line('admission_no'); ?></th>
+
+                                            <th><?php echo $this->lang->line('student'); ?> <?php echo $this->lang->line('name'); ?></th>
+                                            <?php if ($sch_setting->father_name) { ?>
+                                                <th><?php echo $this->lang->line('father_name'); ?></th>
+                                            <?php } ?>
+                                            <th><?php echo $this->lang->line('date_of_birth'); ?></th>
+                                            <th><?php echo $this->lang->line('phone'); ?></th>
+                                            <th class="text-right"><?php echo $this->lang->line('action'); ?></th>
+
+                                        </tr>
+                                    </thead>            
+                                    <tbody>    
+                                        <?php
+                                        $count = 1;
+                                        foreach ($resultlist as $student) {
+                                            if($id != $student['student_session_id']){ ?>
+                                            <tr>
+                                                <td><?php echo $student['session_name']; ?></td>    
+                                                <td><?php echo $student['class']; ?></td>
+                                                <td><?php echo $student['section']; ?></td>
+
+                                                <td><?php echo $student['admission_no']; ?></td>
+
+                                                <td><?php echo $this->customlib->getFullName($student['firstname'],$student['middlename'],$student['lastname'],$sch_setting->middlename,$sch_setting->lastname); ?></td>
+                                                <?php if ($sch_setting->father_name) { ?>
+                                                    <td><?php echo $student['father_name']; ?></td>
+                                                <?php } ?>
+                                                <td><?php
+                                                    if (!empty($student['dob'])) {
+                                                        echo date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($student['dob']));
+                                                    }
+                                                    ?></td>
+                                                <td><?php echo $student['guardian_phone']; ?></td>
+                                                <td class="pull-right">
+                                                    <?php if ($this->rbac->hasPrivilege('collect_fees', 'can_add')) { ?>
+
+                                                        <a  href="<?php echo base_url(); ?>studentfee/addfee/<?php echo $student['student_session_id'] ?>" class="btn btn-info btn-xs" data-toggle="tooltip" title="" data-original-title="">
+                                                            <?php echo $currency_symbol; ?> <?php echo $this->lang->line('collect_fees'); ?>
+                                                        </a>
+                                                    <?php } ?>
+                                                </td>
+
+                                            </tr>
+                                            <?php
+                                            }
+                                        }
+                                        $count++;
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div><!--./box-body-->
+                        </div>
+                    </div>  
+                    <?php
+                }
+                ?>
                         </div>
                     </div>
                     <!-- /.box-body -->

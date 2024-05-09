@@ -152,6 +152,7 @@ class Student_model extends MY_Model
         }
     }
 
+
     public function getByStudentSession($student_session_id)
     {
         $this->db->select('student_session.transport_fees,students.app_key,students.vehroute_id,vehicle_routes.route_id,vehicle_routes.vehicle_id,transport_route.route_title,vehicles.vehicle_no,hostel_rooms.room_no,vehicles.driver_name,vehicles.driver_contact,hostel.id as `hostel_id`,hostel.hostel_name,room_types.id as `room_type_id`,room_types.room_type ,students.hostel_room_id,student_session.id as `student_session_id`,student_session.fees_discount,classes.id AS `class_id`,classes.class,sections.id AS `section_id`,sections.section,class_sections.id as `class_section_id`,students.id,students.admission_no , students.roll_no,students.admission_date,students.firstname,students.middlename,  students.lastname,students.image,    students.mobileno, students.email ,students.state ,   students.city , students.pincode , students.note, students.religion, students.cast, school_houses.house_name,   students.dob ,students.current_address, students.previous_school,
@@ -399,7 +400,11 @@ class Student_model extends MY_Model
         $this->db->join('classes', 'student_session.class_id = classes.id');
         $this->db->join('sections', 'sections.id = student_session.section_id');
         $this->db->join('categories', 'students.category_id = categories.id', 'left');
-        $this->db->where('student_session.session_id', $this->current_session);
+        // if($session_id != null){
+            // $this->db->where('student_session.session_id', $session_id);
+        // }else{
+            $this->db->where('student_session.session_id', $this->current_session);
+        // }
         if($hostel_room_id != null ){
             $this->db->where('students.hostel_room_id', $hostel_room_id);
         }
@@ -553,6 +558,58 @@ class Student_model extends MY_Model
         $this->db->or_like('students.previous_school', $searchterm);
         $this->db->or_like('students.note', $searchterm);
         $this->db->group_end();
+        $this->db->order_by('students.id');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function searchAllSessionsStudents($searchterm='', $carray = null)
+    {
+        $userdata = $this->customlib->getUserData();
+        $staff_id = $userdata['id'];
+
+        $i             = 1;
+        $custom_fields = $this->customfield_model->get_custom_fields('students', 1);
+
+        $field_var_array = array();
+        if (!empty($custom_fields)) {
+            foreach ($custom_fields as $custom_fields_key => $custom_fields_value) {
+                $tb_counter = "table_custom_" . $i;
+                array_push($field_var_array, 'table_custom_' . $i . '.field_value as ' . $custom_fields_value->name);
+                $this->db->join('custom_field_values as ' . $tb_counter, 'students.id = ' . $tb_counter . '.belong_table_id AND ' . $tb_counter . '.custom_field_id = ' . $custom_fields_value->id, 'left');
+                $i++;
+            }
+        }
+
+        $field_variable = implode(',', $field_var_array);
+
+        if (($userdata["role_id"] == 2) && ($userdata["class_teacher"] == "yes")) {
+            if (!empty($carray)) {
+
+                $this->db->where_in("student_session.class_id", $carray);
+                $sections = $this->teacher_model->get_teacherrestricted_modeallsections($staff_id);
+                foreach ($sections as $key => $value) {
+                    $sections_id[] = $value['section_id'];
+                }
+                $this->db->where_in("student_session.section_id", $sections_id);
+            } else {
+                $this->db->where_in("student_session.class_id", "");
+            }
+        }
+
+        $this->db->select('classes.id AS `class_id`,students.id,sessions.session as session_name,student_session.id as student_session_id,classes.class,sections.id AS `section_id`,sections.section,students.id,students.admission_no , students.roll_no,students.admission_date,students.firstname,students.middlename,  students.lastname,students.image,    students.mobileno, students.email ,students.state ,   students.city , students.pincode ,     students.religion,     students.dob ,students.current_address,    students.permanent_address,IFNULL(students.category_id, 0) as `category_id`,IFNULL(categories.category, "") as `category`,      students.adhar_no,students.samagra_id,students.bank_account_no,students.bank_name, students.ifsc_code ,students.father_name , students.guardian_name , students.guardian_relation,students.guardian_phone,students.guardian_address,students.is_active ,students.created_at ,students.updated_at,students.gender,students.rte,student_session.session_id,students.father_pic,students.mother_pic,students.guardian_pic,' . $field_variable)
+        ->from('students');
+        $this->db->join('student_session', 'student_session.student_id = students.id');
+        $this->db->join('classes', 'student_session.class_id = classes.id');
+        $this->db->join('sections', 'sections.id = student_session.section_id');
+        $this->db->join('categories', 'students.category_id = categories.id', 'left');
+        $this->db->join('school_houses', 'students.school_house_id = school_houses.id', 'left');
+        $this->db->join("sessions","sessions.id = student_session.session_id");
+        $this->db->where('students.is_active', 'yes');
+     
+        $this->db->where('students.id', $searchterm);
+      
+        // $this->db->group_end();
         $this->db->order_by('students.id');
         $query = $this->db->get();
         return $query->result_array();
@@ -1147,6 +1204,14 @@ class Student_model extends MY_Model
         $query = $this->db->query("SELECT  max(sessions.id) as student_session_id, max(sessions.session) as session from sessions join student_session on (sessions.id = student_session.session_id)  where student_session.student_id = " . $id);
 
         return $query->row_array();
+    }
+
+    public function getStudentSessionById($id)
+    {
+
+        $query = $this->db->query("SELECT *  from student_session where id = " . $id);
+
+        return $query->row();
     }
 
     public function valid_student_roll()

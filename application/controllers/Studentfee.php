@@ -143,6 +143,20 @@ class Studentfee extends Admin_Controller
         $button                  = $this->input->post('search');
         $data['adm_auto_insert'] = $this->sch_setting_detail->adm_auto_insert;
         $data['sch_setting']     = $this->sch_setting_detail;
+
+        // Sessions list 
+        $session             = $this->session_model->getAllSession();
+        $session_array       = $this->session->has_userdata('session_array');
+        $data['sessionData'] = array('session_id' => 0);
+        if ($session_array) {
+            $data['sessionData'] = $this->session->userdata('session_array');
+        } else {
+            $setting             = $this->setting_model->get();
+            $data['sessionData'] = array('session_id' => $setting[0]['session_id']);
+        }
+        $data['sessionList'] = $session;
+       
+        // =============
         if ($this->input->server('REQUEST_METHOD') == "GET") {
             $this->load->view('layout/header', $data);
             $this->load->view('studentfee/studentfeeSearch', $data);
@@ -152,19 +166,22 @@ class Studentfee extends Admin_Controller
             $section     = $this->input->post('section_id');
             $search      = $this->input->post('search');
             $search_text = $this->input->post('search_text');
-            if (isset($search)) {
+            $session_id =  $this->input->post("session_id");
+            if(isset($search)) {
                 if ($search == 'search_filter') {
                     $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required|xss_clean');
                     if ($this->form_validation->run() == false) {
 
                     } else {
-                        $resultlist         = $this->student_model->searchByClassSection($class, $section);
+                        $resultlist         = $this->student_model->searchByClassSection($session_id,$class, $section);
                         $data['resultlist'] = $resultlist;
                     }
                 } else if ($search == 'search_full') {
                     $resultlist         = $this->student_model->searchFullText($search_text);
                     $data['resultlist'] = $resultlist;
                 }
+             
+
                 $this->load->view('layout/header', $data);
                 $this->load->view('studentfee/studentfeeSearch', $data);
                 $this->load->view('layout/footer', $data);
@@ -407,12 +424,15 @@ class Studentfee extends Admin_Controller
         $data['sch_setting'] = $this->sch_setting_detail;
         $data['title'] = 'Student Detail';
         $student         = $this->student_model->getByStudentSession($id);
+        $student_session = $this->student_model->getStudentSessionById($id);
         $data['student'] = $student;
         $student_due_fee = $this->studentfeemaster_model->getStudentFees($id);
+        // $student_due_fee_new = $this->studentfeemaster_model->getNewStudentFees($this->session->userdata('admin')['id']);
         $student_discount_fee = $this->feediscount_model->getStudentFeesDiscount($id);
 
         $data['student_discount_fee'] = $student_discount_fee;
         $data['student_due_fee']      = $student_due_fee;
+        // $data['student_due_fee_new']      = $student_due_fee_new;
         $category                     = $this->category_model->get();
         $data['categorylist']         = $category;
         $class_section                = $this->student_model->getClassSection($student["class_id"]);
@@ -420,7 +440,10 @@ class Studentfee extends Admin_Controller
         $session                      = $this->setting_model->getCurrentSession();
         $studentlistbysection         = $this->student_model->getStudentClassSection($student["class_id"], $session);
         $data["studentlistbysection"] = $studentlistbysection;
+        
+        $data["resultlist"] = $this->student_model->searchAllSessionsStudents($student_session->student_id);
 
+        $data['id'] = $id;
         $this->load->view('layout/header', $data);
         $this->load->view('studentfee/studentAddfee', $data);
         $this->load->view('layout/footer', $data);

@@ -4,228 +4,300 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb948a81edec228350ede434eedaf69ad {
-
-    public static $files = array(
-        'e40631d46120a9c38ea139981f8dab26' => __DIR__ . '/..' . '/ircmaxell/password-compat/lib/password.php',
+class ComposerStaticInit012c32ecf2fbb0fa486df37496de5b8e
+{
+    public static $files = array (
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+        '9c67151ae59aff4788964ce8eb2a0f43' => __DIR__ . '/..' . '/clue/stream-filter/src/functions_include.php',
+        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        'edc6464955a37aa4d5fbf39d40fb6ee7' => __DIR__ . '/..' . '/symfony/polyfill-php55/bootstrap.php',
-        '3e2471375464aac821502deb0ac64275' => __DIR__ . '/..' . '/symfony/polyfill-php54/bootstrap.php',
+        '662a729f963d39afe703c9d9b7ab4a8c' => __DIR__ . '/..' . '/symfony/polyfill-php83/bootstrap.php',
+        '8cff32064859f4559445b89279f3199c' => __DIR__ . '/..' . '/php-http/message/src/filters.php',
+        '1f87db08236948d07391152dccb70f04' => __DIR__ . '/..' . '/google/apiclient-services/autoload.php',
+        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
+        'a8d3953fd9959404dd22d3dfcd0a79f0' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'db356362850385d08a5381de2638b5fd' => __DIR__ . '/..' . '/mpdf/mpdf/src/functions.php',
     );
-    public static $prefixLengthsPsr4 = array(
-        'S' =>
-        array(
-            'Symfony\\Polyfill\\Php55\\' => 23,
-            'Symfony\\Polyfill\\Php54\\' => 23,
+
+    public static $prefixLengthsPsr4 = array (
+        's' => 
+        array (
+            'setasign\\Fpdi\\' => 14,
+        ),
+        'p' => 
+        array (
+            'phpseclib3\\' => 11,
+        ),
+        'c' => 
+        array (
+            'chillerlan\\Settings\\' => 20,
+            'chillerlan\\QRCode\\' => 18,
+        ),
+        'S' => 
+        array (
+            'Symfony\\Polyfill\\Php83\\' => 23,
+            'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\HttpFoundation\\' => 33,
-            'Symfony\\Component\\EventDispatcher\\' => 34,
+            'Sonata\\GoogleAuthenticator\\' => 27,
         ),
-        'O' =>
-        array(
-            'Omnipay\\Paymongo\\' => 17,
-            'Omnipay\\WorldPay\\' => 17,
-            'Omnipay\\TwoCheckout\\' => 20,
-            'Omnipay\\TargetPay\\' => 18,
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+            'Psr\\Http\\Message\\' => 17,
+            'Psr\\Http\\Client\\' => 16,
+            'Psr\\Cache\\' => 10,
+            'ParagonIE\\ConstantTime\\' => 23,
+        ),
+        'O' => 
+        array (
             'Omnipay\\Stripe\\' => 15,
-            'Omnipay\\SecurePay\\' => 18,
-            'Omnipay\\SagePay\\' => 16,
-            'Omnipay\\Pin\\' => 12,
-            'Omnipay\\PaymentExpress\\' => 23,
-            'Omnipay\\Payflow\\' => 16,
             'Omnipay\\PayPal\\' => 15,
-            'Omnipay\\PayFast\\' => 16,
-            'Omnipay\\Netaxept\\' => 17,
-            'Omnipay\\NetBanx\\' => 16,
-            'Omnipay\\MultiSafepay\\' => 21,
-            'Omnipay\\Mollie\\' => 15,
-            'Omnipay\\Migs\\' => 13,
-            'Omnipay\\Manual\\' => 15,
-            'Omnipay\\GoCardless\\' => 19,
-            'Omnipay\\FirstData\\' => 18,
-            'Omnipay\\Eway\\' => 13,
-            'Omnipay\\Dummy\\' => 14,
-            'Omnipay\\Coinbase\\' => 17,
-            'Omnipay\\CardSave\\' => 17,
-            'Omnipay\\Buckaroo\\' => 17,
-            'Omnipay\\AuthorizeNet\\' => 21,
+            'Omnipay\\Common\\' => 15,
         ),
-        'F' =>
-        array(
+        'M' => 
+        array (
+            'Mpdf\\PsrLogAwareTrait\\' => 22,
+            'Mpdf\\PsrHttpMessageShim\\' => 24,
+            'Mpdf\\' => 5,
+            'Monolog\\' => 8,
+            'Money\\' => 6,
+        ),
+        'H' => 
+        array (
+            'Http\\Promise\\' => 13,
+            'Http\\Message\\' => 13,
+            'Http\\Discovery\\' => 15,
+            'Http\\Client\\' => 12,
+            'Http\\Adapter\\Guzzle7\\' => 21,
+        ),
+        'G' => 
+        array (
+            'GuzzleHttp\\Psr7\\' => 16,
+            'GuzzleHttp\\Promise\\' => 19,
+            'GuzzleHttp\\' => 11,
+            'Google\\Service\\' => 15,
+            'Google\\Authenticator\\' => 21,
+            'Google\\Auth\\' => 12,
+            'Google\\' => 7,
+        ),
+        'F' => 
+        array (
             'Firebase\\JWT\\' => 13,
         ),
+        'D' => 
+        array (
+            'DeepCopy\\' => 9,
+        ),
+        'C' => 
+        array (
+            'Clue\\StreamFilter\\' => 18,
+        ),
     );
-    public static $prefixDirsPsr4 = array(
-        'Symfony\\Polyfill\\Php55\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php55',
+
+    public static $prefixDirsPsr4 = array (
+        'setasign\\Fpdi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/setasign/fpdi/src',
         ),
-        'Symfony\\Polyfill\\Php54\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php54',
+        'phpseclib3\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
         ),
-        'Symfony\\Polyfill\\Mbstring\\' =>
-        array(
+        'chillerlan\\Settings\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/chillerlan/php-settings-container/src',
+        ),
+        'chillerlan\\QRCode\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/chillerlan/php-qrcode/src',
+        ),
+        'Symfony\\Polyfill\\Php83\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php83',
+        ),
+        'Symfony\\Polyfill\\Php80\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
+        ),
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Component\\HttpFoundation\\' =>
-        array(
+        'Symfony\\Component\\HttpFoundation\\' => 
+        array (
             0 => __DIR__ . '/..' . '/symfony/http-foundation',
         ),
-        'Symfony\\Component\\EventDispatcher\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
+        'Sonata\\GoogleAuthenticator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sonata-project/google-authenticator/src',
         ),
-        'Omnipay\\WorldPay\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/worldpay/src',
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
         ),
-        'Omnipay\\Paymongo\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omarusman/omnipay-paymongo/src',
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
-        'Omnipay\\TwoCheckout\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/2checkout/src',
+        'Psr\\Http\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
-        'Omnipay\\TargetPay\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/targetpay/src',
+        'Psr\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
-        'Omnipay\\Stripe\\' =>
-        array(
+        'ParagonIE\\ConstantTime\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src',
+        ),
+        'Omnipay\\Stripe\\' => 
+        array (
             0 => __DIR__ . '/..' . '/omnipay/stripe/src',
         ),
-        'Omnipay\\SecurePay\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/securepay/src',
-        ),
-        'Omnipay\\SagePay\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/sagepay/src',
-        ),
-        'Omnipay\\Pin\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/pin/src',
-        ),
-        'Omnipay\\PaymentExpress\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/paymentexpress/src',
-        ),
-        'Omnipay\\Payflow\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/payflow/src',
-        ),
-        'Omnipay\\PayPal\\' =>
-        array(
+        'Omnipay\\PayPal\\' => 
+        array (
             0 => __DIR__ . '/..' . '/omnipay/paypal/src',
         ),
-        'Omnipay\\PayFast\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/payfast/src',
+        'Omnipay\\Common\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/omnipay/common/src/Common',
         ),
-        'Omnipay\\Netaxept\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/netaxept/src',
+        'Mpdf\\PsrLogAwareTrait\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mpdf/psr-log-aware-trait/src',
         ),
-        'Omnipay\\NetBanx\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/netbanx/src',
+        'Mpdf\\PsrHttpMessageShim\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mpdf/psr-http-message-shim/src',
         ),
-        'Omnipay\\MultiSafepay\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/multisafepay/src',
+        'Mpdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mpdf/mpdf/src',
         ),
-        'Omnipay\\Mollie\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/mollie/src',
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
-        'Omnipay\\Migs\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/migs/src',
+        'Money\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/moneyphp/money/src',
         ),
-        'Omnipay\\Manual\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/manual/src',
+        'Http\\Promise\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-http/promise/src',
         ),
-        'Omnipay\\GoCardless\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/gocardless/src',
+        'Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-http/message-factory/src',
+            1 => __DIR__ . '/..' . '/php-http/message/src',
         ),
-        'Omnipay\\FirstData\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/firstdata/src',
+        'Http\\Discovery\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-http/discovery/src',
         ),
-        'Omnipay\\Eway\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/eway/src',
+        'Http\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-http/httplug/src',
         ),
-        'Omnipay\\Dummy\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/dummy/src',
+        'Http\\Adapter\\Guzzle7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-http/guzzle7-adapter/src',
         ),
-        'Omnipay\\Coinbase\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/coinbase/src',
+        'GuzzleHttp\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'Omnipay\\CardSave\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/cardsave/src',
+        'GuzzleHttp\\Promise\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
         ),
-        'Omnipay\\Buckaroo\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/buckaroo/src',
+        'GuzzleHttp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'Omnipay\\AuthorizeNet\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/omnipay/authorizenet/src',
+        'Google\\Service\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/google/apiclient-services/src',
         ),
-        'Firebase\\JWT\\' =>
-        array(
+        'Google\\Authenticator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sonata-project/google-authenticator/src',
+        ),
+        'Google\\Auth\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/google/auth/src',
+        ),
+        'Google\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/google/apiclient/src',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
-    );
-    public static $prefixesPsr0 = array(
-        'o' =>
-        array(
-            'org\\bovigo\\vfs' =>
-            array(
-                0 => __DIR__ . '/..' . '/mikey179/vfsStream/src/main/php',
-            ),
+        'DeepCopy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
-        'O' =>
-        array(
-            'Omnipay\\Common\\' =>
-            array(
-                0 => __DIR__ . '/..' . '/omnipay/common/src',
-            ),
+        'Clue\\StreamFilter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/clue/stream-filter/src',
         ),
-        'G' =>
-        array(
-            'Guzzle\\Tests' =>
-            array(
-                0 => __DIR__ . '/..' . '/guzzle/guzzle/tests',
-            ),
-            'Guzzle' =>
-            array(
-                0 => __DIR__ . '/..' . '/guzzle/guzzle/src',
-            ),
-        ),
-    );
-    public static $classMap = array(
-        'CallbackFilterIterator' => __DIR__ . '/..' . '/symfony/polyfill-php54/Resources/stubs/CallbackFilterIterator.php',
-        'Omnipay\\Omnipay' => __DIR__ . '/..' . '/omnipay/common/src/Omnipay/Omnipay.php',
-        'RecursiveCallbackFilterIterator' => __DIR__ . '/..' . '/symfony/polyfill-php54/Resources/stubs/RecursiveCallbackFilterIterator.php',
-        'SessionHandlerInterface' => __DIR__ . '/..' . '/symfony/polyfill-php54/Resources/stubs/SessionHandlerInterface.php',
     );
 
-    public static function getInitializer(ClassLoader $loader) {
+    public static $classMap = array (
+        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
+        'DateException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateException.php',
+        'DateInvalidOperationException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateInvalidOperationException.php',
+        'DateInvalidTimeZoneException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateInvalidTimeZoneException.php',
+        'DateMalformedIntervalStringException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateMalformedIntervalStringException.php',
+        'DateMalformedPeriodStringException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateMalformedPeriodStringException.php',
+        'DateMalformedStringException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateMalformedStringException.php',
+        'DateObjectError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateObjectError.php',
+        'DateRangeError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateRangeError.php',
+        'Google_AccessToken_Revoke' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_AccessToken_Verify' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_AuthHandler_AuthHandlerFactory' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_AuthHandler_Guzzle6AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_AuthHandler_Guzzle7AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_Client' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_Collection' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_Http_Batch' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_Http_MediaFileUpload' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_Http_REST' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_Model' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_Service' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_Service_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_Service_Resource' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_Task_Composer' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_Task_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_Task_Retryable' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_Task_Runner' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Google_Utils_UriTemplate' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'Omnipay\\Omnipay' => __DIR__ . '/..' . '/omnipay/common/src/Omnipay.php',
+        'Override' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/Override.php',
+        'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
+        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
+    );
+
+    public static function getInitializer(ClassLoader $loader)
+    {
         return \Closure::bind(function () use ($loader) {
-                    $loader->prefixLengthsPsr4 = ComposerStaticInitb948a81edec228350ede434eedaf69ad::$prefixLengthsPsr4;
-                    $loader->prefixDirsPsr4 = ComposerStaticInitb948a81edec228350ede434eedaf69ad::$prefixDirsPsr4;
-                    $loader->prefixesPsr0 = ComposerStaticInitb948a81edec228350ede434eedaf69ad::$prefixesPsr0;
-                    $loader->classMap = ComposerStaticInitb948a81edec228350ede434eedaf69ad::$classMap;
-                }, null, ClassLoader::class);
-    }
+            $loader->prefixLengthsPsr4 = ComposerStaticInit012c32ecf2fbb0fa486df37496de5b8e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit012c32ecf2fbb0fa486df37496de5b8e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit012c32ecf2fbb0fa486df37496de5b8e::$classMap;
 
+        }, null, ClassLoader::class);
+    }
 }

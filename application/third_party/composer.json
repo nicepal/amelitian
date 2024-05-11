@@ -10,6 +10,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
+        
            "google/apiclient": "2.7",
            "league/omnipay": "^3.1@dev",
            "omnipay/paypal": "^3.0@dev",

@@ -59,6 +59,8 @@ class CI_Controller {
 	 */
 	private static $instance;
 
+	public $benchmark;   
+
 	/**
 	 * CI_Loader
 	 *

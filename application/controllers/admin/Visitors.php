@@ -37,9 +37,27 @@ class Visitors extends Admin_Controller {
         return $result['success'];
     }
 
-    
-    function index() {
 
+
+    public function ajax_fetch() {
+        $limit = $this->input->post('length');
+        $start = $this->input->post('start');
+        $search_value = $this->input->post('search')['value']; // Get search value from DataTables
+
+        $data = $this->Visitors_model->paginated_visitors_list($start, $limit, $search_value);
+        $total_records = $this->Visitors_model->get_total_visitors_count($search_value);
+        $output = array(
+            "draw" => intval($this->input->post('draw')),
+            "recordsTotal" => $total_records,
+            "recordsFiltered" => $total_records,
+            "data" => $data
+        );
+        echo json_encode($output);
+    }
+    
+    function index($page=1) {
+
+        // dd($this->uri->segment(4));
         if (!$this->rbac->hasPrivilege('visitor_book', 'can_view')) {
             access_denied();
         }
@@ -54,8 +72,13 @@ class Visitors extends Admin_Controller {
         $this->form_validation->set_message('g-recaptcha-response', 'Captcha error');
 
         if ($this->form_validation->run() == FALSE) {
-            $data['visitor_list'] = $this->Visitors_model->visitors_list();
+            // $data['visitor_list'] = $this->Visitors_model->visitors_list();
+            $data['visitor_list'] = array();
+            // $data['pagination_links'] = $this->pagination->create_links();
+
             $data['Purpose'] = $this->Visitors_model->getPurpose();
+            // $data['pagination_links'] = $this->pagination->create_links();
+
             $this->load->view('layout/header');
             $this->load->view('admin/frontoffice/visitorview', $data);
             $this->load->view('layout/footer');

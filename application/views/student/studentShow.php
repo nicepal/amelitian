@@ -164,6 +164,24 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                             <li class="list-group-item listnoback">
                                 <b><?php echo $this->lang->line('gender'); ?></b> <a class="pull-right text-aqua"><?php echo $this->lang->line(strtolower($student['gender'])); ?></a>
                             </li>
+                            <?php if ($sch_setting->student_barcode == 1) { ?>
+                                <li class="list-group-item listnoback">
+                                    <b><?php echo $this->lang->line('barcode'); ?></b>
+                                    <?php if (file_exists("./uploads/student_id_card/barcodes/" . $student['admission_no'] . ".png")) { ?>
+                                        <a class="pull-right text-aqua">
+                                            <img class="h-36" src="<?php echo $this->media_storage->getImageURL('uploads/student_id_card/barcodes/' . $student['admission_no'] . '.png'); ?>" width="auto" height="auto" /></a>
+                                    <?php } ?>
+                                </li>
+                            <?php } ?>
+                            <?php if ($sch_setting->student_barcode == 1) { ?>
+                                <li class="list-group-item listnoback">
+                                    <b><?php echo $this->lang->line('qrcode'); ?></b>
+                                    <?php if (file_exists("./uploads/student_id_card/qrcode/" . $student['admission_no'] . ".png")) { ?>
+                                        <a class="pull-right text-aqua" href="<?php echo $this->media_storage->getImageURL('uploads/student_id_card/qrcode/' . $student['admission_no'] . '.png'); ?>" target="_blank">
+                                            <img class="h-50" src="<?php echo $this->media_storage->getImageURL('uploads/student_id_card/qrcode/' . $student['admission_no'] . '.png'); ?>" width="auto" height="auto" /></a>
+                                    <?php } ?>
+                                </li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>

@@ -46,6 +46,59 @@ class visitors_model extends MY_Model {
         return $query->result_array();
     }
 
+    public function get_total_visitors_count($search_value='') {
+        if (!empty($search_value)) {
+            $this->db->group_start(); // Start of group for OR conditions
+            $this->db->like('name', $search_value);
+            $this->db->or_like('purpose', $search_value);
+            $this->db->or_like('note', $search_value);
+            $this->db->group_end(); // End of group
+            // Add more search conditions as needed
+        }
+        return $this->db->count_all('visitors_book');
+    }
+    public function paginated_visitors_list($offset = 1, $limit = 10,$search_value='') {
+        // $this->load->library('pagination');
+    
+        // Pagination configuration
+        // $config['base_url'] = site_url('admin/visitors/index');
+        // $config['total_rows'] = $this->db->count_all('visitors_book');
+        // $config['per_page'] = $limit;
+        // $config['uri_segment'] = 4; // URI segment containing the page number
+        // $config['use_page_numbers'] = TRUE;
+    
+        // // Initialize pagination
+        // $this->pagination->initialize($config);
+    
+        // Calculate offset
+        // $offset = ($offset - 1) * $limit;
+    
+        // Fetch data based on pagination parameters
+        if (!empty($search_value)) {
+            $this->db->group_start(); // Start of group for OR conditions
+            $this->db->like('visitors_book.name', $search_value);
+            $this->db->or_like('purpose', $search_value);
+            $this->db->or_like('visitors_book.note', $search_value);
+            $this->db->group_end(); // End of group
+            // Add more search conditions as needed
+        }
+        $this->db->select("visitors_book.*,staff.name as staff_name,staff.surname staff_surname,(SELECT GROUP_CONCAT(CONCAT(`students`.`firstname`, ' ', `students`.`lastname`)) FROM `students` WHERE `students`.`guardian_phone` = `visitors_book`.`guardian_phone`) as `student_fullnames`,students.admission_no,students.firstname,students.lastname,classes.class,sections.section,students.guardian_name,students.guardian_phone")
+                 ->from('visitors_book')
+                 ->join("students", "students.admission_no = visitors_book.admission_no", "left")
+                 ->join('student_session', 'student_session.student_id = students.id', "left")
+                 ->join('classes', 'student_session.class_id = classes.id', "left")
+                 ->join('staff', 'visitors_book.added_by = staff.id', "left")
+                 ->join('sections', 'sections.id = student_session.section_id', "left")
+                 ->order_by('visitors_book.id', 'desc')
+                 ->limit($limit, $offset);
+               
+    
+        $query = $this->db->get();
+    
+        return $query->result_array();
+    }
+
+    
     public function visitors_list($id = null) {
         if ($id != null) {
             $this->db->select("visitors_book.*,staff.name as staff_name,staff.surname staff_surname,(SELECT GROUP_CONCAT(CONCAT(`students`.`firstname`, ' ', `students`.`lastname`)) FROM `students` WHERE `students`.`guardian_phone` = `visitors_book`.`guardian_phone`) as `student_fullnames`,students.admission_no,students.firstname,students.lastname,classes.class,sections.section,students.guardian_name,students.guardian_phone")->from('visitors_book');

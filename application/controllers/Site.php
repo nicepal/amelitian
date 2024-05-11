@@ -352,7 +352,7 @@ class Site extends Public_Controller
         $data               = array();
         $data['title']      = 'Login';
         $school             = $this->setting_model->get();
-        $data['name']       = $school[0]['name'];
+        $data['name']       = $school[0]['name']??'';
         $notice_content     = $this->config->item('ci_front_notice_content');
         $notices            = $this->cms_program_model->getByCategory($notice_content, array('start' => 0, 'limit' => 5));
         $data['notice']     = $notices;

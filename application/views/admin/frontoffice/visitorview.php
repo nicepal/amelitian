@@ -1,6 +1,360 @@
 <div class="content-wrapper" style="min-height: 348px;">
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<style>
+      #loader {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+        .windows8 {
+	position: relative;
+	width: 78px;
+	height:78px;
+	margin:auto;
+}
 
+.windows8 .wBall {
+	position: absolute;
+	width: 74px;
+	height: 74px;
+	opacity: 0;
+	transform: rotate(225deg);
+		-o-transform: rotate(225deg);
+		-ms-transform: rotate(225deg);
+		-webkit-transform: rotate(225deg);
+		-moz-transform: rotate(225deg);
+	animation: orbit 6.96s infinite;
+		-o-animation: orbit 6.96s infinite;
+		-ms-animation: orbit 6.96s infinite;
+		-webkit-animation: orbit 6.96s infinite;
+		-moz-animation: orbit 6.96s infinite;
+}
+
+.windows8 .wBall .wInnerBall{
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	background: rgb(0,0,0);
+	left:0px;
+	top:0px;
+	border-radius: 10px;
+}
+
+.windows8 #wBall_1 {
+	animation-delay: 1.52s;
+		-o-animation-delay: 1.52s;
+		-ms-animation-delay: 1.52s;
+		-webkit-animation-delay: 1.52s;
+		-moz-animation-delay: 1.52s;
+}
+
+.windows8 #wBall_2 {
+	animation-delay: 0.3s;
+		-o-animation-delay: 0.3s;
+		-ms-animation-delay: 0.3s;
+		-webkit-animation-delay: 0.3s;
+		-moz-animation-delay: 0.3s;
+}
+
+.windows8 #wBall_3 {
+	animation-delay: 0.61s;
+		-o-animation-delay: 0.61s;
+		-ms-animation-delay: 0.61s;
+		-webkit-animation-delay: 0.61s;
+		-moz-animation-delay: 0.61s;
+}
+
+.windows8 #wBall_4 {
+	animation-delay: 0.91s;
+		-o-animation-delay: 0.91s;
+		-ms-animation-delay: 0.91s;
+		-webkit-animation-delay: 0.91s;
+		-moz-animation-delay: 0.91s;
+}
+
+.windows8 #wBall_5 {
+	animation-delay: 1.22s;
+		-o-animation-delay: 1.22s;
+		-ms-animation-delay: 1.22s;
+		-webkit-animation-delay: 1.22s;
+		-moz-animation-delay: 1.22s;
+}
+
+
+
+@keyframes orbit {
+	0% {
+		opacity: 1;
+		z-index:99;
+		transform: rotate(180deg);
+		animation-timing-function: ease-out;
+	}
+
+	7% {
+		opacity: 1;
+		transform: rotate(300deg);
+		animation-timing-function: linear;
+		origin:0%;
+	}
+
+	30% {
+		opacity: 1;
+		transform:rotate(410deg);
+		animation-timing-function: ease-in-out;
+		origin:7%;
+	}
+
+	39% {
+		opacity: 1;
+		transform: rotate(645deg);
+		animation-timing-function: linear;
+		origin:30%;
+	}
+
+	70% {
+		opacity: 1;
+		transform: rotate(770deg);
+		animation-timing-function: ease-out;
+		origin:39%;
+	}
+
+	75% {
+		opacity: 1;
+		transform: rotate(900deg);
+		animation-timing-function: ease-out;
+		origin:70%;
+	}
+
+	76% {
+	opacity: 0;
+		transform:rotate(900deg);
+	}
+
+	100% {
+	opacity: 0;
+		transform: rotate(900deg);
+	}
+}
+
+@-o-keyframes orbit {
+	0% {
+		opacity: 1;
+		z-index:99;
+		-o-transform: rotate(180deg);
+		-o-animation-timing-function: ease-out;
+	}
+
+	7% {
+		opacity: 1;
+		-o-transform: rotate(300deg);
+		-o-animation-timing-function: linear;
+		-o-origin:0%;
+	}
+
+	30% {
+		opacity: 1;
+		-o-transform:rotate(410deg);
+		-o-animation-timing-function: ease-in-out;
+		-o-origin:7%;
+	}
+
+	39% {
+		opacity: 1;
+		-o-transform: rotate(645deg);
+		-o-animation-timing-function: linear;
+		-o-origin:30%;
+	}
+
+	70% {
+		opacity: 1;
+		-o-transform: rotate(770deg);
+		-o-animation-timing-function: ease-out;
+		-o-origin:39%;
+	}
+
+	75% {
+		opacity: 1;
+		-o-transform: rotate(900deg);
+		-o-animation-timing-function: ease-out;
+		-o-origin:70%;
+	}
+
+	76% {
+	opacity: 0;
+		-o-transform:rotate(900deg);
+	}
+
+	100% {
+	opacity: 0;
+		-o-transform: rotate(900deg);
+	}
+}
+
+@-ms-keyframes orbit {
+	0% {
+		opacity: 1;
+		z-index:99;
+		-ms-transform: rotate(180deg);
+		-ms-animation-timing-function: ease-out;
+	}
+
+	7% {
+		opacity: 1;
+		-ms-transform: rotate(300deg);
+		-ms-animation-timing-function: linear;
+		-ms-origin:0%;
+	}
+
+	30% {
+		opacity: 1;
+		-ms-transform:rotate(410deg);
+		-ms-animation-timing-function: ease-in-out;
+		-ms-origin:7%;
+	}
+
+	39% {
+		opacity: 1;
+		-ms-transform: rotate(645deg);
+		-ms-animation-timing-function: linear;
+		-ms-origin:30%;
+	}
+
+	70% {
+		opacity: 1;
+		-ms-transform: rotate(770deg);
+		-ms-animation-timing-function: ease-out;
+		-ms-origin:39%;
+	}
+
+	75% {
+		opacity: 1;
+		-ms-transform: rotate(900deg);
+		-ms-animation-timing-function: ease-out;
+		-ms-origin:70%;
+	}
+
+	76% {
+	opacity: 0;
+		-ms-transform:rotate(900deg);
+	}
+
+	100% {
+	opacity: 0;
+		-ms-transform: rotate(900deg);
+	}
+}
+
+@-webkit-keyframes orbit {
+	0% {
+		opacity: 1;
+		z-index:99;
+		-webkit-transform: rotate(180deg);
+		-webkit-animation-timing-function: ease-out;
+	}
+
+	7% {
+		opacity: 1;
+		-webkit-transform: rotate(300deg);
+		-webkit-animation-timing-function: linear;
+		-webkit-origin:0%;
+	}
+
+	30% {
+		opacity: 1;
+		-webkit-transform:rotate(410deg);
+		-webkit-animation-timing-function: ease-in-out;
+		-webkit-origin:7%;
+	}
+
+	39% {
+		opacity: 1;
+		-webkit-transform: rotate(645deg);
+		-webkit-animation-timing-function: linear;
+		-webkit-origin:30%;
+	}
+
+	70% {
+		opacity: 1;
+		-webkit-transform: rotate(770deg);
+		-webkit-animation-timing-function: ease-out;
+		-webkit-origin:39%;
+	}
+
+	75% {
+		opacity: 1;
+		-webkit-transform: rotate(900deg);
+		-webkit-animation-timing-function: ease-out;
+		-webkit-origin:70%;
+	}
+
+	76% {
+	opacity: 0;
+		-webkit-transform:rotate(900deg);
+	}
+
+	100% {
+	opacity: 0;
+		-webkit-transform: rotate(900deg);
+	}
+}
+
+@-moz-keyframes orbit {
+	0% {
+		opacity: 1;
+		z-index:99;
+		-moz-transform: rotate(180deg);
+		-moz-animation-timing-function: ease-out;
+	}
+
+	7% {
+		opacity: 1;
+		-moz-transform: rotate(300deg);
+		-moz-animation-timing-function: linear;
+		-moz-origin:0%;
+	}
+
+	30% {
+		opacity: 1;
+		-moz-transform:rotate(410deg);
+		-moz-animation-timing-function: ease-in-out;
+		-moz-origin:7%;
+	}
+
+	39% {
+		opacity: 1;
+		-moz-transform: rotate(645deg);
+		-moz-animation-timing-function: linear;
+		-moz-origin:30%;
+	}
+
+	70% {
+		opacity: 1;
+		-moz-transform: rotate(770deg);
+		-moz-animation-timing-function: ease-out;
+		-moz-origin:39%;
+	}
+
+	75% {
+		opacity: 1;
+		-moz-transform: rotate(900deg);
+		-moz-animation-timing-function: ease-out;
+		-moz-origin:70%;
+	}
+
+	76% {
+	opacity: 0;
+		-moz-transform:rotate(900deg);
+	}
+
+	100% {
+	opacity: 0;
+		-moz-transform: rotate(900deg);
+	}
+}
+        </style>
     <section class="content-header">
         <h1>
             <i class="fa fa-ioxhost"></i> <?php echo $this->lang->line('front_office'); ?></h1>
@@ -188,10 +542,30 @@ if ($this->rbac->hasPrivilege('visitor_book', 'can_add')) {
                         </div><!-- /.box-tools -->
                     </div><!-- /.box-header -->
                     <div class="box-body">
+                        <div id="loader">
+                            <div class="windows8">
+                                <div class="wBall" id="wBall_1">
+                                    <div class="wInnerBall"></div>
+                                </div>
+                                <div class="wBall" id="wBall_2">
+                                    <div class="wInnerBall"></div>
+                                </div>
+                                <div class="wBall" id="wBall_3">
+                                    <div class="wInnerBall"></div>
+                                </div>
+                                <div class="wBall" id="wBall_4">
+                                    <div class="wInnerBall"></div>
+                                </div>
+                                <div class="wBall" id="wBall_5">
+                                    <div class="wInnerBall"></div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="download_label"><?php echo $this->lang->line('visitor'); ?> <?php echo $this->lang->line('list'); ?></div>
                         <div class="mailbox-messages table-responsive">
-                            <table class="table table-hover table-striped table-bordered example">
+                            <table class="table table-hover table-striped table-bordered example" id="visitorTable">
                                 <thead>
+                                    
                                     <tr>
                                         <th><?php echo $this->lang->line('purpose'); ?></th>
                                         <th><?php echo $this->lang->line('name'); ?></th>
@@ -199,19 +573,14 @@ if ($this->rbac->hasPrivilege('visitor_book', 'can_add')) {
                                         <th><?php echo $this->lang->line('date'); ?></th>
                                         <th><?php echo $this->lang->line('in_time'); ?></th>
                                         <th><?php echo $this->lang->line('out_time'); ?></th>
-                                        <th class="text-right"><?php echo $this->lang->line('action'); ?></th>
+                                        <!-- <th class="text-right"><?php echo $this->lang->line('action'); ?></th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-if (empty($visitor_list)) {
-    ?>
+                                    <?php if (empty($visitor_list)) { ?>
 
-                                        <?php
-} else {
-    foreach ($visitor_list as $key => $value) {
-
-        ?>
+                                        <?php } else { 
+                                            foreach ($visitor_list as $key => $value) {  ?>
                                             <tr>
                                                 <td class="mailbox-name"><?php echo $value['purpose']; ?></td>
                                                 <td class="mailbox-name"><?php echo $value['name']; ?></td>
@@ -257,11 +626,14 @@ if (empty($visitor_list)) {
                                             </tr>
                                             <?php
 }
-}
-?>
+                                            } ?>
 
                                 </tbody>
                             </table><!-- /.table -->
+                            <div id="pagination">
+                                <!-- Pagination links will be inserted here -->
+                                <?php //echo $pagination_links; ?>
+                            </div>
                         </div><!-- /.mail-box-messages -->
                     </div><!-- /.box-body -->
                 </div>
@@ -385,4 +757,58 @@ if (empty($visitor_list)) {
    function onSubmit(token) {
      document.getElementById("form1").submit();
    }
+
+   $(document).ready(function() {
+
+  
+
+    $('#visitorTable').on('processing.dt', function (e, settings, processing) {
+        $('#loader').css('display', processing ? 'block' : 'none');
+    });
+
+    // $(document).ready(function() {
+    $('#visitorTable').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+            "url": "<?php echo base_url('admin/visitors/ajax_fetch'); ?>",
+            "type": "POST"
+        },
+        "columns": [
+            { "data": "purpose" },
+            { "data": "name" },
+            { "data": "contact" },
+            { "data": "date" },
+            { "data": "in_time" },
+            { "data": "out_time" },
+            // Add more columns as needed
+        ],
+        "pagingType": "full_numbers", // You can customize pagination type here
+        "language": {
+            "lengthMenu": "Display _MENU_ records per page",
+            "zeroRecords": "No records found",
+            "info": "Showing _START_ to _END_ of _TOTAL_ records",
+            "infoEmpty": "Showing 0 to 0 of 0 records",
+            "infoFiltered": "(filtered from _MAX_ total records)",
+            "paginate": {
+                "first": "First",
+                "last": "Last",
+                "next": "Next",
+                "previous": "Previous"
+            },
+            "search": "Search:"
+        }
+    });
+// });
+
+    // Initial data fetch
+    // fetchData(10, 0);
+
+    // Pagination click event handler
+    // $('#pagination').on('click', 'a', function(e) {
+    //     e.preventDefault();
+    //     var offset = $(this).data('offset');
+    //     fetchData(10, offset);
+    // });
+});
  </script>

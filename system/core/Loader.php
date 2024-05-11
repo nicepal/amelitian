@@ -59,6 +59,20 @@ class CI_Loader {
 	 */
 
 	 public $session;
+	 public $load;
+	 public $benchmark;
+	 public $config;
+	 public $log;
+	 public $hooks;
+	 public $utf8;
+	 public $uri;
+	 public $router;
+	 public $exceptions;
+	 public $output;
+	 public $security;
+	 public $input;
+	 public $lang; 
+	 
 	protected $_ci_ob_level;
 
 	/**

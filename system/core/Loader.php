@@ -57,6 +57,8 @@ class CI_Loader {
 	 *
 	 * @var	int
 	 */
+
+	 public $session;
 	protected $_ci_ob_level;
 
 	/**

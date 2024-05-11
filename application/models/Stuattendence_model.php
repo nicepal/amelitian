@@ -162,4 +162,38 @@ class Stuattendence_model extends MY_Model {
         return $count_studentattendance;
     }
 
+    public function studentattendance($date, $student_session_id)
+    {
+        $sql = "select student_attendences.*,student_session.student_id,attendence_type.type as `att_type`,attendence_type.key_value as `key` from student_attendences join student_session ON student_session.id=student_attendences.student_session_id left join attendence_type ON attendence_type.id = student_attendences.attendence_type_id where student_attendences.student_session_id = $student_session_id and student_attendences.date =" . $this->db->escape($date);
+
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->row_array();
+        }
+        return false;
+    }
+
+    public function studentattendancecount($year, $student_id, $att_type)
+    {
+        $query = $this->db->select('count(*) as attendence')
+            ->join('student_session', 'student_session.id = student_attendences.student_session_id', 'left')
+            ->where('student_attendences.student_session_id', $student_id)
+            ->where('year(date)', $year)
+            ->where('student_attendences.attendence_type_id', $att_type)
+            ->get("student_attendences");
+        return $query->row()->attendence;
+    }
+
+    public function student_attendence_bw_date($date_from, $date_to, $student_session_id)
+    {
+        $query = $this->db->select('student_attendences.*,attendence_type.type as `att_type`,attendence_type.key_value as `key`')
+            ->join('student_session', 'student_session.id = student_attendences.student_session_id')
+            ->join('attendence_type', 'attendence_type.id = student_attendences.attendence_type_id')
+            ->where('student_attendences.student_session_id', $student_session_id)
+            ->where("date BETWEEN '{$date_from}' AND '{$date_to}'")
+            ->get("student_attendences");
+
+        return $query->result();
+    }
+
 }

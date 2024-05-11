@@ -198,8 +198,58 @@ class Student extends Admin_Controller
         if ($student['is_active'] = 'no') {
             $data['reason_data'] = $this->disable_reason_model->get($student['dis_reason']);
         }
-  $data['exam_result']          = $this->examgroupstudent_model->searchStudentExams($student['student_session_id'], true, true);
-      $data['exam_grade']           = $this->grade_model->getGradeDetails();
+        
+        $data['yearlist'] = $this->stuattendence_model->attendanceYearCount();
+
+        $startmonth        = $this->setting_model->getStartMonth();
+        $monthlist         = $this->customlib->getMonthDropdown($startmonth);
+        $data["monthlist"] = $monthlist;
+        $data['attendencetypeslist'] = $this->attendencetype_model->get();
+        $year = date("Y");
+
+        $input       = $this->setting_model->getCurrentSessionName();
+        list($a, $b) = explode('-', $input);
+        $start_year  = $a;
+        if (strlen($b) == 2) {
+            $Next_year = substr($a, 0, 2) . $b;
+        } else {
+            $Next_year = $b;
+        }
+
+        $start_end_month = $this->startmonthandend();
+
+        $session_year_start = date("Y-m-01", strtotime($start_year . '-' . $start_end_month[0] . '-01'));
+        $session_year_end   = date("Y-m-t", strtotime($Next_year . '-' . $start_end_month[1] . '-01'));
+
+        $data["countAttendance"] = $this->countAttendance($session_year_start, $student['student_session_id']);
+        
+        foreach ($monthlist as $key => $value) {
+
+            $datemonth       = date("m", strtotime($key));
+            // $date_each_month = date('Y-' . $datemonth . '-01');
+			
+			$date_each_month = date($start_year.'-' . $datemonth . '-01');
+			
+            $date_end        = date('t', strtotime($date_each_month));
+            for ($n = 1; $n <= $date_end; $n++) {
+                $att_date           = sprintf("%02d", $n);
+                $attendence_array[] = $att_date;
+                $datemonth          = date("m", strtotime($key));
+                $att_dates          = $start_year . "-" . $datemonth . "-" . sprintf("%02d", $n);
+
+                $date_array[]    = $att_dates;
+                $res[$att_dates] = $this->stuattendence_model->studentattendance($att_dates, $student['student_session_id']);
+            }
+
+            $start_year = ($datemonth == 12) ? $Next_year : $start_year;
+        }
+
+        $data["session_year_start"] = $session_year_start;
+        $data["session_year_end"]   = $session_year_end;
+        $data["resultlist"]         = $res;
+
+        $data['exam_result']          = $this->examgroupstudent_model->searchStudentExams($student['student_session_id'], true, true);
+        $data['exam_grade']           = $this->grade_model->getGradeDetails();
 
         $this->load->view('layout/header', $data);
         $this->load->view('student/studentShow', $data);
@@ -224,6 +274,45 @@ class Student extends Admin_Controller
         $this->student_model->remove($id);
         $this->session->set_flashdata('msg', '<i class="fa fa-check-square-o" aria-hidden="true"></i> ' . $this->lang->line('delete_message') . '');
         redirect('student/search');
+    }
+
+    public function startmonthandend()
+    {
+        $startmonth = $this->setting_model->getStartMonth();
+        if ($startmonth == 1) {
+            $endmonth = 12;
+        } else {
+            $endmonth = $startmonth - 1;
+        }
+        return array($startmonth, $endmonth);
+    }
+
+    
+    public function countAttendance($session_year_start, $student_session_id)
+    {
+        $attendencetypes = $this->attendencetype_model->getAttType();
+
+        $record = array();
+        foreach ($attendencetypes as $type_key => $type_value) {
+            $record[$type_value['id']] = 0;
+        }
+
+        for ($i = 1; $i <= 12; $i++) {
+            $start_month        = date('Y-m-d', strtotime($session_year_start));
+            $end_month          = date('Y-m-t', strtotime($session_year_start));
+            $session_year_start = date('Y-m-d', strtotime('+1 month', strtotime($session_year_start)));
+
+            $attendences = $this->stuattendence_model->student_attendence_bw_date($start_month, $end_month, $student_session_id);
+            if (!empty($attendences)) {
+                foreach ($attendences as $attendence_key => $attendence_value) {
+
+                    $record[$attendence_value->attendence_type_id] += 1;
+                }
+
+            }
+        }
+
+        return $record;
     }
 
     public function doc_delete($id, $student_id)

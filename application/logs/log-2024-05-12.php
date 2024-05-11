@@ -406,3 +406,258 @@ ORDER BY `visitors_book`.`id` DESC
  LIMIT 100
 ERROR - 2024-05-12 02:46:34 --> Could not find the language line "otp"
 ERROR - 2024-05-12 02:47:06 --> Could not find the language line "otp"
+ERROR - 2024-05-12 03:06:25 --> Could not find the language line "total_present"
+ERROR - 2024-05-12 03:06:25 --> Could not find the language line "total_late"
+ERROR - 2024-05-12 03:06:25 --> Could not find the language line "total_absent"
+ERROR - 2024-05-12 03:06:25 --> Could not find the language line "total_half_day"
+ERROR - 2024-05-12 03:06:25 --> Could not find the language line "total_holiday"
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $attendencetypeslist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1167
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1167
+ERROR - 2024-05-12 03:06:25 --> Could not find the language line "student_attendance_report"
+ERROR - 2024-05-12 03:06:25 --> Could not find the language line "date_month"
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1190
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1190
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:06:25 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Could not find the language line "total_present"
+ERROR - 2024-05-12 03:07:32 --> Could not find the language line "total_late"
+ERROR - 2024-05-12 03:07:32 --> Could not find the language line "total_absent"
+ERROR - 2024-05-12 03:07:32 --> Could not find the language line "total_half_day"
+ERROR - 2024-05-12 03:07:32 --> Could not find the language line "total_holiday"
+ERROR - 2024-05-12 03:07:32 --> Could not find the language line "student_attendance_report"
+ERROR - 2024-05-12 03:07:32 --> Could not find the language line "date_month"
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1190
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1190
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> Undefined variable $monthlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:32 --> Severity: Warning --> foreach() argument must be of type array|object, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1211
+ERROR - 2024-05-12 03:07:47 --> Could not find the language line "total_present"
+ERROR - 2024-05-12 03:07:47 --> Could not find the language line "total_late"
+ERROR - 2024-05-12 03:07:47 --> Could not find the language line "total_absent"
+ERROR - 2024-05-12 03:07:47 --> Could not find the language line "total_half_day"
+ERROR - 2024-05-12 03:07:47 --> Could not find the language line "total_holiday"
+ERROR - 2024-05-12 03:07:47 --> Could not find the language line "student_attendance_report"
+ERROR - 2024-05-12 03:07:47 --> Could not find the language line "date_month"
+ERROR - 2024-05-12 03:07:47 --> Severity: Warning --> Undefined variable $session_year_start /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1202
+ERROR - 2024-05-12 03:07:47 --> Severity: Warning --> Undefined variable $resultlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1218
+ERROR - 2024-05-12 03:07:47 --> Severity: error --> Exception: array_key_exists(): Argument #2 ($array) must be of type array, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1218
+ERROR - 2024-05-12 03:08:56 --> Severity: error --> Exception: Call to undefined method Student::startmonthandend() /Applications/MAMP/htdocs/amelitian/application/controllers/Student.php 219
+ERROR - 2024-05-12 03:09:14 --> Severity: error --> Exception: Call to undefined method Student::countAttendance() /Applications/MAMP/htdocs/amelitian/application/controllers/Student.php 224
+ERROR - 2024-05-12 03:09:32 --> Severity: error --> Exception: Call to undefined method Stuattendence_model::student_attendence_bw_date() /Applications/MAMP/htdocs/amelitian/application/controllers/Student.php 304
+ERROR - 2024-05-12 03:10:18 --> Could not find the language line "total_present"
+ERROR - 2024-05-12 03:10:18 --> Could not find the language line "total_late"
+ERROR - 2024-05-12 03:10:18 --> Could not find the language line "total_absent"
+ERROR - 2024-05-12 03:10:18 --> Could not find the language line "total_half_day"
+ERROR - 2024-05-12 03:10:18 --> Could not find the language line "total_holiday"
+ERROR - 2024-05-12 03:10:18 --> Could not find the language line "student_attendance_report"
+ERROR - 2024-05-12 03:10:18 --> Could not find the language line "date_month"
+ERROR - 2024-05-12 03:10:18 --> Severity: Warning --> Undefined variable $resultlist /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1218
+ERROR - 2024-05-12 03:10:18 --> Severity: error --> Exception: array_key_exists(): Argument #2 ($array) must be of type array, null given /Applications/MAMP/htdocs/amelitian/application/views/student/studentShow.php 1218
+ERROR - 2024-05-12 03:11:02 --> Could not find the language line "total_present"
+ERROR - 2024-05-12 03:11:02 --> Could not find the language line "total_late"
+ERROR - 2024-05-12 03:11:02 --> Could not find the language line "total_absent"
+ERROR - 2024-05-12 03:11:02 --> Could not find the language line "total_half_day"
+ERROR - 2024-05-12 03:11:02 --> Could not find the language line "total_holiday"
+ERROR - 2024-05-12 03:11:02 --> Could not find the language line "student_attendance_report"
+ERROR - 2024-05-12 03:11:02 --> Could not find the language line "date_month"
+ERROR - 2024-05-12 03:12:19 --> Could not find the language line "_expenses_for"
+ERROR - 2024-05-12 03:12:20 --> Severity: Warning --> Undefined variable $eventdata /Applications/MAMP/htdocs/amelitian/application/controllers/admin/Calendar.php 301
+ERROR - 2024-05-12 03:12:21 --> Could not find the language line "total_present"
+ERROR - 2024-05-12 03:12:21 --> Could not find the language line "total_late"
+ERROR - 2024-05-12 03:12:21 --> Could not find the language line "total_absent"
+ERROR - 2024-05-12 03:12:21 --> Could not find the language line "total_half_day"
+ERROR - 2024-05-12 03:12:21 --> Could not find the language line "total_holiday"
+ERROR - 2024-05-12 03:12:21 --> Could not find the language line "student_attendance_report"
+ERROR - 2024-05-12 03:12:21 --> Could not find the language line "date_month"
+ERROR - 2024-05-12 03:12:44 --> Could not find the language line "error_occurred_please_try_again"
+ERROR - 2024-05-12 03:12:44 --> Could not find the language line "error_occurred_please_try_again"
+ERROR - 2024-05-12 03:14:02 --> Could not find the language line "total_present"
+ERROR - 2024-05-12 03:14:02 --> Could not find the language line "total_late"
+ERROR - 2024-05-12 03:14:02 --> Could not find the language line "total_absent"
+ERROR - 2024-05-12 03:14:02 --> Could not find the language line "total_half_day"
+ERROR - 2024-05-12 03:14:02 --> Could not find the language line "total_holiday"
+ERROR - 2024-05-12 03:14:02 --> Could not find the language line "student_attendance_report"
+ERROR - 2024-05-12 03:14:02 --> Could not find the language line "date_month"
+ERROR - 2024-05-12 03:15:48 --> Severity: Warning --> Attempt to read property "exam" on null /Applications/MAMP/htdocs/amelitian/application/views/admin/examgroup/_getSubjectByExam.php 3
+ERROR - 2024-05-12 03:15:48 --> Severity: Warning --> Attempt to read property "exam_group_name" on null /Applications/MAMP/htdocs/amelitian/application/views/admin/examgroup/_getSubjectByExam.php 7

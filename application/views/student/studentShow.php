@@ -273,7 +273,15 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                             <li class=""><a href="#timelineh" data-toggle="tab" aria-expanded="true"><?php echo $this->lang->line('timeline') ?></a></li>
                         <?php } ?>
 
-                        <?php if ($student["is_active"] == "yes") { ?>
+                        <?php if ($this->module_lib->hasActive('student_attendance')) {
+                            if (!$sch_setting->attendence_type) {
+                        ?>
+                                <li class=""><a href="#attendance" data-toggle="tab" aria-expanded="true"><?php echo $this->lang->line('attendance'); ?></a>
+                                </li>
+                        <?php
+                            }
+                        } 
+                       if ($student["is_active"] == "yes") { ?>
                             <?php
                             if ($this->rbac->hasPrivilege('disable_student', 'can_view')) {
                                 ?>
@@ -1070,18 +1078,201 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                             </div>
                         </div>  
 
+                        <?php
+
+if (!$sch_setting->attendence_type) {
+?>
+    <div class="tab-pane" id="attendance">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col20per">
+                <div class="staffprofile">
+                    <h5><?php echo $this->lang->line('total_present'); ?></h5>
+                    <h4><?php
+                        if (!empty($countAttendance[1])) {
+                            echo $countAttendance[1];
+                        } else {
+                            echo "0";
+                        }
+                        ?></h4>
+                    <div class="icon">
+                        <i class="fa fa-check-square-o"></i>
+                    </div>
+                </div>
+            </div><!--./col-md-3-->
+            <div class="col-lg-3 col-md-4 col-sm-6 col20per">
+                <div class="staffprofile">
+                    <h5><?php echo $this->lang->line('total_late'); ?></h5>
+                    <h4><?php
+                        if (!empty($countAttendance[3])) {
+                            echo $countAttendance[3];
+                        } else {
+                            echo "0";
+                        }
+                        ?></h4>
+                    <div class="icon">
+                        <i class="fa  fa-check-square-o"></i>
+                    </div>
+                </div>
+            </div><!--./col-md-3-->
+            <div class="col-lg-3 col-md-4 col-sm-6 col20per">
+                <div class="staffprofile">
+                    <h5><?php echo $this->lang->line('total_absent'); ?></h5>
+                    <h4><?php
+                        if (!empty($countAttendance[4])) {
+                            echo $countAttendance[4];
+                        } else {
+                            echo "0";
+                        }
+                        ?></h4>
+                    <div class="icon">
+                        <i class="fa  fa-check-square-o"></i>
+                    </div>
+                </div>
+            </div><!--./col-md-3-->
+            <div class="col-lg-3 col-md-4 col-sm-6 col20per">
+                <div class="staffprofile">
+                    <h5><?php echo $this->lang->line('total_half_day'); ?></h5>
+                    <h4><?php
+                        if (!empty($countAttendance[6])) {
+                            echo $countAttendance[6];
+                        } else {
+                            echo "0";
+                        }
+                        ?></h4>
+                    <div class="icon">
+                        <i class="fa  fa-check-square-o"></i>
+                    </div>
+                </div>
+            </div><!--./col-md-3-->
+            <div class="col-lg-3 col-md-4 col-sm-6 col20per">
+                <div class="staffprofile">
+                    <h5><?php echo $this->lang->line('total_holiday'); ?></h5>
+                    <h4><?php
+                        if (!empty($countAttendance[5])) {
+                            echo $countAttendance[5];
+                        } else {
+                            echo "0";
+                        }
+                        ?></h4>
+                    <div class="icon">
+                        <i class="fa  fa-check-square-o"></i>
+                    </div>
+                </div>
+            </div><!--./col-md-3-->
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="halfday pull-right">
+                    <?php
+                    foreach ($attendencetypeslist as $key_type => $value_type) {
+                    ?>
+                        <b>
+                            <?php
+                            $att_type = str_replace(" ", "_", strtolower($value_type['type']));
+                            echo $this->lang->line($att_type) . ": " . $value_type['key_value'] . "";
+                            ?>
+                        </b>
+                    <?php
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="download_label"><?php echo $this->lang->line('student_attendance_report'); ?> <?php echo $student["firstname"] . " " . $student["lastname"] . ' (' . $student["admission_no"] . ')'; ?></div>
+            <div id="ajaxattendance" class="table-responsive">
+                <table class="table table-bordered table-hover example">
+                    <thead>
+                        <tr>
+                            <th>
+                                <?php echo $this->lang->line('date_month'); ?>
+                            </th>
+                            <?php foreach ($monthlist as $monthkey => $monthvalue) {
+                            ?>
+                                <th><?php echo $monthvalue; ?></th>
+                            <?php }
+                            ?>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <?php
+                        $j = 1;
+                        for ($i = 1; $i <= 31; $i++) {
+                            $start_year = date('Y-m-d', strtotime($session_year_start));
+                            $start_year = date('Y-m', strtotime($start_year));
+                            $start_year = date('Y-m-d', strtotime($start_year . '-' . $j));
+
+                        ?>
+                            <tr>
+                                <td><?php echo $i; ?></td>
+                                <?php
+                                $display = true;
+                                foreach ($monthlist as $monthkey => $monthvalue) {
+
+                                ?>
+                                    <td>
+                                        <?php
+                                        if ($display) {
+
+                                            if (array_key_exists($start_year, $resultlist)) {
+
+                                                if (!empty($resultlist[$start_year]['key'])) {
+                                                    echo ($resultlist[$start_year]['key']);
+                                                }
+                                            }
+                                        }
+
+                                        $display = true;
+
+                                        $temp_next_month = date('m', strtotime('+1 month', strtotime($start_year)));
+
+                                        $keys  = array_keys($monthlist);
+                                        $index = array_search($monthkey, $keys);
+                                        if (count($monthlist) <= $index + 1) {
+                                        } else {
+                                            $keys[$index + 1];
+                                            $mm = date('m', strtotime($keys[$index + 1]));
+                                            if ($mm == $temp_next_month) {
+                                                $start_year = date('Y-m', strtotime('+1 month', strtotime($start_year)));
+                                                $start_year = date('Y-m-d', strtotime($start_year . '-' . $j));
+                                            } else {
+                                                $display = false;
+                                            }
+                                        }
+                                        echo "<br/>";
+                                        ?></td>
+                                <?php
+
+                                }
+                                ?>
+                            </tr>
+                        <?php
+                            $j++;
+                        }
+
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<?php
+}
+?>
+
                         <div class="tab-pane" id="exam">
                                            <div class="download_label">
                         <?php echo $this->lang->line('exam') . " " . $this->lang->line('result'); ?>
                      </div>
                      <?php
-if (empty($exam_result)) {
-    ?>
-                     <div class="alert alert-danger">
-                        <?php echo $this->lang->line('no_record_found'); ?>
-                     </div>
-                     <?php
-}
+                        if (empty($exam_result)) {
+                            ?>
+                                            <div class="alert alert-danger">
+                                                <?php echo $this->lang->line('no_record_found'); ?>
+                                            </div>
+                                            <?php
+                        }
 if (!empty($exam_result)) {
     ?>
                      <div class="dt-buttons btn-group pull-right miusDM40">

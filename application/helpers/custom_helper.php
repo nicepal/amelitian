@@ -4,6 +4,7 @@ if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
+
 function serial_no($type)
 {
     $CI = &get_instance();
@@ -285,4 +286,325 @@ function array_insert(&$array, $position, $insert)
             array_slice($array, $pos)
         );
     }
+}
+
+
+function two_digit_float($number)
+{
+
+    if ($number != "") {
+        $number = number_format($number, 2, ".", "");
+    }
+    return $number;
+}
+
+
+function sessionMonthDetails($session, $start_month, $month)
+{
+
+    list($a, $b)  = explode('-', $session);
+    $Current_year = $a;
+    if (strlen($b) == 2) {
+        $Next_year = substr($a, 0, 2) . $b;
+    } else {
+        $Next_year = $b;
+    }
+    $session_start_month_date = $Next_year . "-" . sprintf('%02d', $month) . "-01";
+    if ($start_month <= $month) {
+        $session_start_month_date = $Current_year . "-" . sprintf('%02d', $month) . "-01";
+    }
+    return ['month_start' => $session_start_month_date, 'month_end' => date('Y-m-t', strtotime($session_start_month_date)), 'total_days' => date('t', strtotime($session_start_month_date))];
+}
+
+
+function sessionYearDetails($session, $start_month)
+{
+
+    list($a, $b)  = explode('-', $session);
+    $Current_year = $a;
+    if (strlen($b) == 2) {
+        $Next_year = substr($a, 0, 2) . $b;
+    } else {
+        $Next_year = $b;
+    }
+
+
+    if ($start_month == 1) {
+        $endmonth = 12;
+    } else {
+        $endmonth = $start_month - 1;
+    }
+
+    $session_start_month_date = $Current_year . "-" . sprintf('%02d', $start_month) . "-01";
+    $session_end_month_date = $Next_year . "-" . sprintf('%02d', $endmonth) . "-01";
+    return ['month_start' => $session_start_month_date, 'month_end' => date('Y-m-t', strtotime($session_end_month_date))];
+}
+
+function amountFormat($amount)
+{
+    $CI              = &get_instance();
+    $currency_format = $CI->customlib->getCurrencyFormat();
+    $currency_price = $CI->customlib->getSchoolCurrencyPrice();
+    $amount = ($amount * $currency_price);
+    if ($currency_format == "#,###.##") {
+        $return_amt = number_format($amount, 2, '.', ',');
+    } elseif ($currency_format == "#.###,##") {
+        $return_amt = number_format($amount, 2, ',', '.');
+    } elseif ($currency_format == "# ###.##") {
+        $return_amt = number_format($amount, 2, '.', ' ');
+    } elseif ($currency_format == "#.###.##") {
+        $return_amt = number_format($amount, 2, '.', '.');
+    } elseif ($currency_format == "#,###.###") {
+        $return_amt = number_format($amount, 3, '.', ',');
+    } elseif ($currency_format == "####.##") {
+        $return_amt = number_format($amount, 2, '.', '');
+    } elseif ($currency_format == "#,##,###.##") {
+        $return_amt = indian_money_format($amount);
+    }
+    return $return_amt;
+}
+
+
+function convertBaseAmountCurrencyFormat($amount)
+{
+    $CI              = &get_instance();
+    $currency_price  = $CI->customlib->getSchoolCurrencyPrice();
+    $amount = ($amount * $currency_price);
+    return two_digit_float($amount);
+}
+
+
+function convertCurrencyFormatToBaseAmount($amount)
+{
+    $CI              = &get_instance();
+    $currency_price  = $CI->customlib->getSchoolCurrencyPrice();
+    $amount = floatval($amount / $currency_price);
+    return $amount;
+}
+
+function indian_money_format($num)
+{
+    $explrestunits = "";
+    $num           = preg_replace('/,+/', '', $num);
+    $words         = explode(".", $num);
+    $des           = "00";
+    if (count($words) <= 2) {
+        $num = $words[0];
+        if (count($words) >= 2) {
+            $des = $words[1];
+        }
+        if (strlen($des) < 2) {
+            $des = "$des";
+        } else {
+            $des = substr($des, 0, 2);
+        }
+    }
+    if (strlen($num) > 3) {
+        $lastthree = substr($num, strlen($num) - 3, strlen($num));
+        $restunits = substr($num, 0, strlen($num) - 3); // extracts the last three digits
+        $restunits = (strlen($restunits) % 2 == 1) ? "0" . $restunits : $restunits; // explodes the remaining digits in 2's formats, adds a zero in the beginning to maintain the 2's grouping.
+        $expunit   = str_split($restunits, 2);
+        for ($i = 0; $i < sizeof($expunit); $i++) {
+            // creates each of the 2's group and adds a comma to the end
+            if ($i == 0) {
+                $explrestunits .= (int) $expunit[$i] . ","; // if is first value , convert into integer
+            } else {
+                $explrestunits .= $expunit[$i] . ",";
+            }
+        }
+        $thecash = $explrestunits . $lastthree;
+    } else {
+        $thecash = $num;
+    }
+    return "$thecash.$des"; // writes the final format where $currency is the currency symbol.
+
+}
+
+function percentageAmount($amount, $percentage)
+{
+    return number_format((float) ($amount * ($percentage / 100)), 2, '.', '');
+}
+
+if (!function_exists('custom_url')) {
+
+    function custom_url()
+    {
+
+        $CI           = &get_instance();
+        $session_data = $CI->session->userdata('admin');
+        return $session_data['base_url'];
+    }
+}
+
+if (!function_exists('dir_path')) {
+
+    function dir_path()
+    {
+
+        $CI           = &get_instance();
+        $session_data = $CI->session->userdata('admin');
+        return $session_data['folder_path'];
+    }
+}
+
+if (!function_exists('empty2null')) {
+
+    function empty2null($v)
+    {
+        return empty($v) ? null : $v;
+    }
+}
+
+if (!function_exists('multiKeyExists')) {
+
+    function multiKeyExists(array $array, $key, $value)
+    {
+        if (!empty($array)) {
+
+            foreach ($array as $array_key => $item) {
+                if (isset($item[$key]) && $item[$key] == $value) {
+                    return $array_key;
+                }
+            }
+
+            return -1;
+        }
+
+        return -1;
+    }
+}
+
+if (!function_exists('random_string')) {
+
+    function random_string()
+    {
+        return strtotime('Y-m-d H:i:s');
+    }
+}
+
+if (!function_exists('img_time')) {
+
+    function img_time()
+    {
+        return "?" . time();
+    }
+}
+
+if (!function_exists('format_file_size')) {
+
+    function format_file_size($bytes)
+    {
+        if ($bytes >= 1073741824) {
+            $bytes = number_format($bytes / 1073741824, 2) . ' GB';
+        } elseif ($bytes >= 1048576) {
+            $bytes = number_format($bytes / 1048576, 2) . ' MB';
+        } elseif ($bytes >= 1024) {
+            $bytes = number_format($bytes / 1024, 2) . ' KB';
+        } elseif ($bytes > 1) {
+            $bytes = $bytes . ' bytes';
+        } elseif ($bytes == 1) {
+            $bytes = $bytes . ' byte';
+        } else {
+            $bytes = '0 bytes';
+        }
+
+        return $bytes;
+    }
+}
+
+function IsNullOrEmptyString($str)
+{
+    return ($str === null || trim($str) === '');
+}
+
+function getPercent($total, $obtain)
+{
+    $ci = &get_instance();
+
+    $percent = 0;
+
+
+    if ($total != "" && $total > 0) {
+        $percent = ($obtain * 100) / $total;
+    }
+    return number_format((float)$percent, 2, '.', '');
+}
+
+
+
+function getIP()
+{
+    // Get real visitor IP behind CloudFlare network
+    if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
+        $_SERVER['REMOTE_ADDR']    = $_SERVER["HTTP_CF_CONNECTING_IP"];
+        $_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+    }
+    $client  = @$_SERVER['HTTP_CLIENT_IP'];
+    $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+    $remote  = $_SERVER['REMOTE_ADDR'];
+
+    if (filter_var($client, FILTER_VALIDATE_IP)) {
+        $ip = $client;
+    } elseif (filter_var($forward, FILTER_VALIDATE_IP)) {
+        $ip = $forward;
+    } else {
+        $ip = $remote;
+    }
+
+    return $ip;
+}
+
+
+
+function getLocation()
+{
+    $ip = getIP();
+    if ($ip == '127.0.0.1' || $ip == '::1') {
+        // If IP is localhost, set a US IP
+        $ip = '48.255. 255.255'; // You can change this to any US IP
+    }
+
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "http://ipwhois.app/json/" . $ip);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $execute = curl_exec($ch);
+    curl_close($ch);
+    $ipResult = json_decode($execute);
+    return $ipResult;
+}
+
+function getAgentDetail()
+{
+    $CI           = &get_instance();
+
+    $CI->load->library('user_agent');
+
+    $user_agent = "";
+    if ($CI->agent->is_mobile('iphone')) {
+        $user_agent .= "Iphone | ";
+    } else if ($CI->agent->is_mobile()) {
+        $user_agent .= "Mobile | ";
+    } else {
+        $user_agent .= "Desktop | ";
+    }
+
+
+    if ($CI->agent->is_browser()) {
+
+        $agent = $CI->agent->browser() . ' ' . $CI->agent->version();
+    } elseif ($CI->agent->is_robot()) {
+        $agent = $CI->agent->robot();
+    } elseif ($CI->agent->is_mobile()) {
+
+        $agent = $CI->agent->mobile();
+    } else {
+        $agent = 'Unidentified User Agent';
+    }
+
+
+
+    $user_agent .= $CI->agent->platform() . " | ";
+    $user_agent .= $agent;
+    return  $user_agent;
 }

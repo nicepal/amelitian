@@ -201,6 +201,37 @@
                                 </div><!--./row-->
                                 <div class="row">
                                     <div class="col-md-12">
+                                        <div class="col-md-12">
+                                            <div class="settinghr"></div>
+                                            <h4 class="session-head"><?php echo $this->lang->line('id_card_scan_code'); ?></h4>
+                                        </div>
+                                    </div><!--./col-md-12-->
+                                    <div class="col-md-12">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4"><?php echo $this->lang->line('scan_type'); ?></label>
+                                                <div class="col-sm-8">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="scan_code_type" value="barcode" <?php
+                                                        if ($result->scan_code_type == "barcode") {
+                                                            echo "checked";
+                                                        }
+                                                        ?>  ><?php echo $this->lang->line('barcode'); ?>
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="scan_code_type" value="qrcode" <?php
+                                                        if ($result->scan_code_type == "qrcode") {
+                                                            echo "checked";
+                                                        }
+                                                        ?> ><?php echo $this->lang->line('qrcode'); ?>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!--./row--> 
+                                <div class="row">
+                                    <div class="col-md-12">
                                         <div class="settinghr"></div>
                                         <h4 class="session-head"><?php echo $this->lang->line('attendence') . " " . $this->lang->line('type'); ?></h4>
                                     </div><!--./col-md-12-->

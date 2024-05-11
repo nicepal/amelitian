@@ -20,6 +20,42 @@ class Customlib
         $this->CI->load->model('Notificationsetting_model', '', true);
     }
 
+    public function getBaseUrl()
+    {
+        $student = $this->CI->session->userdata('student');
+        $admin    = $this->CI->session->userdata('admin');
+        
+        if ($admin) {
+            $base_url = $admin['db_array']['base_url'];
+        } else if ($this->CI->session->userdata('student')) {
+             $base_url = $student['db_array']['base_url'];
+        }       
+        
+        if ($base_url == "") {
+            $base_url = base_url();
+        }
+        return $base_url;
+    }
+
+    public function getFolderPath()
+    {  
+
+        $student = $this->CI->session->userdata('student');
+        $admin       = $this->CI->session->userdata('admin');        
+        
+        if ($admin) {
+            $folder_path = $admin['db_array']['folder_path'];
+        } else if ($this->CI->session->userdata('student')) {
+             $folder_path = $student['db_array']['folder_path'];
+        }   
+        
+        if ($folder_path == "") {
+            $folder_path = null;
+        }
+        return $folder_path;
+    }
+    
+
     public function getCSRF()
     {
         $csrf_input = "<input type='hidden' ";
@@ -884,7 +920,7 @@ class Customlib
         $day           = $date_formated['day'];
 
         $date = $year . "-" . $month . "-" . $day;
-
+        // die($date);
         return strtotime($date);
     }
 
@@ -1761,4 +1797,252 @@ class Customlib
 
         return $name;
     }
+
+    
+    public function getStaffFullName($firstname, $lastname, $employee_id)
+    {
+        $name = "";
+        $name = ($lastname == "") ? $firstname : $firstname . " " . $lastname;
+        return $name . " (" . $employee_id . ")";
+    }
+
+    public function bulkmailto()
+    {
+        $bulkmailto      = array();
+        $bulkmailto['1'] = $this->CI->lang->line('student');
+        $bulkmailto['2'] = $this->CI->lang->line('parent');
+        $bulkmailto['3'] = $this->CI->lang->line('both');
+        return $bulkmailto;
+    }
+
+    public function bulkmailnotificationtype()
+    {
+        $notificationtype      = array();
+        $notificationtype['1'] = $this->CI->lang->line('student_admission');
+        $notificationtype['2'] = $this->CI->lang->line('login_credential');
+        $notificationtype['3'] = $this->CI->lang->line('both');
+        return $notificationtype;
+    }
+
+    public function cookie_consent()
+    {
+        $result = $this->CI->frontcms_setting_model->get();
+        return $result->cookie_consent;
+    }
+
+    public function getfieldstatus($fieldname)
+    {
+
+        $status = $this->CI->onlinestudent_model->getfieldstatus($fieldname);
+        return $status;
+
+    }
+
+    public function checkfieldexist($fieldname)
+    {
+        $status = $this->CI->onlinestudent_model->getfieldstatus($fieldname);
+        return $status;
+    }
+
+    public function gethousename($id)
+    {
+        $house_name = $this->CI->onlinestudent_model->gethousename($id);
+        return $house_name;
+    }
+    public function gettransactionid($id)
+    {
+        $transaction_id = $this->CI->onlinestudent_model->gettransactionid($id);
+        return $transaction_id;
+    }
+
+    public function gettransactionpaidamount($id)
+    {
+        $paid_amount = $this->CI->onlinestudent_model->gettransactionpaidamount($id);
+        return $paid_amount;
+    }
+
+    public function checkisenroll($refno)
+    {
+        $status = $this->CI->onlinestudent_model->checkisenroll($refno);
+        return $status;
+    }
+
+    // public function generatebarcode($admission_no)
+    // {
+    //     //I'm just using rand() function for data example
+    //     $data = [];
+    //     $code = $admission_no;
+    //     //load library
+    //     $this->CI->load->library('zend');
+    //     //load in folder Zend
+    //     $this->CI->zend->load('Zend/Barcode');
+    //     //generate barcode
+    //     $imageResource = Zend_Barcode::factory('code128', 'image', array('text' => $code, 'barHeight' => 20), array())->draw();
+    //     imagepng($imageResource, 'uploads/student_id_card/barcodes/' . $code . '.png');
+    //     $barcode = 'uploads/student_id_card/barcodes/' . $code . '.png';
+    //     return $barcode;
+    // }
+
+    public function generatebarcode($admission_no, $default_return_code = 'barcode')
+    {
+        $data = [];
+        $code = $admission_no;
+        //load library
+        $this->CI->load->library('zend');
+        //load in folder Zend
+        $this->CI->zend->load('Zend/Barcode');
+        //generate barcode
+        $imageResource = Zend_Barcode::factory('code128', 'image', array('text' => $code, 'barHeight' => 20), array())->draw();
+        imagepng($imageResource, 'uploads/student_id_card/barcodes/' . $code . '.png');
+        $barcode = 'uploads/student_id_card/barcodes/' . $code . '.png';
+
+        //=============qrcode=================
+        $this->CI->load->library('QR_Code');
+        $qrcode =   $this->CI->qr_code->generate('uploads/student_id_card/qrcode/',$code);
+
+        if ($default_return_code == "barcode") {
+            return $barcode;
+        } elseif ($default_return_code == "qrcode") {
+            return 'uploads/student_id_card/qrcode/' . $code . '.png';
+        }
+    }
+
+
+    public function generatestaffbarcode($employee_id,$default_return_code = 'barcode')
+    {
+        //I'm just using rand() function for data example
+        $data = [];
+        $code = $employee_id;
+        //load library
+        $this->CI->load->library('zend');
+        //load in folder Zend
+        $this->CI->zend->load('Zend/Barcode');
+        //generate barcode
+        $imageResource = Zend_Barcode::factory('code128', 'image', array('text' => $code, 'barHeight' => 20), array())->draw();
+        imagepng($imageResource, 'uploads/staff_id_card/barcodes/' . $code . '.png');
+        $barcode = 'uploads/staff_id_card/barcodes/' . $code . '.png';
+      //=============qrcode=================
+      $this->CI->load->library('QR_Code');
+      $qrcode =   $this->CI->qr_code->generate('uploads/staff_id_card/qrcode/',$code);
+
+      if ($default_return_code == "barcode") {
+          return $barcode;
+      } elseif ($default_return_code == "qrcode") {
+          return 'uploads/staff_id_card/qrcode/' . $code . '.png';
+      }
+    }
+
+    public function get_myClassSection()
+    {
+        $userdata            = $this->getUserData();
+        $class_section_array = array();
+        if (($userdata["role_id"] == 2) && ($userdata["class_teacher"] == "yes")) {
+            $my_class = $this->CI->class_model->get();
+            foreach ($my_class as $class_key => $class_value) {
+                $section = $this->CI->section_model->getClassBySection($class_value['id']);
+                foreach ($section as $key => $value) {
+                    $class_section_array[$class_value['id']][] = $value['section_id'];
+                }
+            }
+            return $class_section_array;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function get_myClassSectionQuerystring($tbl)
+    {
+        $userdata            = $this->getUserData();
+        $class_section_array = array();
+        if (($userdata["role_id"] == 2) && ($userdata["class_teacher"] == "yes")) {
+            $my_class = $this->CI->class_model->get();
+            foreach ($my_class as $class_key => $class_value) {
+                $section = $this->CI->section_model->getClassBySection($class_value['id']);
+                foreach ($section as $key => $value) {
+                    $class_section_array[] = array('class_id' => $class_value['id'], 'section_id' => $value['section_id']);
+                }
+            }
+            if (!empty($class_section_array)) {
+                $last      = count($class_section_array);
+                $max_loop  = $last - 1;
+                $condition = " AND (" . $tbl . ".class_id=" . $class_section_array[0]['class_id'] . " AND " . $tbl . ".section_id=" . $class_section_array[0]['section_id'] . " )";
+                if ($last > 2) {
+                    for ($i = 1; $i <= $max_loop - 1; $i++) {
+                        $condition .= " OR (" . $tbl . ".class_id=" . $class_section_array[$i]['class_id'] . " AND " . $tbl . ".section_id=" . $class_section_array[$i]['section_id'] . " )";
+                    }
+                }
+
+                $condition .= " OR (" . $tbl . ".class_id=" . $class_section_array[$max_loop]['class_id'] . " AND " . $tbl . ".section_id=" . $class_section_array[$max_loop]['section_id'] . " )";
+                return $condition;
+
+            }
+
+        } else {
+            return false;
+        }
+
+    }
+
+    public function calculateRating($avgRating)
+    {
+        $basevalue = floor($avgRating);
+        $roundAvg  = round($avgRating, 2);
+        $enable    = $roundAvg;
+        if (($roundAvg >= $basevalue + .25) && ($roundAvg < $basevalue + .75)) {
+            $enable = $basevalue + .5;
+        } elseif (($roundAvg >= $basevalue) && ($roundAvg < $basevalue + .25)) {
+            $enable = (int) $basevalue;
+        } elseif (($roundAvg >= $basevalue + .75) && ($roundAvg > $basevalue + .25)) {
+            $enable = (int) round($roundAvg, 0);
+        }
+        return $enable;
+    }
+
+    public function checkUserLogin()
+    {
+        if ($this->CI->session->has_userdata('student')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getCourseDetail($course_id)
+    {
+        $this->CI->load->model('Course_model', '', true);
+        $result = $this->CI->Course_model->singlecourselist($course_id);
+        return $result;
+    }
+
+    public function getPurchasedCourseId($userid, $courseid)
+    {
+        $this->CI->load->model('Studentcourse_model', '', true);
+        $data    = array();
+        $courses = $this->CI->Studentcourse_model->getPurchasedCourseId($userid, $courseid);
+        return $courses;
+    }
+    
+    public function checkprofilesettingfieldexist($fieldname)
+    {
+        $status = $this->CI->student_edit_field_model->checkprofilesettingfieldexist($fieldname);
+        return $status;
+    }
+    
+    public function getCurrentSession(){
+
+        $return_session                = [];
+        $session_array       = $this->CI->session->has_userdata('session_array');
+       
+        if ($session_array) {
+            $return_session  = $this->CI->session->userdata('session_array');
+        } else {
+            $setting             = $this->CI->setting_model->get();
+            $return_session      = $setting[0]['current_session'];
+        }
+       return  $return_session;
+
+    }
+
 }
+

@@ -52,6 +52,8 @@ class studentidcard extends Admin_Controller {
             $phone = 0;
             $dob = 0;
             $bloodgroup = 0;
+            $vertical_card   = 0;
+            $student_barcode = 0;
 
             if ($this->input->post('is_active_admission_no') == 1) {
                 $admission_no = $this->input->post('is_active_admission_no');
@@ -80,6 +82,14 @@ class studentidcard extends Admin_Controller {
             if ($this->input->post('is_active_blood_group') == 1) {
                 $bloodgroup = $this->input->post('is_active_blood_group');
             }
+            if ($this->input->post('enable_student_barcode') == 1) {
+                $student_barcode = $this->input->post('enable_student_barcode');
+            }
+
+            $enable_vertical_card = $this->input->post('enable_vertical_card');
+            if (isset($enable_vertical_card)) {
+                $vertical_card = 1;
+            }
             $data = array(
                 'title' => $this->input->post('title'),
                 'school_name' => $this->input->post('school_name'),
@@ -94,6 +104,8 @@ class studentidcard extends Admin_Controller {
                 'enable_phone' => $phone,
                 'enable_dob' => $dob,
                 'enable_blood_group' => $bloodgroup,
+                'enable_vertical_card'   => $vertical_card,
+                'enable_student_barcode' => $student_barcode,
                 'status' => 1,
             );
             $insert_id = $this->Student_id_card_model->addidcard($data);
@@ -196,6 +208,8 @@ class studentidcard extends Admin_Controller {
             $phone = 0;
             $dob = 0;
             $bloodgroup = 0;
+            $vertical_card   = 0;
+            $student_barcode = 0;
 
             if ($this->input->post('is_active_admission_no') == 1) {
                 $admission_no = $this->input->post('is_active_admission_no');
@@ -224,6 +238,17 @@ class studentidcard extends Admin_Controller {
             if ($this->input->post('is_active_blood_group') == 1) {
                 $bloodgroup = $this->input->post('is_active_blood_group');
             }
+
+            if ($this->input->post('enable_student_barcode') == 1) {
+                $student_barcode = $this->input->post('enable_student_barcode');
+            }
+
+            $enable_vertical_card = $this->input->post('enable_vertical_card');
+            if (isset($enable_vertical_card)) {
+                $vertical_card = 1;
+            }
+
+
 
             if (!empty($_FILES['background_image']['name'])) {
                 $config['upload_path'] = 'uploads/student_id_card/background/';
@@ -306,6 +331,8 @@ class studentidcard extends Admin_Controller {
                 'enable_phone' => $phone,
                 'enable_dob' => $dob,
                 'enable_blood_group' => $bloodgroup,
+                'enable_vertical_card'   => $vertical_card,
+                'enable_student_barcode' => $student_barcode,
                 'status' => 1,
             );
 

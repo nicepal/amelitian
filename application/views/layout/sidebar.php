@@ -448,7 +448,42 @@
                     <?php
                 }
             }
-            ?> <?php
+            ?> 
+
+<?php
+            // if ($this->module_lib->hasActive('qr_code_attendence')) {
+                // if ($this->rbac->hasPrivilege('qr_code_attendance', 'can_view')) {
+                    ?>
+                    <li class="treeview <?php echo set_Topmenu('qrattendance'); ?>">
+                        <a href="#">
+                            <i class="fa fa-rss ftlayer"></i> <span><?php echo $this->lang->line('qrcode') . " " . $this->lang->line('attendance'); ?></span> <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <?php
+                            if ($this->rbac->hasPrivilege('qr_code_attendance', 'can_view')) {
+                                ?>
+                                <li class="<?php echo set_Submenu('admin/qrattendance/attendance/index'); ?>">
+                                <a href="<?php echo base_url(); ?>admin/qrattendance/attendance/index"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('attendance'); ?></a></li>
+                                <?php
+                            }
+                            if ($this->rbac->hasPrivilege('qr_code_setting', 'can_view')) {
+                                ?>
+                                <li class="<?php echo set_Submenu('admin/qrattendance/setting/index'); ?>">
+                                <a href="<?php echo base_url(); ?>admin/qrattendance/setting/index"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('settings'); ?></a></li>
+                                <?php
+                            }
+                            ?>  
+
+
+
+                        </ul>
+                    </li>
+                    <?php
+                // }
+            // }
+            ?> 
+            
+            <?php
             if ($this->module_lib->hasActive('lesson_plan')) {
                 if (($this->rbac->hasPrivilege('manage_lesson_plan', 'can_view')) || ($this->rbac->hasPrivilege('manage_syllabus_status', 'can_view')) || ($this->rbac->hasPrivilege('lesson', 'can_view')) || ($this->rbac->hasPrivilege('topic', 'can_view'))) {
                     ?>

@@ -16,7 +16,7 @@ class Module_lib {
 
     function loadModule() {
         $this->allModules = $this->CI->Module_model->get();
-
+      
         if (!empty($this->allModules)) {
             foreach ($this->allModules as $mod_key => $mod_value) {
 
@@ -32,7 +32,7 @@ class Module_lib {
 
     function hasActive($module = null) {
 
-        if ($this->modules[$module]) {
+        if (isset($this->modules[$module]) && $this->modules[$module]) {
             return true;
         }
 

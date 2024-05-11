@@ -17,7 +17,7 @@ class Chatuser_model extends CI_Model {
      * @param int $id
      * @return mixed 
      */
-       public function searchForUser($keyword, $chat_user_id, $user_type = 'staff', $login_id) {
+       public function searchForUser($keyword, $chat_user_id, $user_type = 'staff', $login_id=null) {
 
         if ($user_type == 'staff') {
             $sql = "SELECT staff.id as `staff_id`,Null as `student_id`, staff.name, staff.surname , Null as `first_name`,Null as `middle_name`,Null as `last_name`,staff.image FROM `staff` WHERE staff.name LIKE '%" . $keyword . "%'  and is_active= 1 and id NOT IN(SELECT chat_users.staff_id FROM `chat_users` inner JOIN (SELECT chat_connections.id, CASE  WHEN chat_user_one =" . $chat_user_id . " THEN chat_user_two ELSE chat_connections.chat_user_one END as 'chat_user_id' FROM `chat_connections` WHERE  (chat_user_one=" . $chat_user_id . " or chat_user_two=" . $chat_user_id . ")) as chat_connections on chat_connections.chat_user_id=chat_users.id WHERE staff_id IS NOT NULL) and staff.id != " . $login_id . " Union  SELECT Null as `staff_id`,students.id as `student_id`,Null as `name`,Null as `surname`,students.firstname,students.middlename,students.lastname,students.image FROM `students` WHERE (students.firstname LIKE '%" . $keyword . "%' or students.middlename LIKE '%" . $keyword . "%' or students.lastname LIKE '%" . $keyword . "%')  and students.is_active='yes' and students.id NOT IN(SELECT chat_users.student_id FROM `chat_users` inner JOIN (SELECT chat_connections.id, CASE  WHEN chat_user_one =" . $chat_user_id . " THEN chat_user_two ELSE chat_connections.chat_user_one END as 'chat_user_id' FROM `chat_connections` WHERE  (chat_user_one=" . $chat_user_id . " or chat_user_two=" . $chat_user_id . ")) as chat_connections on chat_connections.chat_user_id=chat_users.id WHERE student_id IS NOT NULL)";
@@ -134,7 +134,7 @@ students.image as `image` FROM students WHERE students.id=chat_users.student_id)
         return $chat_messages;
     }
 
-    public function addNewUser($first_entry, $insert_data, $panel = "staff", $id, $insert_message) {
+    public function addNewUser($first_entry, $insert_data, $panel = "staff", $id=null, $insert_message=null) {
 
         $chat_connections = array('chat_user_one' => '', 'chat_user_two' => '');
         $this->db->where('staff_id', $first_entry['staff_id']);
@@ -203,7 +203,7 @@ students.image as `image` FROM students WHERE students.id=chat_users.student_id)
         }
     }
 
-    public function addNewUserForStudent($first_entry, $insert_data, $panel = "student", $id, $insert_message) {
+    public function addNewUserForStudent($first_entry, $insert_data, $panel = "student", $id=null, $insert_message=null) {
         $chat_connections = array('chat_user_one' => '', 'chat_user_two' => '');
         $this->db->where('student_id', $first_entry['student_id']);
         $this->db->where('user_type', $first_entry['user_type']);

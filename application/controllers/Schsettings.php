@@ -330,6 +330,8 @@ class Schsettings extends Admin_Controller {
                 'app_secondary_color_code' => $this->input->post('app_secondary_color_code'),
                 'mobile_api_url' => $this->input->post('mobile_api_url'),
                 'my_question' => $this->input->post('my_question'),
+                'scan_code_type' => $this->input->post('scan_code_type')
+
             );
             $this->session->userdata['admin']['is_rtl'] = $this->input->post('sch_is_rtl');
             $language_result = $this->language_model->get($this->input->post('sch_lang_id'));

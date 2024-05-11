@@ -188,16 +188,22 @@
                                         <td rowspan="2">Roll No</td>
                                         <td rowspan="2">Admission No</td>
                                         <td rowspan="2">Student Name</td>
-                                        <?php foreach($examSubjects as $subject){ ?>
+                                        <?php 
+                                        if(isset($examSubjects)){ 
+                                        foreach($examSubjects as $subject){ ?>
                                             <td colspan="2" style="text-align:center;border-right:solid 1px #ccc;"><?php echo $subject['name']; ?></td>
-                                        <?php } ?>
+                                        <?php }
+                                        } ?>
                                     </tr>
                                     <tr>
                                         <!-- <td></td> -->
-                                        <?php foreach($examSubjects as $subject){ ?>
+                                        <?php 
+                                        if(isset($examSubjects)){ 
+                                            foreach($examSubjects as $subject){ ?>
                                             <td style="text-align:center">Internal</td>
                                             <td style="text-align:center;border-right:solid 1px #ccc;">External</td>
-                                        <?php } ?>
+                                        <?php }
+                                        } ?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -213,10 +219,10 @@
                                             $resultInfo = $this->examresult_model->getSingleStudentExamResult($student['onlineexam_student_id'],$subject['exam_subject_id']);
                                             // dd($resultInfo,0);
                                             ?>
-                                            <td style="<?php echo ($resultInfo['attendence'] == "Absent")?('background-color:#ff00002e'):(''); ?>">
+                                            <td style="<?php echo ($resultInfo['attendence']??'' == "Absent")?('background-color:#ff00002e'):(''); ?>">
                                                 <input name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][internal]" value="<?php echo isset($resultInfo['internal_marks'])?($resultInfo['internal_marks']):('0'); ?>" type="text" class="form-control">
                                             </td>
-                                            <td style="border-right:solid 1px #ccc;<?php echo ($resultInfo['attendence'] == "Absent")?('background-color:#ff00002e'):(''); ?>">
+                                            <td style="border-right:solid 1px #ccc;<?php echo ($resultInfo['attendence']??'' == "Absent")?('background-color:#ff00002e'):(''); ?>">
                                                 <input name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][external]" value="<?php echo isset($resultInfo['external_marks'])?($resultInfo['external_marks']):('0'); ?>"  type="text" class="form-control">
                                             </td>
                                         <?php } ?>

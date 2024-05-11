@@ -123,6 +123,7 @@
                                 </thead>
                                 <tbody>
                                     <?php
+                                    if(is_array($result) && !empty($result)){
                                     foreach ($result as $key => $result_value) {
                                         if (in_array($result_value['classid'], $class_array)) {
                                             $lesson_id = $key;
@@ -148,7 +149,8 @@
 
                                                 </td>
                                             </tr>
-    <?php }
+      <?php }
+        }
 }
 ?>                                  
                                 </tbody>

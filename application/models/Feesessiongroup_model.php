@@ -54,7 +54,19 @@ class Feesessiongroup_model extends MY_Model {
         return $result;
     }
 
-    public function getfeeTypeByGroup($id = null, $fee_session_group_id) {
+    // public function getfeeTypeByGroup($id = null, $fee_session_group_id) {
+    //     $this->db->select('fee_groups_feetype.*,feetype.type,feetype.code');
+    //     $this->db->from('fee_groups_feetype');
+    //     $this->db->join('feetype', 'feetype.id=fee_groups_feetype.feetype_id');
+    //     $this->db->where('fee_groups_feetype.fee_groups_id', $id);
+    //     $this->db->where('fee_groups_feetype.fee_session_group_id', $fee_session_group_id);
+    //     $this->db->order_by('fee_groups_feetype.id', 'asc');
+    //     $query = $this->db->get();
+    //     return $query->result();
+    // }
+
+    public function getfeeTypeByGroup($fee_session_group_id, $id = null)
+    {
         $this->db->select('fee_groups_feetype.*,feetype.type,feetype.code');
         $this->db->from('fee_groups_feetype');
         $this->db->join('feetype', 'feetype.id=fee_groups_feetype.feetype_id');
@@ -64,6 +76,7 @@ class Feesessiongroup_model extends MY_Model {
         $query = $this->db->get();
         return $query->result();
     }
+
 
     function group_exists($fee_groups_id) {
         $this->db->where('fee_groups_id', $fee_groups_id);

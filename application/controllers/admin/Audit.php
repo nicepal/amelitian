@@ -3,11 +3,13 @@
 if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
- 
+ini_set('memory_limit', '999M');
+
 class Audit extends Admin_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->load->model("audit_model");
     }
  
     public function unauthorized() {

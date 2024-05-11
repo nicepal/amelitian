@@ -137,6 +137,24 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <label for="enable_blood_group" class="label-success"></label>
                                     </div>
                                 </div>
+
+                                <!-- 7.0 Update -->
+
+                                <div class="form-group switch-inline">
+                                    <label><?php echo $this->lang->line('design_type'); ?></label>
+                                    <div class="material-switch switchcheck">
+                                        <input id="enable_vertical_card" name="enable_vertical_card" type="checkbox" class="chk" value="1" <?php echo set_checkbox('enable_vertical_card', '1', (set_value('enable_vertical_card', $editidcard[0]->enable_vertical_card) == 1) ? TRUE : FALSE); ?>>
+                                        <label for="enable_vertical_card" class="label-success"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group switch-inline">
+                                    <label><?php echo $this->lang->line('barcode'); ?> / <?php echo $this->lang->line('qrcode'); ?></label>
+                                    <div class="material-switch switchcheck">
+                                        <input id="enable_student_barcode" name="enable_student_barcode" type="checkbox" class="chk" value="1" <?php echo set_checkbox('enable_student_barcode', '1', (set_value('enable_student_barcode', $editidcard[0]->enable_student_barcode) == 1) ? TRUE : FALSE); ?>>
+                                        <label for="enable_student_barcode" class="label-success"></label>
+                                    </div>
+                                </div>
+                                
                             </div><!-- /.box-body -->
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-info pull-right"><?php echo $this->lang->line('save'); ?></button>

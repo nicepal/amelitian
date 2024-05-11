@@ -258,7 +258,7 @@ class enquiry_model extends MY_Model
         $this->db->where("id", $data["id"])->update("enquiry", $data);
     }
 
-    public function searchEnquiry($source, $status = 'active', $date_from, $date_to)
+    public function searchEnquiry($source, $status = 'active', $date_from='', $date_to='')
     {
 
         $condition = 0;

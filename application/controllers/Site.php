@@ -113,6 +113,11 @@ class Site extends Public_Controller
                         'is_rtl'          => $setting_result[0]['is_rtl'],
                         'theme'           => $setting_result[0]['theme'],
                         'gender'          => $result->gender,
+                        'db_array'               => ['base_url'               => $setting_result[0]['base_url'],
+                                                     'folder_path'            => $setting_result[0]['folder_path'],
+                                                     'db_group'=>'default'
+                                                    ],
+                        'superadmin_restriction' => $setting_result[0]['superadmin_restriction'],
                     );
                     $language_result1 = $this->language_model->get($lang_array['lang_id']);
                     if ($this->customlib->get_rtl_languages($language_result1['short_code'])) {

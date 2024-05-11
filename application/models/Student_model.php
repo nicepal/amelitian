@@ -1756,6 +1756,253 @@ class Student_model extends MY_Model
         }
     }
 
+    //=========== 7.0 updated code
+    
+    public function searchdtByClassSection($class_id = null, $section_id = null)
+    {
+        $userdata = $this->customlib->getUserData();
+        
+        
+		if (($userdata["role_id"] == 2) && ($userdata["class_teacher"] == "yes") && (empty($class_section_array))) {
+            $class_section_array = $this->customlib->get_myClassSection();
+        }
+        
+        $i                    = 1;
+        $custom_fields        = $this->customfield_model->get_custom_fields('students', 1);
+        $field_var_array      = array();
+        $field_var_array_name = array();
+        if (!empty($custom_fields)) {
+            foreach ($custom_fields as $custom_fields_key => $custom_fields_value) {
+                $tb_counter = "table_custom_" . $i;
+                array_push($field_var_array, 'table_custom_' . $i . '.field_value as ' . $custom_fields_value->name);
+                $this->datatables->join('custom_field_values as ' . $tb_counter, 'students.id = ' . $tb_counter . '.belong_table_id AND ' . $tb_counter . '.custom_field_id = ' . $custom_fields_value->id, 'left');
+                array_push($field_var_array_name, 'table_custom_' . $i . '.field_value');
+                $i++;
+            }
+        }
+
+        $field_variable = (empty($field_var_array)) ? "" : "," . implode(',', $field_var_array);
+        $field_name     = (empty($field_var_array_name)) ? "" : "," . implode(',', $field_var_array_name);
+
+        if ($class_id != null) {
+            $this->datatables->where('student_session.class_id', $class_id);
+        }
+        if ($section_id != null) {
+            $this->datatables->where('student_session.section_id', $section_id);
+        }
+
+        $this->datatables->select('classes.id AS `class_id`,student_session.id as student_session_id,students.id,classes.class,sections.id AS `section_id`,sections.section,students.id,students.admission_no, students.roll_no,students.admission_date,students.firstname,students.middlename,  students.lastname,students.image,students.mobileno,students.email ,students.state,students.city, students.pincode,students.religion,DATE(students.dob) as dob,students.current_address,students.permanent_address,IFNULL(students.category_id, 0) as `category_id`,IFNULL(categories.category, "") as `category`,students.adhar_no,students.samagra_id,students.bank_account_no,students.bank_name,students.ifsc_code , students.guardian_name, students.guardian_relation,students.guardian_phone,students.guardian_address,students.is_active,students.created_at ,students.updated_at,students.father_name,students.app_key,students.parent_app_key,students.rte,students.gender' . $field_variable);       
+        $this->datatables->searchable('students.admission_no,students.firstname,classes.class,students.father_name,students.dob,students.gender,categories.category,students.mobileno' . $field_variable);
+        $this->datatables->join('student_session', 'student_session.student_id = students.id');
+        $this->datatables->join('classes', 'student_session.class_id = classes.id');
+        $this->datatables->join('sections', 'sections.id = student_session.section_id');
+        $this->datatables->join('categories', 'students.category_id = categories.id', 'left');
+            
+        if (!empty($class_section_array)) {
+            $this->datatables->group_start();
+            foreach ($class_section_array as $class_sectionkey => $class_sectionvalue) {
+                foreach ($class_sectionvalue as $class_sectionvaluekey => $class_sectionvaluevalue) {
+                    $this->datatables->or_group_start();
+                    $this->datatables->where('student_session.class_id', $class_sectionkey);
+                    $this->datatables->where('student_session.section_id', $class_sectionvaluevalue);
+                    $this->datatables->group_end();
+
+                }
+            }
+            $this->datatables->group_end();
+        }
+            
+        $this->datatables->where('student_session.session_id', $this->current_session);
+        $this->datatables->where('students.is_active', "yes");
+        $this->datatables->orderable('students.admission_no,students.firstname,classes.class,students.father_name,students.dob,students.gender,categories.category,students.mobileno' . $field_name);
+        $this->datatables ->from('students');
+        $this->datatables->sort('students.admission_no', 'asc');
+        return $this->datatables->generate('json');
+    }
+
+  
+    /* function to get record for login credential report */
+    public function getdtforlogincredential($class_id = null, $section_id = null)
+    {
+        $i               = 1;
+        $custom_fields   = $this->customfield_model->get_custom_fields('students', 1);
+        $field_var_array = array();
+        if (!empty($custom_fields)) {
+            foreach ($custom_fields as $custom_fields_key => $custom_fields_value) {
+                $tb_counter = "table_custom_" . $i;
+                array_push($field_var_array, 'table_custom_' . $i . '.field_value as ' . $custom_fields_value->name);
+                $this->datatables->join('custom_field_values as ' . $tb_counter, 'students.id = ' . $tb_counter . '.belong_table_id AND ' . $tb_counter . '.custom_field_id = ' . $custom_fields_value->id, 'left');
+                $i++;
+            }
+        }
+
+        $field_variable = implode(',', $field_var_array);
+
+        $this->datatables
+            ->select('classes.id AS `class_id`,student_session.id as student_session_id,students.id,classes.class,sections.id AS `section_id`,sections.section,students.id,students.admission_no, students.roll_no,students.admission_date,students.firstname,students.middlename,  students.lastname,students.image,students.mobileno,students.email,students.state,students.city, students.pincode,students.religion,students.dob,students.current_address,students.permanent_address,IFNULL(students.category_id, 0) as `category_id`,IFNULL(categories.category, "") as `category`,students.adhar_no,students.samagra_id,students.bank_account_no,students.bank_name, students.ifsc_code , students.guardian_name,students.guardian_relation,students.guardian_phone,students.guardian_address,students.is_active ,students.created_at,students.updated_at,students.father_name,students.app_key,students.parent_app_key,students.rte,students.gender,' . $field_variable)
+            ->searchable('students.admission_no,students.firstname')
+            ->orderable('students.admission_no,students.firstname," "," ", " "')
+            ->join('student_session', 'student_session.student_id = students.id')
+            ->join('classes', 'student_session.class_id = classes.id')
+            ->join('sections', 'sections.id = student_session.section_id')
+            ->join('categories', 'students.category_id = categories.id', 'left')
+            ->where('student_session.session_id', $this->current_session)
+            ->where('students.is_active', "yes")
+            ->from('students');
+
+        if ($class_id != null) {
+            $this->datatables->where('student_session.class_id', $class_id);
+        }
+        if ($section_id != null) {
+            $this->datatables->where('student_session.section_id', $section_id);
+        }
+        $this->datatables->sort('students.admission_no', 'asc');
+        return $this->datatables->generate('json');
+
+    }
+
+    public function getUndefinedStudent()
+    {
+        $sql    = "SELECT students.id FROM `students` LEFT join student_session on student_session.student_id=students.id WHERE student_session.id IS NULL";
+        $query  = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
+    public function biometric_attendance($admission_no = null)
+    {
+        $sql    = "SELECT staff.id,staff.employee_id,staff.name,staff.surname,staff.contact_no,staff.email,'staff' as `table_type` FROM `staff` WHERE employee_id=" . $this->db->escape($admission_no) . " UNION SELECT student_session.id as `student_session_id`,students.id, students.admission_no,students.firstname,students.middlename,students.lastname,'student' as `table_type` FROM `students` JOIN `student_session` ON `student_session`.`student_id` = `students`.`id` JOIN `classes` ON `student_session`.`class_id` = `classes`.`id` JOIN `sections` ON `sections`.`id` = `student_session`.`section_id` LEFT JOIN `hostel_rooms` ON `hostel_rooms`.`id` = `students`.`hostel_room_id` LEFT JOIN `hostel` ON `hostel`.`id` = `hostel_rooms`.`hostel_id` LEFT JOIN `room_types` ON `room_types`.`id` = `hostel_rooms`.`room_type_id` LEFT JOIN `vehicle_routes` ON `vehicle_routes`.`id` = `student_session`.`vehroute_id` LEFT JOIN `route_pickup_point` ON `route_pickup_point`.`id` = `student_session`.`route_pickup_point_id` LEFT JOIN `pickup_point` ON `route_pickup_point`.`pickup_point_id` = `pickup_point`.`id` LEFT JOIN `transport_route` ON `vehicle_routes`.`route_id` = `transport_route`.`id` LEFT JOIN `vehicles` ON `vehicles`.`id` = `vehicle_routes`.`vehicle_id` LEFT JOIN `school_houses` ON `school_houses`.`id` = `students`.`school_house_id` LEFT JOIN `users` ON `users`.`user_id` = `students`.`id` WHERE `student_session`.`session_id` = '" . $this->current_session . "' AND `users`.`role` = 'student' AND `students`.`is_active` = 'yes' AND `students`.`admission_no` = " . $this->db->escape($admission_no);
+        $query  = $this->db->query($sql);
+        $result = $query->row();
+        return $result;
+
+    }
     //===========
+
+    public function getonlineadmissionreport($class_id = null, $section_id = null, $status = null)
+    {
+        $this->datatables
+            ->select('students.*,online_admissions.form_status,online_admissions.is_enroll,online_admissions.firstname, online_admissions.gender,online_admissions.dob,online_admissions.lastname,online_admissions.paid_status,online_admissions.reference_no,online_admissions.mobileno,classes.class,sections.section,(SELECT ifnull(SUM(online_admission_payment.paid_amount),0) as amount  from online_admission_payment WHERE online_admission_payment.online_admission_id= online_admissions.id) as paid_amount')
+            ->searchable('online_admissions.admission_no,online_admissions.firstname')
+            ->orderable('online_admissions.admission_no,online_admissions.firstname,online_admissions.mobileno," ",online_admissions.gender," "," "," "," "," " ," "')
+            ->join('students', 'students.admission_no = online_admissions.admission_no', "left")
+            ->join('student_session', 'student_session.student_id = students.id', "left")
+            ->join('class_sections', 'class_sections.id = online_admissions.class_section_id', 'left')
+            ->join('classes', 'class_sections.class_id = classes.id', 'left')
+            ->join('sections', 'sections.id = class_sections.section_id', 'left')
+            ->from('online_admissions');
+
+        if ($class_id != null) {
+            $this->datatables->where('student_session.class_id', $class_id);
+        }
+
+        if ($section_id != null) {
+            $this->datatables->where('student_session.section_id', $section_id);
+        }
+        if ($status != null) {
+            $this->datatables->where('online_admissions.is_enroll', $status);
+        }
+
+        $this->datatables->sort('online_admissions.admission_no', 'desc');
+        return $this->datatables->generate('json');
+    }
+
+    public function getstudentdetailbyid($id)
+    {
+        $this->db->select('students.firstname,students.middlename,students.lastname,students.admission_no,students.guardian_name,email,mobileno,guardian_phone,guardian_email');
+        $this->db->from('students');
+        $this->db->where('students.id', $id);
+        $result = $this->db->get();
+        return $result->row_array();
+    }
+
+    public function check_guardian_email_exists($str)
+    {
+        $email = $this->security->xss_clean($str);
+        if ($email != "") {
+            $id = $this->input->post('student_id');
+            if (!isset($id)) {
+                $id = 0;
+            }
+
+            if ($this->check_guardian_data_exists($email, $id)) {
+                $this->form_validation->set_message('check_guardian_email_exists', $this->lang->line('record_already_exist'));
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return true;
+    }
+
+    public function check_guardian_data_exists($email, $id)
+    {
+        $this->db->where('guardian_email', $email);
+        $this->db->where('id !=', $id);
+        $query = $this->db->get('students');
+        if ($query->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function check_student_mobile_no_exists($str)
+    {
+        $mobile = $this->security->xss_clean($str);
+        if ($mobile != "") {
+            $id = $this->input->post('student_id');
+            if (!isset($id)) {
+                $id = 0;
+            }
+
+            $isexist = $this->check_mobile_no_data_exists($mobile, $id);
+            if ($isexist) {
+                $this->form_validation->set_message('check_student_mobile_exists', $this->lang->line('record_already_exist'));
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function check_mobile_no_data_exists($mobile, $id)
+    {
+        $this->db->where('mobileno', $mobile);
+        $this->db->where('id !=', $id);
+        $query = $this->db->get('students');
+        if ($query->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function studentdocbyid($id)
+    {
+        $this->db->select()->from('student_doc');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+    
+    public function getAdmissionNoByGuardianEmail($student_id,$guardian_email)
+    {
+        $this->db->select('students.firstname,students.middlename,students.lastname,students.admission_no,students.guardian_email');  
+        $this->db->from('students');
+        $this->db->where('students.id !=', $student_id);       
+        $this->db->where('students.guardian_email', $guardian_email);       
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+    
+    public function getAdmissionNoByGuardianPhone($student_id,$guardian_phone)
+    {
+        $this->db->select('students.firstname,students.middlename,students.lastname,students.admission_no,students.guardian_phone');  
+        $this->db->from('students');
+        $this->db->where('students.id !=', $student_id);       
+        $this->db->where('students.guardian_phone', $guardian_phone);       
+        $query = $this->db->get();
+        return $query->row_array();
+    }
 
 }

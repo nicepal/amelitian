@@ -1640,5 +1640,9 @@ $lang['session_name'] = "Session Name";
 $lang['total_fee'] = "Total Fee";
 $lang['total_paid'] = "Total Paid";
 $lang['total_due'] = "Total Due";
-
-
+$lang['qrcode'] = "Qr Code";
+$lang['settings'] = "Settings";
+$lang['design_type'] = "Design Type";
+$lang['barcode'] = "Barcode";
+$lang['id_card_scan_code'] = "ID Card Scan Code";
+$lang['scan_type'] = "Scan type";

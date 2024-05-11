@@ -13,6 +13,7 @@ class Generateidcard extends Admin_Controller
 
         $this->load->library('Customlib');
         $this->sch_setting_detail = $this->setting_model->getSetting();
+        $this->load->library("media_storage");
     }
 
     public function index()
@@ -103,11 +104,17 @@ class Generateidcard extends Admin_Controller
         $data['sch_setting'] = $this->setting_model->get();
         $data['id_card']     = $this->Generateidcard_model->getidcardbyid($idcard);
 
+        $scan_type= $this->sch_setting_detail->scan_code_type;
         foreach ($student_array as $key => $value) {
             $std_arr[] = $value->student_id;
         }
-
-        $data['students']        = $this->student_model->getStudentsByArray($std_arr);
+        $students = $this->student_model->getStudentsByArray($std_arr);
+        foreach ($students as $key => $students_value) {
+            $students[$key]->barcode = $this->customlib->generatebarcode($students_value->admission_no,$scan_type);
+        }
+    
+        $data['students']        = $students;
+        
         $data['sch_settingdata'] = $this->sch_setting_detail;
 
         $id_cards = $this->load->view('admin/certificate/generatemultiple', $data, true);

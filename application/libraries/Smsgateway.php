@@ -21,7 +21,7 @@ class Smsgateway {
         $this->sch_setting = $this->_CI->setting_model->get();
     }
 
-    public function sentNotification($send_to, $template = '', $detail) {
+    public function sentNotification($send_to, $template = '', $detail='') {
         $this->_CI->load->library('pushnotification');
         $msg = $this->getContent($detail, $template);
         $push_array = array(
@@ -33,7 +33,7 @@ class Smsgateway {
         }
     }
 
-    public function sendSMS($send_to, $template = '', $detail) {
+    public function sendSMS($send_to, $template = '', $detail='') {
         $sms_detail = $this->_CI->smsconfig_model->getActiveSMS();
         if ($template != "") {
             $msg = $this->getContent($detail, $template);

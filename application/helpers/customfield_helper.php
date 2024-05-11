@@ -77,7 +77,7 @@ if (!function_exists('display_custom_fields')) {
         return $fields_html;
     }
 
-    function render_input_field($name, $label = '', $value = '', $type = 'text', $input_class = '', $belong_to, $field_id, $validation)
+    function render_input_field($name, $belong_to, $field_id, $validation, $label = '', $value = '', $type = 'text', $input_class = '')
     {
         $input            = '';
         $_form_group_attr = '';
@@ -107,7 +107,7 @@ if (!function_exists('display_custom_fields')) {
         return $input;
     }
 
-    function render_textarea_field($name, $label = '', $value = '', $type = 'text', $input_class = '', $belong_to, $field_id, $validation)
+    function render_textarea_field($name, $belong_to, $field_id, $validation, $label = '', $value = '', $type = 'text', $input_class = '')
     {
         $input            = '';
         $_form_group_attr = '';
@@ -136,7 +136,7 @@ if (!function_exists('display_custom_fields')) {
         return $input;
     }
 
-    function render_select_field($name, $options, $label = '', $value = '', $type = 'text', $input_class = '', $belong_to, $field_id, $validation)
+    function render_select_field($name, $options, $belong_to, $field_id, $validation, $label = '', $value = '', $type = 'text', $input_class = '')
     {
 
         $input            = '';
@@ -168,7 +168,7 @@ if (!function_exists('display_custom_fields')) {
         return $input;
     }
 
-    function render_multiselect_field($name, $options, $label = '', $value = '', $type = 'text', $input_class = '', $belong_to, $field_id, $validation)
+    function render_multiselect_field($name, $options, $belong_to, $field_id, $validation, $label = '', $value = '', $type = 'text', $input_class = '')
     {
         $input            = '';
         $_form_group_attr = '';
@@ -216,7 +216,7 @@ if (!function_exists('display_custom_fields')) {
         return $input;
     }
 
-    function render_checkbox_field($name, $options, $label = '', $value = '', $type = 'text', $input_class = '', $belong_to, $field_id, $validation)
+    function render_checkbox_field($name, $options, $belong_to, $field_id, $validation, $label = '', $value = '', $type = 'text', $input_class = '')
     {
 
         $input            = '';
@@ -262,7 +262,7 @@ if (!function_exists('display_custom_fields')) {
         return $input;
     }
 
-    function render_date_picker_field($name, $label = '', $value = '', $type = 'text', $input_class = '', $belong_to, $field_id, $validation)
+    function render_date_picker_field($name, $belong_to, $field_id, $validation, $label = '', $value = '', $type = 'text', $input_class = '')
     {
         $input            = '';
         $_form_group_attr = '';
@@ -291,7 +291,7 @@ if (!function_exists('display_custom_fields')) {
         return $input;
     }
 
-    function render_date_picker_time_field($name, $label = '', $value = '', $type = 'text', $input_class = '', $belong_to, $field_id, $validation)
+    function render_date_picker_time_field($name, $belong_to, $field_id, $validation, $label = '', $value = '', $type = 'text', $input_class = '')
     {
         $input            = '';
         $_form_group_attr = '';
@@ -320,7 +320,7 @@ if (!function_exists('display_custom_fields')) {
         return $input;
     }
 
-    function render_colorpicker_field($name, $label = '', $value = '', $type = 'text', $input_class = '', $belong_to, $field_id, $validation)
+    function render_colorpicker_field($name, $belong_to, $field_id, $validation, $label = '', $value = '', $type = 'text', $input_class = '')
     {
         $input            = '';
         $_form_group_attr = '';
@@ -349,7 +349,7 @@ if (!function_exists('display_custom_fields')) {
         return $input;
     }
 
-    function render_link_field($name, $label = '', $value = '', $type = 'text', $input_class = '', $belong_to, $field_id, $validation)
+    function render_link_field($name, $belong_to, $field_id, $validation, $label = '', $value = '', $type = 'text', $input_class = '')
     {
         $input            = '';
         $_form_group_attr = '';

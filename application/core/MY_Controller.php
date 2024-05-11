@@ -59,6 +59,9 @@ class Admin_Controller extends MY_Controller {
 
         $this->config->load('ci-blog');
         $this->config->load('custom_filed-config');
+        
+
+        
     }
 
     public function check_license() {

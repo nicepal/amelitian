@@ -73,6 +73,7 @@ class CI_Controller {
     public $db;     
     public $email;  
 
+	public $benchmark;
 	/**
 	 * CI_Loader
 	 *

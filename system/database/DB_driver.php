@@ -60,6 +60,8 @@ abstract class CI_DB_driver {
 	 */
 	public $dsn;
 
+	public $failover;
+	
 	/**
 	 * Username
 	 *

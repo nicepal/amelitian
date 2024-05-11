@@ -661,3 +661,9 @@ ERROR - 2024-05-12 03:14:02 --> Could not find the language line "student_attend
 ERROR - 2024-05-12 03:14:02 --> Could not find the language line "date_month"
 ERROR - 2024-05-12 03:15:48 --> Severity: Warning --> Attempt to read property "exam" on null /Applications/MAMP/htdocs/amelitian/application/views/admin/examgroup/_getSubjectByExam.php 3
 ERROR - 2024-05-12 03:15:48 --> Severity: Warning --> Attempt to read property "exam_group_name" on null /Applications/MAMP/htdocs/amelitian/application/views/admin/examgroup/_getSubjectByExam.php 7
+ERROR - 2024-05-12 04:05:14 --> Severity: Warning --> Undefined array key "start_week" /Applications/MAMP/htdocs/amelitian/application/controllers/Site.php 108
+ERROR - 2024-05-12 04:05:14 --> Severity: Warning --> Undefined array key "base_url" /Applications/MAMP/htdocs/amelitian/application/controllers/Site.php 116
+ERROR - 2024-05-12 04:05:14 --> Severity: Warning --> Undefined array key "folder_path" /Applications/MAMP/htdocs/amelitian/application/controllers/Site.php 117
+ERROR - 2024-05-12 04:05:14 --> Severity: Warning --> Undefined array key "superadmin_restriction" /Applications/MAMP/htdocs/amelitian/application/controllers/Site.php 120
+ERROR - 2024-05-12 04:05:26 --> Could not find the language line "_expenses_for"
+ERROR - 2024-05-12 04:05:27 --> Severity: Warning --> Undefined variable $eventdata /Applications/MAMP/htdocs/amelitian/application/controllers/admin/Calendar.php 301

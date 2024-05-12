@@ -667,3 +667,23 @@ ERROR - 2024-05-12 04:05:14 --> Severity: Warning --> Undefined array key "folde
 ERROR - 2024-05-12 04:05:14 --> Severity: Warning --> Undefined array key "superadmin_restriction" /Applications/MAMP/htdocs/amelitian/application/controllers/Site.php 120
 ERROR - 2024-05-12 04:05:26 --> Could not find the language line "_expenses_for"
 ERROR - 2024-05-12 04:05:27 --> Severity: Warning --> Undefined variable $eventdata /Applications/MAMP/htdocs/amelitian/application/controllers/admin/Calendar.php 301
+ERROR - 2024-05-12 22:43:10 --> Severity: Warning --> Undefined array key "start_week" /Applications/MAMP/htdocs/amelitian/application/controllers/Site.php 108
+ERROR - 2024-05-12 22:43:10 --> Severity: Warning --> Undefined array key "base_url" /Applications/MAMP/htdocs/amelitian/application/controllers/Site.php 116
+ERROR - 2024-05-12 22:43:10 --> Severity: Warning --> Undefined array key "folder_path" /Applications/MAMP/htdocs/amelitian/application/controllers/Site.php 117
+ERROR - 2024-05-12 22:43:10 --> Severity: Warning --> Undefined array key "superadmin_restriction" /Applications/MAMP/htdocs/amelitian/application/controllers/Site.php 120
+ERROR - 2024-05-12 22:43:24 --> Could not find the language line "_expenses_for"
+ERROR - 2024-05-12 22:43:25 --> Severity: Warning --> Undefined variable $eventdata /Applications/MAMP/htdocs/amelitian/application/controllers/admin/Calendar.php 301
+ERROR - 2024-05-12 22:45:34 --> Could not find the language line "total_present"
+ERROR - 2024-05-12 22:45:34 --> Could not find the language line "total_late"
+ERROR - 2024-05-12 22:45:34 --> Could not find the language line "total_absent"
+ERROR - 2024-05-12 22:45:34 --> Could not find the language line "total_half_day"
+ERROR - 2024-05-12 22:45:34 --> Could not find the language line "total_holiday"
+ERROR - 2024-05-12 22:45:34 --> Could not find the language line "student_attendance_report"
+ERROR - 2024-05-12 22:45:34 --> Could not find the language line "date_month"
+ERROR - 2024-05-12 22:47:15 --> Could not find the language line "total_present"
+ERROR - 2024-05-12 22:47:15 --> Could not find the language line "total_late"
+ERROR - 2024-05-12 22:47:15 --> Could not find the language line "total_absent"
+ERROR - 2024-05-12 22:47:15 --> Could not find the language line "total_half_day"
+ERROR - 2024-05-12 22:47:15 --> Could not find the language line "total_holiday"
+ERROR - 2024-05-12 22:47:15 --> Could not find the language line "student_attendance_report"
+ERROR - 2024-05-12 22:47:15 --> Could not find the language line "date_month"

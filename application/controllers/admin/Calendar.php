@@ -299,6 +299,8 @@ class Calendar extends Admin_Controller
             }
 
             echo json_encode($eventdata);
+        }else{
+            echo json_encode(array());
         }
     }
 

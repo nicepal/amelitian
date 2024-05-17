@@ -28,7 +28,7 @@
     .stdivider{border-bottom: 2px solid #000;margin-top: 5px; margin-bottom: 5px;}
     .stlist{padding: 0; margin:0; list-style: none;}
     .stlist li{text-align: left;display: inline-block;width: 100%;padding: 0px 5px;}
-    .stlist li span{width:65%;float: right;}
+    .stlist li span{width:45%;float: right;}
     .stimg{width: 80px;height: 80px;}
     .stimg img{width: 100%;height: 80px;border-radius: 2px;display: block;}
     .img-circle {border-radius:16px;}
@@ -102,9 +102,18 @@ if (!empty($staff_value->image)) {
                         </div>
 
                     </td>
+                    <td>
+                    <?php if ($id_card[0]->enable_staff_barcode == 1) {
+?> <div class="signature">
+<img src="<?php echo $this->media_storage->getImageURL($staff_value->barcode); ?>" style="max-width: 80px; max-height:80px;"/>
+</div>
+<?php
+
+                            }?>
+                    </td>
                 </tr>
                 <tr>
-                    <td valign="top" style="text-align: center;">
+                    <td colspan="2" valign="top" style="text-align: center;">
                         <h4 style="margin:0; text-transform: uppercase;font-weight: bold; margin-top: 10px;"><?php echo $staff_value->name . " " . $staff_value->surname; ?></h4>
 
                            <?php if ($id_card[0]->enable_designation == 1) {
@@ -149,13 +158,8 @@ echo $dob = "";
 }
         ?>
                         </ul>
-                        <div class="signature">
-                            <img src="<?php echo base_url('uploads/staff_id_card/signature/' . $id_card[0]->sign_image); ?>" width="150" height="24" style="width: 150px; height: 24px;" /></div>
-                            <?php if ($id_card[0]->enable_staff_barcode == 1) { ?> 
-                                <div class="signature">
-                                    <img src="<?php echo $this->media_storage->getImageURL($staff_value->barcode); ?>" style="max-width: 90px; max-height:90px;"/>
-                                </div>
-                            <?php  } ?>
+                        <!-- <div class="signature"><img src="<?php echo base_url('uploads/staff_id_card/signature/' . $id_card[0]->sign_image); ?>" width="150" height="24" style="width: 150px; height: 24px;" /></div> -->
+                           
 
                     </td>
                 </tr>
@@ -184,55 +188,65 @@ foreach ($staffs as $staff_key => $staff_value) {
         $i++;
         ?>
             <td valign="top" class="width32">
-                <table cellpadding="0" cellspacing="0" width="100%" class="tc-container" style="background: #efefef;">
+                <table cellpadding="0" cellspacing="0" width="100%" class="tc-container" style="margin:5px;border:solid 1px #000;background: #efefef;">
                     <tr>
                         <td valign="top">
                             <img src="<?php echo base_url('uploads/staff_id_card/background/' . $id_card[0]->background); ?>" class="tcmybg" /></td>
                     </tr>
                     <tr>
-                        <td valign="top">
+                        <td colspan="2" valign="top">
                             <div class="studenttop" style="background: <?php echo $id_card[0]->header_color ?>">
-                                <div class="sttext1"><img src="<?php echo base_url('uploads/staff_id_card/logo/' . $id_card[0]->logo); ?>" width="30" height="30" />
-                                    <?php echo $id_card[0]->school_name ?></div>
+                                <div class="sttext1" style="font-size:14px;color:#ff0000;">
+                                    <img src="<?php echo base_url('uploads/staff_id_card/logo/' . $id_card[0]->logo); ?>" width="30" height="30" />
+                                    <?php echo $id_card[0]->school_name ?>
+                                </div>
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <td valign="top" align="center" style="padding: 1px 0; position: relative; z-index: 1">
+                        <td colspan="2" valign="top" align="center" style="padding: 1px 0; position: relative; z-index: 1;color:#000;">
                             <p>  <?php echo $id_card[0]->school_address ?></p>
                         </td>
                     </tr>
                     <tr>
-                        <td valign="top" style="color: #fff;font-size: 16px; padding: 2px 0 0; position: relative; z-index: 1;background: <?php echo $id_card[0]->header_color ?>;text-transform: uppercase;"><?php echo $id_card[0]->title ?></td>
+                        <td colspan="2" valign="top" style=";font-size: 16px; padding: 2px 0 0;border-top:solid 1px #000; position: relative; z-index: 1;background: <?php echo $id_card[0]->header_color ?>;text-transform: uppercase;">
+                           <span class="background:#000;color:yellow; width:auto;display:block;"><?php echo $id_card[0]->title ?></span> 
+                        </td>
                     </tr>
                     <tr>
-                        <td valign="top">
+                        <td>
+                            <div class="stimg">
+
+                            <img src="<?php
+                            if (!empty($staff_value->image)) {
+                                echo base_url() . "uploads/staff_images/" . $staff_value->image;
+                            } else {
+
+                                if ($staff_value->gender == 'Female') {
+                                    echo base_url() . "uploads/staff_images/default_female.jpg";
+                                } elseif ($staff_value->gender == 'Male') {
+                                    echo base_url() . "uploads/staff_images/default_male.jpg";
+                                }
+
+                            }
+                            ?>" class="img-responsive" style="margin:auto;display:block;" />
+
+
+                        </div>
+                        </td>
+                        <td>
+                        <?php if ($id_card[0]->enable_staff_barcode == 1) { ?> 
+                            <div class="signature">
+                                <img src="<?php echo $this->media_storage->getImageURL($staff_value->barcode); ?>" style="max-width: 80px; max-height:80px;"/>
+                            </div>
+                        <?php  } ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" valign="top">
                             <div class="staround">
-                                <div class="cardleft">
-                                    <div class="stimg">
-
-                                     <img src="<?php
-if (!empty($staff_value->image)) {
-            echo base_url() . "uploads/staff_images/" . $staff_value->image;
-        } else {
-
-            if ($staff_value->gender == 'Female') {
-                echo base_url() . "uploads/staff_images/default_female.jpg";
-            } elseif ($staff_value->gender == 'Male') {
-                echo base_url() . "uploads/staff_images/default_male.jpg";
-            }
-
-        }
-        ?>" class="img-responsive" />
-        
-        <?php if ($id_card[0]->enable_staff_barcode == 1) {?>
-                               
-                                <div class="barcodeimg center-block" style="width: 90%;margin:0 auto"><img src="<?php echo $this->media_storage->getImageURL($staff_value->barcode); ?>" style="max-width: 65px; margin: 0 auto; height:auto;"/></div>
-                           <?php }?>
-
-                                    </div>
-                                </div><!--./cardleft-->
-                                <div class="cardright">
+                                
+                                <div class="">
                                     <ul class="stlist">
                                         <?php if ($id_card[0]->enable_name == 1) {?><li><?php echo $this->lang->line('staff'); ?> <?php echo $this->lang->line('name'); ?><span> <?php echo $staff_value->name; ?> <?php echo $staff_value->surname; ?></span></li><?php }?>
                                         <?php if ($id_card[0]->enable_staff_id == 1) {?><li><?php echo $this->lang->line('staff_id'); ?><span> <?php echo $staff_value->employee_id; ?></span></li><?php }?>
@@ -244,28 +258,29 @@ if (!empty($staff_value->image)) {
                                         <?php if ($id_card[0]->enable_permanent_address == 1) {?><li class="stred"><?php echo $this->lang->line('address'); ?><span><?php echo $staff_value->local_address; ?></span></li><?php }?>
                                         <?php if ($id_card[0]->enable_staff_phone == 1) {?><li><?php echo $this->lang->line('phone'); ?><span><?php echo $staff_value->contact_no; ?></span></li><?php }?>
                                         <?php
-                                        if ($id_card[0]->enable_staff_dob == 1) { ?>
+if ($id_card[0]->enable_staff_dob == 1) {
+            ?>
                                             <li><?php echo $this->lang->line('date_of_birth'); ?>
                                                 <span>
                                                     <?php
-                                                echo $dob = "";
-                                                            if ($staff_value->dob != "0000-00-00") {
-                                                                $dob = date($this->customlib->getSchoolDateFormat(), $this->customlib->dateYYYYMMDDtoStrtotime($staff_value->dob));
-                                                            }
-                                                            echo $dob;
-                                                            ?>
-                                                                                                </span></li>
-                                                                                            <?php
-                                                }
-                                            ?>
+echo $dob = "";
+            if ($staff_value->dob != "0000-00-00") {
+                $dob = date($this->customlib->getSchoolDateFormat(), $this->customlib->dateYYYYMMDDtoStrtotime($staff_value->dob));
+            }
+            echo $dob;
+            ?>
+                                                </span></li>
+                                            <?php
+}
+        ?>
                                     </ul>
                                 </div><!--./cardright-->
                             </div><!--./staround-->
                         </td>
                     </tr>
-                    <tr>
-                        <td valign="top" align="right" class="principal"><img src="<?php echo base_url('uploads/staff_id_card/signature/' . $id_card[0]->sign_image); ?>" width="66" height="40" /></td>
-                    </tr>
+                    <!-- <tr> -->
+                        <!-- <td valign="top" align="right" class="principal"><img src="<?php echo base_url('uploads/staff_id_card/signature/' . $id_card[0]->sign_image); ?>" width="66" height="40" /></td> -->
+                    <!-- </tr> -->
                 </table>
             </td>
             <?php

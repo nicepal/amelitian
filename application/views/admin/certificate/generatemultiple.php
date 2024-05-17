@@ -81,9 +81,9 @@ if($id_card[0]->enable_vertical_card)
                             <tr>
                             <td valign="top">
                                     <div style="color: #ff0000;position: relative; z-index: 1; text-align: center;vertical-align: top">
-                                        <div class="sttext1" style="font-size: 14px;line-height: 8px;"><img style="vertical-align: middle; width: 30px;" src="<?php echo $this->media_storage->getImageURL('uploads/student_id_card/logo/'.$id_card[0]->logo); ?>" width="30" height="24">  
+                                        <div class="sttext1" style="font-size: 12px;line-height: 8px;"><img style="vertical-align: middle; width: 30px;" src="<?php echo $this->media_storage->getImageURL('uploads/student_id_card/logo/'.$id_card[0]->logo); ?>" width="30" height="24">  
                                             <?php echo $id_card[0]->school_name; ?> 
-                                            <p style="color:blue;font-size:11px;">
+                                            <p style="color:blue;font-size:11px;margin-top:5px;">
                                                 Affiliated to CBSE, New Dehli
                                             </p>
                                         </div>

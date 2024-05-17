@@ -73,7 +73,7 @@ if($id_card[0]->enable_vertical_card)
         foreach ($students as $student) {
             $i++;
             ?>
-            <td valign="top" class="width42">
+            <td valign="top" class="width32">
              <table cellpadding="0" cellspacing="0" width="100%" style="background: <?php echo $id_card[0]->header_color; ?>;">
                 <tr>
                     <td valign="top" style="text-align: center;color: #fff;padding: 5px 5px;min-height: 110px;display: block; text-align: center">
@@ -81,9 +81,9 @@ if($id_card[0]->enable_vertical_card)
                             <tr>
                             <td valign="top">
                                     <div style="color: #ff0000;position: relative; z-index: 1; text-align: center;vertical-align: top">
-                                        <div class="sttext1" style="font-size: 16px;line-height: 8px;"><img style="vertical-align: middle; width: 30px;" src="<?php echo $this->media_storage->getImageURL('uploads/student_id_card/logo/'.$id_card[0]->logo); ?>" width="30" height="24">  
+                                        <div class="sttext1" style="font-size: 14px;line-height: 8px;"><img style="vertical-align: middle; width: 30px;" src="<?php echo $this->media_storage->getImageURL('uploads/student_id_card/logo/'.$id_card[0]->logo); ?>" width="30" height="24">  
                                             <?php echo $id_card[0]->school_name; ?> 
-                                            <p style="color:blue;font-size:12px;">
+                                            <p style="color:blue;font-size:11px;">
                                                 Affiliated to CBSE, New Dehli
                                             </p>
                                         </div>
@@ -92,7 +92,7 @@ if($id_card[0]->enable_vertical_card)
                                 </td>
                             </tr>
                             <tr>
-                                <td valign="top" class="overflow-wrap" style="color: #000;font-weight:bold;text-align: center;"><?php echo $id_card[0]->school_address; ?></td>
+                                <td valign="bottom" class="overflow-wrap" style="color: #000;font-weight:bold;text-align: center;margin-top:10px;font-size:11px;padding-top:5px;"><?php echo $id_card[0]->school_address; ?></td>
                             </tr>
                         </table>
                     </td>
@@ -125,7 +125,7 @@ if($id_card[0]->enable_vertical_card)
                                                         ?>" class="img-responsive img-circle block-center" style="border-radius: 8px; border:3px solid <?php echo $id_card[0]->header_color; ?>">
                                     </div>
                                 </td>
-                                <td style="text-align:center;">
+                                <td style="text-align:left;">
                                     <?php if ($id_card[0]->enable_student_barcode == 1) { ?>
                                     <!-- <div class="signature"> -->
                                         <img src="<?php echo $this->media_storage->getImageURL($student->barcode); ?>" style="max-width: 90px; margin: 0 auto; height:auto" />
@@ -206,7 +206,7 @@ if($id_card[0]->enable_vertical_card)
         foreach ($students as $student) {
             $i++;
             ?>
-            <td valign="top" class="width42">
+            <td valign="top" class="width32">
                 <table cellpadding="0" cellspacing="0" width="100%" class="tc-container" style="background: #efefef;">
                     <tr>
                         <td valign="top">

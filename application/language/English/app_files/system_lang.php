@@ -1646,3 +1646,5 @@ $lang['design_type'] = "Design Type";
 $lang['barcode'] = "Barcode";
 $lang['id_card_scan_code'] = "ID Card Scan Code";
 $lang['scan_type'] = "Scan type";
+$lang['type_of_admission'] = "Admission Type";
+$lang['class & section'] = "Class & Section";

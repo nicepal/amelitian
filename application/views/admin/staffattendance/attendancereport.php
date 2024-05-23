@@ -29,7 +29,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('role'); ?></label>
-                                        <select  id="role" name="role" class="form-control" >
+                                        <select  required="required" id="role" name="role" class="form-control" >
                                             <option value="select"><?php echo $this->lang->line('select'); ?></option>
                                             <?php
                                             foreach ($role as $role_key => $value) {
@@ -50,7 +50,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('month'); ?></label><small class="req"> *</small>
-                                        <select  id="month" name="month" class="form-control" >
+                                        <select  required="required" id="month" name="month" class="form-control" >
                                             <option value=""><?php echo $this->lang->line('select'); ?></option>
                                             <?php
                                             foreach ($monthlist as $m_key => $month) {
@@ -71,7 +71,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('year'); ?></label>
-                                        <select  id="year" name="year" class="form-control" >
+                                        <select required="required"  id="year" name="year" class="form-control" >
                                             <option value=""><?php echo $this->lang->line('select'); ?></option>
                                             <?php
                                             foreach ($yearlist as $y_key => $year) {

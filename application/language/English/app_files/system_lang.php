@@ -1648,3 +1648,5 @@ $lang['id_card_scan_code'] = "ID Card Scan Code";
 $lang['scan_type'] = "Scan type";
 $lang['type_of_admission'] = "Admission Type";
 $lang['class & section'] = "Class & Section";
+$lang['out_pass'] = "Out Pass";
+$lang['in_pass'] = "In Pass";

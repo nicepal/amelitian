@@ -1650,3 +1650,5 @@ $lang['type_of_admission'] = "Admission Type";
 $lang['class & section'] = "Class & Section";
 $lang['out_pass'] = "Out Pass";
 $lang['in_pass'] = "In Pass";
+$lang['in_out'] = "In Out";
+$lang['previous_session_balance'] = "Previous Session Balance";

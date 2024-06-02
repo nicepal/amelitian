@@ -106,6 +106,8 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 <th class="text text-right"><?php echo $this->lang->line('fine'); ?> <span><?php echo "(" . $currency_symbol . ")"; ?></span></th>
 
                                                 <th class="text-right"><?php echo $this->lang->line('balance'); ?> <span><?php echo "(" . $currency_symbol . ")"; ?></span></th>
+                                                <th class="text-right"><?php echo $this->lang->line('previous_session_balance'); ?> <span><?php echo "(" . $currency_symbol . ")"; ?></span></th>
+
                                             </tr>
                                         </thead>  
                                         <tbody> 
@@ -119,7 +121,6 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 // $grand_total=array();
                                                 // die(print_r($resultarray));
                                                 foreach ($resultarray as $key => $value) {
-
 
                                                     $class = $value[0]['class_name'];
                                                     foreach ($value as $key => $section) {
@@ -136,18 +137,20 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                         $discountlabel = array();
                                                         $finelabel = array();
                                                         $balancelabel = array();
+
                                                         $father_phone = array();
                                                         $mother_phone = array();
                                                         $guardian_phone = array();
                                                         $guardian_name = array();
                                                         foreach ($section['result'] as $students) {
+                                                            
                                                             $admission_no[] = $students->admission_no;
                                                             $name[] = $students->name;
                                                             $roll_no[] = $students->roll_no;
                                                             $category[] = $students->category;
                                                             $mobileno[] = $students->mobileno;
-                                                            $father_name[] = $students->father_name;
-                                                            $father_phone[] = $students->father_phone;
+                                                            $father_name[] = $students->father_name??'';
+                                                            $father_phone[] = $students->father_phone??'';
 
                                                             $mother_phone[] = $students->mother_phone;
                                                             $mother_name[]  = $students->mother_name;
@@ -164,6 +167,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                             $finelabel[] = number_format($students->fine, 2, '.', '');
 
                                                             $balancelabel[] = $students->balance;
+                                                            $old_balancelabel[] = $previousFeeRecords[$students->admission_no]->balance??0;
                                                         }
 
                                                         if (!empty($balancelabel)) {
@@ -258,6 +262,10 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                                             <tr><td ><?php echo $balancelabel_detail; ?></td><tr>
                                                                 <?php }
                                                                 ?></table></td>
+                                                                <td class="text-right"><table width="100%"><?php foreach ($old_balancelabel as $old_balancelabel_detail) { ?>
+                                                                            <tr><td ><?php echo $old_balancelabel_detail; ?></td><tr>
+                                                                <?php }
+                                                                ?></table></td>
                                                             </tr>
                                                             <tr class="box box-solid total-bg">
                                                                 <td></td>
@@ -277,8 +285,9 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                                 <td class="text-right"><?php echo array_sum($totalfeelabel); ?></td>
                                                                 <td class="text-right"><?php echo array_sum($depositfeelabel); ?></td>
                                                                 <td class="text-right"><?php echo array_sum($discountlabel); ?></td>
-                                                                    <td class="text-right"><?php echo array_sum($finelabel); ?></td>
+                                                                <td class="text-right"><?php echo array_sum($finelabel); ?></td>
                                                                 <td class="text-right"><?php echo array_sum($balancelabel); ?></td>
+                                                                <td class="text-right"><?php echo array_sum($old_balancelabel); ?></td>
                                                             </tr>
                                                             <?php
                                                             $class = '';
@@ -310,6 +319,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                         <td class="text-right"><?php echo array_sum($grand_discount); ?></td>
                                                         <td class="text-right"><?php echo array_sum($grand_fine); ?></td>
                                                         <td class="text-right"><?php echo array_sum($grand_balance); ?></td>
+                                                        <td></td>
                                                     </tr>
         <?php } ?>
                                             </tbody> 

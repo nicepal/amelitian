@@ -129,6 +129,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 
                                             $newBalance = 0;
                                             $newTotalFeePaid = 0;
+                                            $total_fees_fine_amount = 0;
                                             foreach ($student_due_fee as $key => $fee) {
 
                                                 foreach ($fee->fees as $fee_key => $fee_value) {
@@ -144,15 +145,15 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                     }
                                                     if (($fee_value->due_date != "0000-00-00" && $fee_value->due_date != NULL) && (strtotime($fee_value->due_date) < strtotime(date('Y-m-d')))) {
                                                         $fees_fine_amount=$fee_value->fine_amount;
-                                                        $total_fees_fine_amount=$total_fees_fine_amount+$fee_value->fine_amount;
+                                                        // $total_fees_fine_amount=$total_fees_fine_amount+$fee_value->fine_amount;
                                                    }
     
                                                   
                                                     $total_amount = $total_amount + $fee_value->amount;
-                                                    $total_discount_amount = $total_discount_amount + $fee_discount;
-                                                    $total_deposite_amount += $total_deposite_amount + $fee_paid + $fee_discount;
-                                                    $total_fine_amount += $total_fine_amount + $fee_fine;
-                                                    $feetype_balance += $fee_value->amount - ($fee_paid);
+                                                    // $total_discount_amount = $total_discount_amount + $fee_discount;
+                                                    // $total_deposite_amount += $total_deposite_amount + $fee_paid + $fee_discount;
+                                                    // $total_fine_amount += $total_fine_amount + $fee_fine;
+                                                    // $feetype_balance += $fee_value->amount - ($fee_paid);
                                                     $total_balance_amount += $total_amount + $fee_paid;
                                                 }
                                              
@@ -160,7 +161,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 
                                           
                                             $newTotalFeePaid = $fee_paid + $fee_discount;
-                                            $newBalance = $fee->amount - $feetype_balance;
+                                            // $newBalance = $fee->amount - $feetype_balance;
                                             ?>
                                             <tr>
                                                 <td><?php echo $student['admission_no']; ?></td>

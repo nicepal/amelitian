@@ -44,10 +44,11 @@
     .cardleft{width: 20%;float: left;}
     .cardright{width: 77%;float: right; }
     .width32{width: 32.55%; padding: 3px; float: left; height: 100%;}
-    .width42{width: 42.55%; padding: 10px; float: left; height: 100%;}
+    .width42{width: 42.55%; padding: 10px; float: left; height: 100%;border:solid 1px #000;margin-left:10px;}
     .signature{border:1px solid #ddd;display:block; text-align: center; padding: 5px 20px; margin-top: 2px;}
     .vertlist{padding: 0; margin:0; list-style: none;height: 129px;}
-    .vertlist li{text-align: left;display: inline-block;width: 100%; padding-bottom: 0px;color: #000;}
+    .vertlist li{text-align: left;display: inline-block;width: 100%; padding-bottom: 0px;color: #142073;
+    font-weight: bold;}
     .vertlist li span{width:55%;float: right;}
     .barcodeimg{display: block;margin-top: 2px;text-align: center;}
     .overflow-wrap {
@@ -72,28 +73,40 @@ if($id_card[0]->enable_vertical_card)
         foreach ($students as $student) {
             $i++;
             ?>
-            <td valign="top" class="width42">
+            <td valign="top" class="width32">
              <table cellpadding="0" cellspacing="0" width="100%" style="background: <?php echo $id_card[0]->header_color; ?>;">
                 <tr>
-                    <td valign="top" style="text-align: center;color: #fff;padding: 5px 5px;min-height: 94px;display: block; text-align: center">
-                        <table cellpadding="0" cellspacing="0" width="100%">
+                    <td valign="top" style="text-align: center;color: #fff;padding: 5px 5px;min-height: 110px;display: block; text-align: center">
+                        <table cellpadding="0" cellspacing="0" width="100%" style="border-bottom:solid 1px #000;padding-bottom:5px;">
                             <tr>
                             <td valign="top">
-                                    <div style="color: #fff;position: relative; z-index: 1; text-align: center;vertical-align: top">
-                                        <div class="sttext1" style="font-size: 16px;line-height: 8px;"><img style="vertical-align: middle; width: 30px;" src="<?php echo $this->media_storage->getImageURL('uploads/student_id_card/logo/'.$id_card[0]->logo); ?>" width="30" height="24">  <?php echo $id_card[0]->school_name; ?> 
+                                    <div style="color: #ff0000;position: relative; z-index: 1; text-align: center;vertical-align: top">
+                                        <div class="sttext1" style="font-size: 12px;line-height: 8px;"><img style="vertical-align: middle; width: 30px;" src="<?php echo $this->media_storage->getImageURL('uploads/student_id_card/logo/'.$id_card[0]->logo); ?>" width="30" height="24">  
+                                            <?php echo $id_card[0]->school_name; ?> 
+                                            <p style="color:blue;font-size:11px;margin-top:1px;">
+                                                Affiliated to CBSE, New Dehli
+                                            </p>
+                                        </div>
                                     </div>
-                                    </div>
+                                    
                                 </td>
                             </tr>
                             <tr>
-                                <td valign="top" class="overflow-wrap" style="color: #fff;text-align: center;"><?php echo $id_card[0]->school_address; ?></td>
+                                <td valign="bottom" class="overflow-wrap" style="color: #000;font-weight:bold;text-align: center;margin-top:10px;font-size:11px;padding-top:5px;"><?php echo $id_card[0]->school_address; ?></td>
                             </tr>
                         </table>
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" style="background: #fff">
+                    <td valign="top" style="background: #fff;">
                     <table cellpadding="0" cellspacing="0" width="100%" style="margin-top: -45px; position: relative;z-index: 1;">
+                    <tr>
+                                <td colspan="2" valign="top" style="text-align: center;">
+                                    <h4 style="margin:0; text-transform: uppercase;font-weight: bold; margin-top: 1.5px; background:#000000 !important;color:#919100;font-weight:bold;display:block;padding: 10px;width: 50%;text-align: center;margin: auto;"> 
+                                        STUDENT ID CARD 
+                                    </h4> 
+                                </td>
+                            </tr> 
                         <tr>
                                 <td valign="top">
                                     <div class="stimg center-block">
@@ -112,12 +125,15 @@ if($id_card[0]->enable_vertical_card)
                                                         ?>" class="img-responsive img-circle block-center" style="border-radius: 8px; border:3px solid <?php echo $id_card[0]->header_color; ?>">
                                     </div>
                                 </td>
-                            </tr>                
-                            <tr>
-                                <td valign="top" style="text-align: center;">
-                                    <h4 style="margin:0; text-transform: uppercase;font-weight: bold; margin-top: 6.5px;"> <?php echo $this->customlib->getFullName($student->firstname,$student->middlename,$student->lastname,$sch_settingdata->middlename,$sch_settingdata->lastname); ?></h4> 
+                                <td style="text-align:left;">
+                                    <?php if ($id_card[0]->enable_student_barcode == 1) { ?>
+                                    <!-- <div class="signature"> -->
+                                        <img src="<?php echo $this->media_storage->getImageURL($student->barcode); ?>" style="max-width: 90px; margin: 0 auto; height:auto" />
+                                    <!-- </div> -->
+                                    <?php } ?>
                                 </td>
-                            </tr>  
+                            </tr>                
+                             
                     </table> 
                     </td>
                 </tr>
@@ -129,12 +145,14 @@ if($id_card[0]->enable_vertical_card)
                                     <ul class="vertlist">                        
                                                     
                                                     <?php if ($id_card[0]->enable_admission_no == 1) { ?><li><?php echo $this->lang->line('admission_no'); ?><span> <?php echo $student->admission_no; ?></span></li><?php } ?>
-                                                    <?php if ($id_card[0]->enable_class == 1) { ?><li><?php echo $this->lang->line('class'); ?><span><?php echo $student->class . ' - ' . $student->section . " (" . $school['current_session']['session'] . ")"; ?></span></li><?php } ?>
+                                                    <?php if ($id_card[0]->enable_admission_no == 1) { ?><li><?php echo $this->lang->line('type_of_admission'); ?><span> <?php echo $student->category_id; ?></span></li><?php } ?>
+                                                    <?php if ($id_card[0]->enable_admission_no == 1) { ?><li><?php echo $this->lang->line('student_name'); ?><span> <?php echo $this->customlib->getFullName($student->firstname,$student->middlename,$student->lastname,$sch_settingdata->middlename,$sch_settingdata->lastname); ?></span></li><?php } ?>
+                                                    <?php if ($id_card[0]->enable_class == 1) { ?><li><?php echo $this->lang->line('class & section'); ?><span><?php echo $student->class . ' - ' . $student->section . " (" . $school['current_session']['session'] . ")"; ?></span></li><?php } ?>
+                                                    <!-- <?php if ($id_card[0]->enable_mothers_name == 1) { ?><li><?php echo $this->lang->line('mother_name')?><span><?php echo $student->mother_name; ?></span></li><?php } ?> -->
+                                                    <!-- <?php if ($id_card[0]->enable_address == 1) { ?><li class="overflow-wrap"><?php echo $this->lang->line('address')?><span><?php echo $student->current_address; ?></span></li><?php } ?> -->
                                                     <?php if ($id_card[0]->enable_fathers_name == 1) { ?><li><?php echo $this->lang->line('father_name'); ?><span><?php echo $student->father_name; ?></span></li><?php } ?>
-                                                    <?php if ($id_card[0]->enable_mothers_name == 1) { ?><li><?php echo $this->lang->line('mother_name')?><span><?php echo $student->mother_name; ?></span></li><?php } ?>
-                                                    <?php if ($id_card[0]->enable_address == 1) { ?><li class="overflow-wrap"><?php echo $this->lang->line('address')?><span><?php echo $student->current_address; ?></span></li><?php } ?>
                                                     <?php if ($id_card[0]->enable_phone == 1) { ?><li>Phone<span><?php echo $student->mobileno; ?></span></li><?php } ?>
-                                                    <?php
+                                                    <!-- <?php
                                                     if ($id_card[0]->enable_dob == 1) {
                                                         ?>
                                                     <li><?php echo $this->lang->line('d_o_b');?>
@@ -151,13 +169,13 @@ if($id_card[0]->enable_vertical_card)
                                                     }
                                                     ?>
 
-                                                    <?php if ($id_card[0]->enable_blood_group == 1) { ?><li class="stred"><?php echo $this->lang->line('blood_group'); ?><span><?php echo $student->blood_group; ?></span></li><?php } ?>
+                                                    <?php if ($id_card[0]->enable_blood_group == 1) { ?><li class="stred"><?php echo $this->lang->line('blood_group'); ?><span><?php echo $student->blood_group; ?></span></li><?php } ?> -->
                                     </ul>
-                                    <div class="signature" style="margin-bottom: 8px;"><img src="<?php echo $this->media_storage->getImageURL('uploads/student_id_card/signature/'.$id_card[0]->sign_image); ?>" width="150" height="24" style="width: 150px;" /></div>  
+                                    <!-- <div class="signature" style="margin-bottom: 8px;"><img src="<?php echo $this->media_storage->getImageURL('uploads/student_id_card/signature/'.$id_card[0]->sign_image); ?>" width="150" height="24" style="width: 150px;" /></div>   -->
 
-                                    <?php if ($id_card[0]->enable_student_barcode == 1) { ?>
-                                    <div class="signature"><img src="<?php echo $this->media_storage->getImageURL($student->barcode); ?>" style="max-width: 65px; margin: 0 auto; height:auto" /></div>
-                                    <?php } ?>
+                                    <!-- <?php if ($id_card[0]->enable_student_barcode == 1) { ?> -->
+                                    <!-- <div class="signature"><img src="<?php echo $this->media_storage->getImageURL($student->barcode); ?>" style="max-width: 65px; margin: 0 auto; height:auto" /></div> -->
+                                    <!-- <?php } ?> -->
                                     
                                 </td>
                             </tr>
@@ -188,7 +206,7 @@ if($id_card[0]->enable_vertical_card)
         foreach ($students as $student) {
             $i++;
             ?>
-            <td valign="top" class="width42">
+            <td valign="top" class="width32">
                 <table cellpadding="0" cellspacing="0" width="100%" class="tc-container" style="background: #efefef;">
                     <tr>
                         <td valign="top">

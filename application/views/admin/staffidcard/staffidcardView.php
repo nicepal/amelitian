@@ -126,6 +126,20 @@
                                         <label for="enable_staff_dob" class="label-success"></label>
                                     </div>
                                 </div>
+                                <div class="form-group switch-inline">
+                                    <label><?php echo $this->lang->line('design_type'); ?></label>
+                                    <div class="material-switch switchcheck">
+                                        <input id="enable_vertical_card" name="enable_vertical_card" type="checkbox" class="chk" value="1" <?php echo set_checkbox('enable_vertical_card', '1', (set_value('enable_vertical_card') == 1) ? true : false); ?>>
+                                        <label for="enable_vertical_card" class="label-success"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group switch-inline">
+                                    <label><?php echo $this->lang->line('barcode'); ?> / <?php echo $this->lang->line('qrcode'); ?></label>
+                                    <div class="material-switch switchcheck">
+                                        <input id="enable_staff_barcode" name="enable_staff_barcode" type="checkbox" class="chk" value="1" <?php echo set_checkbox('enable_staff_barcode', '1', (set_value('enable_staff_barcode') == 1) ? true : false); ?>>
+                                        <label for="enable_staff_barcode" class="label-success"></label>
+                                    </div>
+                                </div>
                             </div><!-- /.box-body -->
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-info pull-right"><?php echo $this->lang->line('save'); ?></button>

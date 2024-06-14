@@ -46,6 +46,9 @@ class Staffidcard extends Admin_Controller {
             $permanent_address = 0;
             $phone = 0;
             $dob = 0;
+            $vertical_card     = 0;
+            $staff_barcode     = 0;
+
             if ($this->input->post('is_active_staff_id') == 1) {
                 $staff_id = $this->input->post('is_active_staff_id');
             }
@@ -76,6 +79,14 @@ class Staffidcard extends Admin_Controller {
             if ($this->input->post('is_active_staff_dob') == 1) {
                 $dob = $this->input->post('is_active_staff_dob');
             }
+            if ($this->input->post('enable_staff_barcode') == 1) {
+                $staff_barcode = $this->input->post('enable_staff_barcode');
+            }
+            $enable_vertical_card = $this->input->post('enable_vertical_card');
+            if (isset($enable_vertical_card)) {
+                $vertical_card = 1;
+            }
+
             $data = array(
                 'title' => $this->input->post('title'),
                 'school_name' => $this->input->post('school_name'),
@@ -91,6 +102,8 @@ class Staffidcard extends Admin_Controller {
                 'enable_permanent_address' => $permanent_address,
                 'enable_staff_dob' => $dob,
                 'enable_staff_phone' => $phone,
+                'enable_vertical_card'     => $vertical_card,
+                'enable_staff_barcode'     => $staff_barcode,
                 'status' => 1,
             );
             $insert_id = $this->Staffidcard_model->addstaffidcard($data);
@@ -183,6 +196,9 @@ class Staffidcard extends Admin_Controller {
             $permanent_address = 0;
             $phone = 0;
             $dob = 0;
+            $vertical_card     = 0;
+            $staff_barcode     = 0;
+
             if ($this->input->post('is_active_staff_id') == 1) {
                 $staff_id = $this->input->post('is_active_staff_id');
             }
@@ -212,6 +228,14 @@ class Staffidcard extends Admin_Controller {
             }
             if ($this->input->post('is_active_staff_dob') == 1) {
                 $dob = $this->input->post('is_active_staff_dob');
+            }
+            if ($this->input->post('enable_staff_barcode') == 1) {
+                $staff_barcode = $this->input->post('enable_staff_barcode');
+            }
+
+            $enable_vertical_card = $this->input->post('enable_vertical_card');
+            if (isset($enable_vertical_card)) {
+                $vertical_card = 1;
             }
 
             if (!empty($_FILES['background_image']['name'])) {
@@ -285,6 +309,8 @@ class Staffidcard extends Admin_Controller {
                 'enable_permanent_address' => $permanent_address,
                 'enable_staff_dob' => $dob,
                 'enable_staff_phone' => $phone,
+                'enable_vertical_card'     => $vertical_card,
+                'enable_staff_barcode'     => $staff_barcode,
                 'status' => 1,
             );
             $this->Staffidcard_model->addstaffidcard($data);

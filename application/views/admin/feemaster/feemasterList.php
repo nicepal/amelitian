@@ -183,6 +183,7 @@
                                     <tbody>
                                         <?php
                                         foreach ($feemasterList as $feegroup) {
+                                            // dd($feegroup);
                                             ?>
                                             <tr>
                                                 <td class="mailbox-name">
@@ -195,6 +196,10 @@
                                                 <td class="mailbox-name">
                                                     <ul class="liststyle1">
                                                         <?php
+                                                        if(empty($feegroup->feetypes)){
+                                                            $feegroup->feetypes = $this->feegrouptype_model->getfeeTypeByGroup($feegroup->fee_groups_id);
+                                                        }
+
                                                         foreach ($feegroup->feetypes as $feetype_key => $feetype_value) {
                                                             ?>
                                                             <li> <i class="fa fa-money"></i>

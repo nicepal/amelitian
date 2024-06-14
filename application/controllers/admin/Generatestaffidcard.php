@@ -6,7 +6,10 @@ class Generatestaffidcard extends Admin_Controller {
     
     public function __construct() {
         parent::__construct();
+        $this->load->library('Customlib');
 		$this->sch_setting_detail = $this->setting_model->getSetting();
+        $this->load->library("media_storage");
+
     }
 
     public function index() {
@@ -64,11 +67,18 @@ class Generatestaffidcard extends Admin_Controller {
         $idcard = $this->input->post('id_card');
         $staffid_arr = array();
         $data['sch_setting'] = $this->setting_model->get();
+        $scan_type= $this->sch_setting_detail->scan_code_type;
         $data['id_card'] = $this->Generatestaffidcard_model->getidcardbyid($idcard);
         foreach ($staff_array as $key => $value) {
             $staffid_arr[] = $value->staff_id;
         }
-        $data['staffs'] = $this->Generatestaffidcard_model->getEmployee($staffid_arr,1);
+        $staffs = $this->Generatestaffidcard_model->getEmployee($staffid_arr, 1);
+
+        foreach ($staffs as $key => $staffs_value) {
+            $staffs[$key]->barcode = $this->customlib->generatestaffbarcode($staffs_value->employee_id,$scan_type);
+        }
+
+        $data['staffs'] = $staffs;
         $id_cards = $this->load->view('admin/generatestaffidcard/generatemultiplestaffidcard', $data, true);
         echo $id_cards;  
     }

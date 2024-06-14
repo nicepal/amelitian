@@ -562,7 +562,7 @@ if (!function_exists('dd')) {
 		if (function_exists('dump')) {
 			dump(...$args);
 		} else {
-			var_dump(...$args);
+			print_r(...$args);
 		}
 		die;
 	}

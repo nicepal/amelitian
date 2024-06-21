@@ -1,7 +1,7 @@
 <?php
 $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 ?>
- 
+
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
@@ -114,7 +114,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                             </thead>  
                                             <tbody> 
                                             <?php foreach($reports as $report){  ?>
-                                                <tr class="<?php echo isset($previousFeeRecords[$report->admission_no]->balance)?' alert alert-danger':''; ?>">
+                                                <tr <?php echo ($previousFeeRecords[$report->admission_no]->balance != 0)?'class="bg-danger text-danger"':''; ?>>
                                                     <td><?php echo $report->admission_no; ?></td>
                                                     <td><?php echo $report->name; ?></td>
                                                     <td><?php echo $report->category; ?></td>

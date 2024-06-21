@@ -107,7 +107,8 @@
                             </p>
                             <div class="progress-group">
                                 <div class="progress progress-minibar">
-                                    <div class="progress-bar progress-bar-yellow" style="width: <?php echo (0 + $attendence_data['total_half_day'] + $attendence_data['total_late'] + $attendence_data['total_present']/$total_students*100); ?>%"></div>
+                                    <div class="progress-bar progress-bar-yellow" style="width: 
+                                    <?php echo ($total_students > 0 )?(0 + $attendence_data['total_half_day'] + $attendence_data['total_late'] + $attendence_data['total_present']/$total_students*100):(0); ?>%"></div>
                                 </div>
                             </div>
                         </div><!--./topprograssstart-->

@@ -27,6 +27,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <select autofocus="" id="class_id" name="class_id" class="form-control" >
                                             <option value=""><?php echo $this->lang->line('select'); ?></option>
                                             <?php
+                                            $count = 0;
                                             foreach ($classlist as $class) {
                                                 ?>
                                                 <option value="<?php echo $class['id'] ?>" <?php if (set_value('class_id') == $class['id']) echo "selected=selected" ?>><?php echo $class['class'] ?></option>

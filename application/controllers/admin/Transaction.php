@@ -369,7 +369,7 @@ class Transaction extends Admin_Controller {
                 
                 // dd($student_Array);
                 // echo $this->db->last_query();
-                // dd($studentPreviouslist);
+                // dd($studentlist);
                 $previousFeeRecords = array();
                 if($student_Array){
                     foreach($student_Array->student_Array as $key => $val){
@@ -444,9 +444,9 @@ class Transaction extends Admin_Controller {
 
                        
 
-                        if ($obj->balance > 0) {
+                        // if ($obj->balance > 0) {
                             $student_Array[$className][] = $obj;
-                        }
+                        // }
                     }
                 }
                 $classlistdata[$value['class_id']][] = array('class_name' => $value['class'], 'section' => $value['section_id'], 'section_name' => $value['section'], 'result' => $student_Array);
@@ -464,7 +464,7 @@ class Transaction extends Admin_Controller {
             $data['feetype_arr'] = $feetype_arr;
             $data['previousFeeRecords'] = $previousFeeRecords;
         }
-    //   die(print_r($data['student_due_fee']));
+      
         $this->load->view('layout/header', $data);
         $this->load->view('admin/transaction/studentAcademicReportNew', $data);
         $this->load->view('layout/footer', $data);

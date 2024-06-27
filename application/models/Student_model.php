@@ -1104,7 +1104,11 @@ class Student_model extends MY_Model
 
     public function getPreviousSessionStudent($previous_session_id, $class_id, $section_id)
     {
-        $sql = "SELECT student_session.student_id as student_id, student_session.id as current_student_session_id, student_session.class_id as current_session_class_id ,previous_session.id as previous_student_session_id,students.firstname,students.middlename,students.lastname,students.admission_no,students.roll_no,students.father_name,students.admission_date FROM `student_session` left JOIN (SELECT * FROM `student_session` where session_id=$previous_session_id) as previous_session on student_session.student_id=previous_session.student_id INNER join students on students.id =student_session.student_id where student_session.session_id=$this->current_session and student_session.class_id=$class_id and student_session.section_id=$section_id and students.is_active='yes' ORDER BY students.firstname ASC";
+        $sql = "SELECT student_session.student_id as student_id, student_session.id as current_student_session_id, student_session.class_id as current_session_class_id ,previous_session.id as previous_student_session_id,students.firstname,students.middlename,students.lastname,students.admission_no,students.roll_no,students.father_name,students.admission_date FROM `student_session` left JOIN (SELECT * FROM `student_session` where session_id=$previous_session_id) as previous_session on student_session.student_id=previous_session.student_id INNER join students on students.id =student_session.student_id where student_session.session_id=$this->current_session and student_session.class_id=$class_id ";
+        if($section_id){
+            $sql .=" and student_session.section_id=$section_id ";
+        }
+        $sql .= "and students.is_active='yes' ORDER BY students.firstname ASC";
 
         $query = $this->db->query($sql);
         return $query->result();
@@ -1463,7 +1467,7 @@ class Student_model extends MY_Model
         return $this->db->select('class_id,section_id')->from('student_session')->where('session_id', $schoolsessionId)->where('student_id', $studentid)->get()->row_array();
     }
 
-    public function reportClassSection($class_id = null, $section_id = null)
+    public function reportClassSection($class_id = null, $section_id = null,$previous = false)
     {
 
         $i = 1;
@@ -1486,7 +1490,13 @@ class Student_model extends MY_Model
         $this->db->join('classes', 'student_session.class_id = classes.id');
         $this->db->join('sections', 'sections.id = student_session.section_id');
         $this->db->join('categories', 'students.category_id = categories.id', 'left');
-        $this->db->where('student_session.session_id', $this->current_session);
+        if($previous == false){
+            $this->db->where('student_session.session_id', $this->current_session);
+        }else{
+            $old_session_id = $this->session_model->getPreviousSession($this->current_session);
+          
+            $this->db->where('student_session.session_id', $old_session_id->id);
+        }
         $this->db->where('students.is_active', "yes");
 
         $this->db->where('student_session.class_id', $class_id);

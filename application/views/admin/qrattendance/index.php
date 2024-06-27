@@ -18,9 +18,34 @@
                         </div>
                     </div>
                     <div class="box-body">
+                        <?php 
+                            $current_time = date("H:i");
+                            $checked_in = '';
+                            $checked_out = '';
+                            echo $current_time.' Hello';
+                            if ($current_time >= "08:00" && $current_time <= "11:59") {
+                                $checked_in = ' checked="checked"';
+                            } else{ // 15:00 is 03:00 PM in 24-hour format
+                                $checked_out = ' checked="checked"';
+                            }
+                        ?>
+                    <div class="row">
+                                <div class="col-md-offset-4 col-md-2 form-check">
+                                    <input class="form-check-input" type="radio" <?php echo $checked_in; ?> name="options" id="optionIn" value="in" autocomplete="off">
+                                    <label class="form-check-label" for="optionIn">
+                                        In
+                                    </label>
+                                </div>
+                                <div class="col-md-2 form-check">
+                                    <input class="form-check-input" <?php echo $checked_out; ?> type="radio" name="options" id="optionOut" value="out" autocomplete="off">
+                                    <label class="form-check-label" for="optionOut">
+                                        Out
+                                    </label>
+                                </div>
+                            </div>
+
                         <div class="row qrcodediv row is-flex">
-
-
+                          
                             <div class="col-md-offset-2 col-lg-4 col-md-4 col-sm-12 mb-md">
                                  <div class="isbox">
                                     <div class="text text-center mb10 displaynone" id="qrbutton">
@@ -95,7 +120,8 @@
             type: "POST",
             url: base_url + "admin/qrattendance/attendance/getProfileDetail",
             data: {
-                'text': decodedText
+                'text': decodedText,
+                'in_out':$(".form-check-input:checked").val()
             },
             dataType: "json",
             beforeSend: function() {
@@ -209,7 +235,9 @@
             data: {
                 'attendance_for': attendance_for,
                 'record_id': record_id,
-                'attendence_type_id': attendence_type_id
+                'attendence_type_id': attendence_type_id,
+                'in_out':$(".form-check-input:checked").val()
+
             }, // serializes the _btn's elements.
             beforeSend: function() {
                 _btn.button('loading');
@@ -261,7 +289,9 @@
                 data: {
                     'attendance_for': attendance_for,
                     'record_id': record_id,
-                    'attendence_type_id': 1
+                    'attendence_type_id': 1,
+                    'in_out':$(".form-check-input:checked").val()
+
                 }, // serializes the _btn's elements.
                 beforeSend: function() {
                     $('.saving_loader').css("display", "block");

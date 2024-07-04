@@ -34,6 +34,7 @@ class Auth_model extends CI_Model
             $q = $this->checkLogin($username, $password);
         }else{
             return array('status' => 0, 'message' => 'Your account is suspended 3'); 
+
         }
         
         if (empty($q)) {
@@ -126,7 +127,9 @@ class Auth_model extends CI_Model
                             }
                         }
                     } else {
+
                         return array('status' => 0, 'message' => 'Your account is suspended 1');
+
                     }
                 } else if ($q->role == "parent") {
                     $login_post = array(
@@ -242,7 +245,8 @@ class Auth_model extends CI_Model
 
     public function checkLogin($username, $password)
     {
-        $resultdata    = $this->setting_model->get();
+        $resultdata    = $this->setting_model->get(1);
+    
         $student_login = json_decode($resultdata[0]['student_login']);
         $parent_login  = json_decode($resultdata[0]['parent_login']);
         

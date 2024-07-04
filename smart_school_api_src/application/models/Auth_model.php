@@ -20,9 +20,9 @@ class Auth_model extends CI_Model
         // $client_service = $this->input->get_request_header('Client-Service', true);
         // $auth_key       = $this->input->get_request_header('Auth-Key', true);
         // if ($client_service == $this->client_service && $auth_key == $this->auth_key) {
-        //     return true;
+            return true;
         // } else {
-            return json_output(200, array('status' => 0, 'message' => 'Unauthorized.'));
+            // return json_output(200, array('status' => 0, 'message' => 'Unauthorized.'));
         // }
     }
 
@@ -33,7 +33,7 @@ class Auth_model extends CI_Model
         if($resultdata->student_panel_login){
             $q = $this->checkLogin($username, $password);
         }else{
-            return array('status' => 0, 'message' => 'Your account is suspended'); 
+            return array('status' => 0, 'message' => 'Your account is suspended 1'); 
         }
         
         if (empty($q)) {
@@ -126,7 +126,7 @@ class Auth_model extends CI_Model
                             }
                         }
                     } else {
-                        return array('status' => 0, 'message' => 'Your account is suspended');
+                        return array('status' => 0, 'message' => 'Your account is suspended2');
                     }
                 } else if ($q->role == "parent") {
                     $login_post = array(
@@ -242,7 +242,8 @@ class Auth_model extends CI_Model
 
     public function checkLogin($username, $password)
     {
-        $resultdata    = $this->setting_model->get();
+        $resultdata    = $this->setting_model->get(1);
+    
         $student_login = json_decode($resultdata[0]['student_login']);
         $parent_login  = json_decode($resultdata[0]['parent_login']);
         

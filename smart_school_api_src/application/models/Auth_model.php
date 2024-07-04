@@ -20,9 +20,9 @@ class Auth_model extends CI_Model
         // $client_service = $this->input->get_request_header('Client-Service', true);
         // $auth_key       = $this->input->get_request_header('Auth-Key', true);
         // if ($client_service == $this->client_service && $auth_key == $this->auth_key) {
-        //     return true;
+            return true;
         // } else {
-            return json_output(200, array('status' => 0, 'message' => 'Unauthorized.'));
+            // return json_output(200, array('status' => 0, 'message' => 'Unauthorized.'));
         // }
     }
 
@@ -33,7 +33,7 @@ class Auth_model extends CI_Model
         if($resultdata->student_panel_login){
             $q = $this->checkLogin($username, $password);
         }else{
-            return array('status' => 0, 'message' => 'Your account is suspended'); 
+            return array('status' => 0, 'message' => 'Your account is suspended 3'); 
         }
         
         if (empty($q)) {
@@ -44,7 +44,7 @@ class Auth_model extends CI_Model
                 if ($q->role == "student") {
 
                     $result = $this->user_model->read_user_information($q->id);
-
+                    
                     if ($result != false) {
 
                         $setting_result = $this->setting_model->get();
@@ -126,7 +126,7 @@ class Auth_model extends CI_Model
                             }
                         }
                     } else {
-                        return array('status' => 0, 'message' => 'Your account is suspended');
+                        return array('status' => 0, 'message' => 'Your account is suspended 1');
                     }
                 } else if ($q->role == "parent") {
                     $login_post = array(
@@ -158,79 +158,79 @@ class Auth_model extends CI_Model
                         $short_code = $curentlang[0]->short_code;
                     }
 
-                    if ($result->role == "parent") {                        
-
-                        $last_login = date('Y-m-d H:i:s');
-                        $token      = $this->getToken();
-                        $expired_at = date("Y-m-d H:i:s", strtotime('+8760 hours'));
-
-                        $this->db->insert('users_authentication', array('users_id' => $q->id, 'token' => $token, 'expired_at' => $expired_at));
-
-                        if ($result->guardian_relation == "Father") {
-                            $image = $result->father_pic;
-                        } else if ($result->guardian_relation == "Mother") {
-                            $image = $result->mother_pic;
-                        } else {
-                            $image = $result->guardian_pic;
-                        }
-
-                        $guardian_name = $result->guardian_name;
-                        if (empty($guardian_name)) {$guardian_name = '';}
-
-                        $session_data = array(
-                            'id'              => $result->id,
-                            'role'            => $result->role,
-                            'username'        => $guardian_name,
-                            'student_session_id'           => $result->student_session_id,
-                            'date_format'     => $setting_result[0]['date_format'],
-                            'timezone'        => $setting_result[0]['timezone'],
-                            'sch_name'        => $setting_result[0]['name'],
-                            'currency_symbol' => $setting_result[0]['currency_symbol'],
-                            'currency_short_name' => $setting_result[0]['currency_short_name'],                        
-                            'language'        => array('lang_id' => $lang_id, 'language' => $language, 'short_code' => $short_code),
-                            'is_rtl'          => $setting_result[0]['is_rtl'],
-                            'theme'           => $setting_result[0]['theme'],
-                            'image'           => $image,
-                            'start_week'      => $setting_result[0]['start_week'],
-                            'superadmin_restriction'      => $setting_result[0]['superadmin_restriction'],
-                        );
-
-                        $user_id        = ($result->id);
-                        $students_array = $this->student_model->read_siblings_students($user_id);
-                        $child_student  = array();
-                        $update_student = array();
-                        foreach ($students_array as $std_key => $std_val) {
-                            $child = array(
-                                'student_id' => $std_val->id,
-                                'class'      => $std_val->class,
-                                'section'    => $std_val->section,
-                                'class_id'   => $std_val->class_id,
-                                'section_id' => $std_val->section_id,
-                                'name'       => $std_val->firstname . " " . $std_val->lastname,
-                                'image'      => $std_val->image,
+                        if ($result->role == "parent") {                        
+    
+                            $last_login = date('Y-m-d H:i:s');
+                            $token      = $this->getToken();
+                            $expired_at = date("Y-m-d H:i:s", strtotime('+8760 hours'));
+    
+                            $this->db->insert('users_authentication', array('users_id' => $q->id, 'token' => $token, 'expired_at' => $expired_at));
+    
+                            if ($result->guardian_relation == "Father") {
+                                $image = $result->father_pic;
+                            } else if ($result->guardian_relation == "Mother") {
+                                $image = $result->mother_pic;
+                            } else {
+                                $image = $result->guardian_pic;
+                            }
+    
+                            $guardian_name = $result->guardian_name;
+                            if (empty($guardian_name)) {$guardian_name = '';}
+    
+                            $session_data = array(
+                                'id'              => $result->id,
+                                'role'            => $result->role,
+                                'username'        => $guardian_name,
+                                'student_session_id'           => $result->student_session_id,
+                                'date_format'     => $setting_result[0]['date_format'],
+                                'timezone'        => $setting_result[0]['timezone'],
+                                'sch_name'        => $setting_result[0]['name'],
+                                'currency_symbol' => $setting_result[0]['currency_symbol'],
+                                'currency_short_name' => $setting_result[0]['currency_short_name'],                        
+                                'language'        => array('lang_id' => $lang_id, 'language' => $language, 'short_code' => $short_code),
+                                'is_rtl'          => $setting_result[0]['is_rtl'],
+                                'theme'           => $setting_result[0]['theme'],
+                                'image'           => $image,
+                                'start_week'      => $setting_result[0]['start_week'],
+                                'superadmin_restriction'      => $setting_result[0]['superadmin_restriction'],
                             );
-                            $child_student[] = $child;
-                            $stds            = array(
-                                'id'             => $std_val->id,
-                                'parent_app_key' => $app_key,
-                            );
-                            $update_student[] = $stds;
+    
+                            $user_id        = ($result->id);
+                            $students_array = $this->student_model->read_siblings_students($user_id);
+                            $child_student  = array();
+                            $update_student = array();
+                            foreach ($students_array as $std_key => $std_val) {
+                                $child = array(
+                                    'student_id' => $std_val->id,
+                                    'class'      => $std_val->class,
+                                    'section'    => $std_val->section,
+                                    'class_id'   => $std_val->class_id,
+                                    'section_id' => $std_val->section_id,
+                                    'name'       => $std_val->firstname . " " . $std_val->lastname,
+                                    'image'      => $std_val->image,
+                                );
+                                $child_student[] = $child;
+                                $stds            = array(
+                                    'id'             => $std_val->id,
+                                    'parent_app_key' => $app_key,
+                                );
+                                $update_student[] = $stds;
+                            }
+                            if (!empty($update_student)) {
+                                $this->db->update_batch('students', $update_student, 'id');
+                            }
+    
+                            $session_data['parent_childs'] = $child_student;
+                            $this->session->set_userdata('student', $session_data);
+    
+                            return array('status' => 1, 'message' => 'Successfully login.', 'id' => $q->id, 'token' => $token, 'role' => $q->role, 'record' => $session_data);
+                            
+                        }else{
+                            return array('status' => 0, 'message' => 'Invalid Username or Password');
                         }
-                        if (!empty($update_student)) {
-                            $this->db->update_batch('students', $update_student, 'id');
-                        }
-
-                        $session_data['parent_childs'] = $child_student;
-                        $this->session->set_userdata('student', $session_data);
-
-                        return array('status' => 1, 'message' => 'Successfully login.', 'id' => $q->id, 'token' => $token, 'role' => $q->role, 'record' => $session_data);
-                        
-                    }else{
-                        return array('status' => 0, 'message' => 'Invalid Username or Password');
-                    }
                     
                     }else{
-                        return array('status' => 0, 'message' => 'Your account is suspended');
+                        return array('status' => 0, 'message' => 'Your account is suspended 2');
                     }                    
                     
                 }

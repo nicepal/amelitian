@@ -31,10 +31,12 @@ class Event_model extends CI_Model
         return $query->result();
     }
 
-    public function getPublicEvents($student_login_id, $date_from, $date_to)
+    public function getPublicEvents($student_login_id, $date_from=null, $date_to=null)
     {
         $this->db->where("(event_type='public' OR (event_type='task' and event_for=" . $this->db->escape($student_login_id) . "))", null, false);
-        $this->db->where('start_date BETWEEN "' . $date_from . '" AND "' . $date_to . '" OR (event_type="public" OR (event_type="task" and event_for=' . $this->db->escape($student_login_id) . ')) AND "' . $date_from . '" BETWEEN start_date AND end_date');
+        if($date_from){
+            $this->db->where('start_date BETWEEN "' . $date_from . '" AND "' . $date_to . '" OR (event_type="public" OR (event_type="task" and event_for=' . $this->db->escape($student_login_id) . ')) AND "' . $date_from . '" BETWEEN start_date AND end_date');
+        }
         $query = $this->db->get('events');
         return $query->result();
     }

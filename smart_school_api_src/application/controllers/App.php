@@ -7,6 +7,7 @@ class App extends CI_Controller
 
     public function __construct()
     {
+       
         parent::__construct();
 
         $this->load->model('student_model');
@@ -16,8 +17,9 @@ class App extends CI_Controller
 
     public function index()
     {
+        
 
-        $resp['public_events'] = $this->event_model->getPublicEvents(5);
+        $resp['public_events'] = $this->event_model->getPublicEvents(5,null,null);
         $date_list             = array();
         foreach ($resp['public_events'] as &$ev_tsk_value) {
             $evt_array = array();

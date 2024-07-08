@@ -97,7 +97,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                     if ($sch_setting->father_name) { ?>
                                                         <th class="text text-left"><?php echo $this->lang->line('father_name'); ?></th>
                                                     <?php } ?>
-
+                                                    <th class="text text-left">Gander</th>
                                                     <th class="text text-left"><?php echo $this->lang->line('mother_name'); ?></th>
                                                     <th class="text text-left"><?php echo $this->lang->line('mother_phone'); ?></th>
                                                 
@@ -113,13 +113,15 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 </tr>
                                             </thead>  
                                             <tbody> 
-                                            <?php foreach($reports as $report){  ?>
+                                            <?php foreach($reports as $report){  
+                                                ?>
                                                 <tr <?php echo ($previousFeeRecords[$report->admission_no]->balance != 0)?'class="bg-danger text-danger"':''; ?>>
                                                     <td><?php echo $report->admission_no; ?></td>
                                                     <td><?php echo $report->name; ?></td>
                                                     <td><?php echo $report->category; ?></td>
                                                     <td><?php echo $report->mobileno; ?></td>
                                                     <td><?php echo $report->father_name; ?></td>
+                                                    <td><?php echo $report->gender; ?></td>
                                                     <td><?php echo $report->mother_name; ?></td>
                                                     <td><?php echo $report->mother_phone; ?></td>
                                                     <td><?php echo $report->totalfee; ?></td>

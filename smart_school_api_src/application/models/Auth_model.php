@@ -17,13 +17,13 @@ class Auth_model extends CI_Model
 
     public function check_auth_client()
     {
-        $client_service = $this->input->get_request_header('Client-Service', true);
-        $auth_key       = $this->input->get_request_header('Auth-Key', true);
-        if ($client_service == $this->client_service && $auth_key == $this->auth_key) {
+        // $client_service = $this->input->get_request_header('Client-Service', true);
+        // $auth_key       = $this->input->get_request_header('Auth-Key', true);
+        // if ($client_service == $this->client_service && $auth_key == $this->auth_key) {
             return true;
-        } else {
-            return json_output(200, array('status' => 0, 'message' => 'Unauthorized.'));
-        }
+        // } else {
+            // return json_output(200, array('status' => 0, 'message' => 'Unauthorized.'));
+        // }
     }
 
     public function login($username, $password, $app_key)
@@ -33,7 +33,7 @@ class Auth_model extends CI_Model
         if($resultdata->student_panel_login){
             $q = $this->checkLogin($username, $password);
         }else{
-            return array('status' => 0, 'message' => 'Your account is suspended'); 
+            return array('status' => 0, 'message' => 'Your account is suspended 1'); 
         }
         
         if (empty($q)) {
@@ -126,7 +126,7 @@ class Auth_model extends CI_Model
                             }
                         }
                     } else {
-                        return array('status' => 0, 'message' => 'Your account is suspended');
+                        return array('status' => 0, 'message' => 'Your account is suspended2');
                     }
                 } else if ($q->role == "parent") {
                     $login_post = array(
@@ -242,7 +242,8 @@ class Auth_model extends CI_Model
 
     public function checkLogin($username, $password)
     {
-        $resultdata    = $this->setting_model->get();
+        $resultdata    = $this->setting_model->get(1);
+    
         $student_login = json_decode($resultdata[0]['student_login']);
         $parent_login  = json_decode($resultdata[0]['parent_login']);
         
@@ -329,25 +330,25 @@ class Auth_model extends CI_Model
 
     public function auth()
     {
-        if ($this->security_authentication_flag) {
-            $users_id = $this->input->get_request_header('User-ID', true);
-            $token    = $this->input->get_request_header('Authorization', true);
-            $q        = $this->db->select('expired_at')->from('users_authentication')->where('users_id', $users_id)->where('token', $token)->get()->row();
-            if ($q == "") {
-                return json_output(401, array('status' => 401, 'message' => 'Unauthorized.'));
-            } else {
-                if ($q->expired_at < date('Y-m-d H:i:s')) {
-                    return json_output(401, array('status' => 401, 'message' => 'Your session has been expired.'));
-                } else {
-                    $updated_at = date('Y-m-d H:i:s');
-                    $expired_at = date("Y-m-d H:i:s", strtotime('+8760 hours'));
-                    $this->db->where('users_id', $users_id)->where('token', $token)->update('users_authentication', array('expired_at' => $expired_at, 'updated_at' => $updated_at));
-                    return array('status' => 200, 'message' => 'Authorized.');
-                }
-            }
-        } else {
+        // if ($this->security_authentication_flag) {
+        //     $users_id = $this->input->get_request_header('User-ID', true);
+        //     $token    = $this->input->get_request_header('Authorization', true);
+        //     $q        = $this->db->select('expired_at')->from('users_authentication')->where('users_id', $users_id)->where('token', $token)->get()->row();
+        //     if ($q == "") {
+        //         return json_output(401, array('status' => 401, 'message' => 'Unauthorized.'));
+        //     } else {
+        //         if ($q->expired_at < date('Y-m-d H:i:s')) {
+        //             return json_output(401, array('status' => 401, 'message' => 'Your session has been expired.'));
+        //         } else {
+        //             $updated_at = date('Y-m-d H:i:s');
+        //             $expired_at = date("Y-m-d H:i:s", strtotime('+8760 hours'));
+        //             $this->db->where('users_id', $users_id)->where('token', $token)->update('users_authentication', array('expired_at' => $expired_at, 'updated_at' => $updated_at));
+        //             return array('status' => 200, 'message' => 'Authorized.');
+        //         }
+        //     }
+        // } else {
             return array('status' => 200, 'message' => 'Authorized.');
-        }
+        // }
     }
 
 }

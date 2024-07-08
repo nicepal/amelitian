@@ -385,6 +385,7 @@ class Transaction extends Admin_Controller {
                         $obj->name = $this->customlib->getFullName($eachstudent['firstname'],$eachstudent['middlename'],$eachstudent['lastname'],$this->sch_setting_detail->middlename,$this->sch_setting_detail->lastname);
                         $obj->class = $eachstudent['class'];
                         $obj->section = $eachstudent['section'];
+                        $obj->gender = $eachstudent['gender'];
                         $obj->admission_no = $eachstudent['admission_no'];
                         $obj->roll_no = $eachstudent['roll_no'];
                         $obj->father_name = $eachstudent['father_name'];

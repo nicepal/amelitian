@@ -44,7 +44,7 @@ class Auth_model extends CI_Model
                 if ($q->role == "student") {
 
                     $result = $this->user_model->read_user_information($q->id);
-
+                 
                     if ($result != false) {
 
                         $setting_result = $this->setting_model->get();

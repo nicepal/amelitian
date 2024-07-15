@@ -12,7 +12,7 @@ class Setting_model extends CI_Model
         parent::__construct();
     }
 
-    public function get($id = null)
+    public function get($id = 1)
     {
         $this->db->select('sch_settings.id,sch_settings.lang_id,sch_settings.class_teacher,sch_settings.is_rtl,sch_settings.cron_secret_key, sch_settings.timezone,sch_settings.attendence_type,sch_settings.superadmin_restriction,
           sch_settings.name,sch_settings.email,sch_settings.phone,languages.language,languages.short_code,
@@ -90,7 +90,8 @@ class Setting_model extends CI_Model
 
     public function getCurrentSession()
     {
-        $session_result = $this->get();
+        $session_result = $this->get(1);
+        die(print_r($session_result));
         return $session_result[0]['session_id'];
     }
 

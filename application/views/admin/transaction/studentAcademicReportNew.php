@@ -72,7 +72,14 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                         <?php
                         if (isset($student_due_fee) && !empty($student_due_fee)) {
                             $i = 1;
-                            foreach($student_due_fee as $className => $reports){ ?>
+                            foreach($student_due_fee as $className => $reports){ 
+                                $totalFee = 0;
+                                $totalPaid = 0;
+                                $totalDiscount = 0;
+                                $totalFine = 0;
+                                $totalBalance = 0;
+                                $totalPrevious = 0;
+                                ?>
 
                             <div class="" id="transfee<?php echo $i; ?>">
                                 <div class="box-header ptbnull">
@@ -131,8 +138,26 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                     <td><?php echo $report->balance; ?></td>
                                                     <td><?php echo $previousFeeRecords[$report->admission_no]->balance??0; ?></td>
                                                 </tr>
-                                            <?php } ?>
-                                            
+                                            <?php 
+                                            $bl =  $previousFeeRecords[$report->admission_no]->balance??0;
+                                        $totalFee += $report->totalfee;
+                                        $totalPaid += $report->deposit;
+                                        $totalDiscount += $report->discount;
+                                        $totalFine += $report->fine;
+                                        $totalBalance += $report->balance;
+                                        $totalPrevious += $bl;
+                                        
+                                        } ?>
+                                            <tr>
+                                                <td colspan="8"></td>
+                                                <td><strong>Rs.<?php echo number_format($totalFee); ?></strong></td>
+                                                <td><strong>Rs.<?php echo number_format($totalPaid); ?></strong></td>
+                                                <td><strong>Rs.<?php echo number_format($totalDiscount); ?></strong></td>
+                                                <td><strong>Rs.<?php echo number_format($totalFine); ?></strong></td>
+                                                <td><strong>Rs.<?php echo number_format($totalBalance); ?></strong></td>
+                                                <td><strong>Rs.<?php echo number_format($bl); ?></strong></td>
+
+                                            </tr>
                                                 
                                             </tbody> 
                                         </table>

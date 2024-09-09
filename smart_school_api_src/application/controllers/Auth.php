@@ -14,7 +14,6 @@ class Auth extends CI_Controller
     public function login()
     {
         $method = $this->input->server('REQUEST_METHOD');
-
         if ($method != 'POST') {
             json_output(400, array('status' => 400, 'message' => 'Bad request.'));
         } else {

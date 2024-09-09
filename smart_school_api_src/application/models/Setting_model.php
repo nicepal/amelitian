@@ -19,9 +19,9 @@ class Setting_model extends CI_Model
           sch_settings.address,sch_settings.dise_code,sch_settings.date_format,sch_settings.currency,sch_settings.currency_symbol,sch_settings.start_month,sch_settings.session_id,sch_settings.start_week,sch_settings.lastname,sch_settings.middlename,sch_settings.fee_due_days,sch_settings.image,sch_settings.theme,sessions.session,sch_settings.student_login,sch_settings.parent_login,currencies.symbol as currency_symbol,currencies.base_price,currencies.short_name,currencies.short_name as currency_short_name,'
         );
         $this->db->from('sch_settings');
-        $this->db->join('sessions', 'sessions.id = sch_settings.session_id');
-        $this->db->join('languages', 'languages.id = sch_settings.lang_id');
-        $this->db->join('currencies', 'currencies.id = sch_settings.currency');
+        $this->db->join('sessions', 'sessions.id = sch_settings.session_id','left');
+        $this->db->join('languages', 'languages.id = sch_settings.lang_id','left');
+        $this->db->join('currencies', 'currencies.id = sch_settings.currency','left');
         if ($id != null) {
             $this->db->where('sch_settings.id', $id);
         } else {
@@ -91,6 +91,7 @@ class Setting_model extends CI_Model
     public function getCurrentSession()
     {
         $session_result = $this->get();
+  
         return $session_result[0]['session_id'];
     }
 
@@ -114,7 +115,7 @@ class Setting_model extends CI_Model
 
     public function getCurrentSessiondata()
     {
-        $session_result = $this->get();
+        $session_result = $this->get(1);
         return $session_result[0];
     }
 

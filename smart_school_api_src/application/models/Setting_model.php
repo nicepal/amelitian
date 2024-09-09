@@ -30,7 +30,7 @@ class Setting_model extends CI_Model
         $query = $this->db->get();
 
         if ($id != null) {
-            return $query->row_array();
+            return $query->result_array();
         } else {
             $session_array                = $this->session->has_userdata('session_array');
             $result                       = $query->result_array();
@@ -91,7 +91,6 @@ class Setting_model extends CI_Model
     public function getCurrentSession()
     {
         $session_result = $this->get(1);
-        die(print_r($session_result));
         return $session_result[0]['session_id'];
     }
 

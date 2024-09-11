@@ -110,7 +110,7 @@ if($id_card[0]->enable_vertical_card)
                                 <td valign="top">
                                     <div class="stimg center-block">
                                         <img src="<?php
-                                                        if (isValidImageUrl($this->media_storage->getImageURL($student->image))) {
+                                                        if (!empty($student->image) && isValidImageUrl($this->media_storage->getImageURL($student->image))) {
                                                             echo $this->media_storage->getImageURL($student->image);
                                                             // echo "../../".$student->image;
                                                         } else {

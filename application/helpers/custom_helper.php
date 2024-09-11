@@ -586,11 +586,28 @@ function getLocation()
     return $ipResult;
 }
 
+function isValidImageUrl($url) {
+    // Get headers from the URL
+    $headers = @get_headers($url);
+    
+    // Check if headers contain '200 OK' status code
+    if ($headers && strpos($headers[0], '200') !== false) {
+        // Check if the content type is an image
+        foreach ($headers as $header) {
+            if (strpos($header, 'Content-Type: image/') !== false) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
 function getAgentDetail()
 {
     $CI           = &get_instance();
 
-    $CI->load->library('user_agent');
+    // $CI->load->library('user_agent');
 
     $user_agent = "";
     if ($CI->agent->is_mobile('iphone')) {

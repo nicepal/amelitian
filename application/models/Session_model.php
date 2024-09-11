@@ -24,6 +24,12 @@ class Session_model extends MY_Model {
         }
     }
 
+    public function getPreviousSession($current_session){
+        $sql = "select * from sessions where id < ".$current_session.' order by id desc limit 1';
+        $query = $this->db->query($sql);
+        return $query->row();
+    }
+
     public function getAllSession() {
         $sql = "SELECT sessions.*, IFNULL(sch_settings.session_id, 0) as `active` FROM `sessions` LEFT JOIN sch_settings ON sessions.id=sch_settings.session_id";
         $query = $this->db->query($sql);

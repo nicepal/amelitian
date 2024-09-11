@@ -239,7 +239,7 @@
 
                                                                                 if ($exam_details->exam_group_type == "school_grade_system" || $exam_details->exam_group_type == "coll_grade_system") {
                                                                                     $percentage_grade = ($result->get_marks * 100) / $subject_value->max_marks;
-                                                                                    echo " (" . get_ExamGrade($exam_grades, $percentage_grade) . ")";
+                                                                                    //echo " (" . get_ExamGrade($exam_grades, $percentage_grade) . ")";
                                                                                 }
                                                                                 if ($exam_details->exam_group_type == "basic_system") {
 

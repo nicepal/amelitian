@@ -6,7 +6,7 @@ class MY_Model extends CI_Model {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('user_agent');
+        // $this->load->library('user_agent');
     }
 
     public function log($message = null, $record_id = null, $action = null) {

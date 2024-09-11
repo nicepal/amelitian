@@ -14,7 +14,7 @@ class Customlib
         $this->CI = &get_instance();
         $this->CI->load->helper('url');
         $this->CI->load->library('session');
-        $this->CI->load->library('user_agent');
+        // $this->CI->load->library('user_agent');
         $this->CI->load->model('Notification_model', '', true);
         $this->CI->load->model('Setting_model', '', true);
         $this->CI->load->model('Notificationsetting_model', '', true);

@@ -1420,7 +1420,7 @@ class Report extends Admin_Controller
             }
 
             $dates = " '" . $from_date . "' and '" . $to_date . "'";
-
+            
             $this->load->view('layout/header', $data);
             $this->load->view('reports/stuattendance', $data);
             $this->load->view('layout/footer', $data);

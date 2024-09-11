@@ -59,7 +59,6 @@
 <?php
 $school = $sch_setting[0];
 $i = 0;
-
 ?>
 <?php 
 if($id_card[0]->enable_vertical_card)
@@ -111,7 +110,7 @@ if($id_card[0]->enable_vertical_card)
                                 <td valign="top">
                                     <div class="stimg center-block">
                                         <img src="<?php
-                                                        if (!empty($student->image)) {
+                                                        if (is_file($student->image)) {
                                                             echo $this->media_storage->getImageURL($student->image);
                                                         } else {
 
@@ -127,9 +126,9 @@ if($id_card[0]->enable_vertical_card)
                                 </td>
                                 <td style="text-align:left;">
                                     <?php if ($id_card[0]->enable_student_barcode == 1) { ?>
-                                    <!-- <div class="signature"> -->
+                        
                                         <img src="<?php echo $this->media_storage->getImageURL($student->barcode); ?>" style="max-width: 90px; margin: 0 auto; height:auto" />
-                                    <!-- </div> -->
+                                 
                                     <?php } ?>
                                 </td>
                             </tr>                
@@ -148,34 +147,12 @@ if($id_card[0]->enable_vertical_card)
                                                     <?php if ($id_card[0]->enable_admission_no == 1) { ?><li><?php echo $this->lang->line('type_of_admission'); ?><span> <?php echo $student->category_id; ?></span></li><?php } ?>
                                                     <?php if ($id_card[0]->enable_admission_no == 1) { ?><li><?php echo $this->lang->line('student_name'); ?><span> <?php echo $this->customlib->getFullName($student->firstname,$student->middlename,$student->lastname,$sch_settingdata->middlename,$sch_settingdata->lastname); ?></span></li><?php } ?>
                                                     <?php if ($id_card[0]->enable_class == 1) { ?><li><?php echo $this->lang->line('class & section'); ?><span><?php echo $student->class . ' - ' . $student->section . " (" . $school['current_session']['session'] . ")"; ?></span></li><?php } ?>
-                                                    <!-- <?php if ($id_card[0]->enable_mothers_name == 1) { ?><li><?php echo $this->lang->line('mother_name')?><span><?php echo $student->mother_name; ?></span></li><?php } ?> -->
-                                                    <!-- <?php if ($id_card[0]->enable_address == 1) { ?><li class="overflow-wrap"><?php echo $this->lang->line('address')?><span><?php echo $student->current_address; ?></span></li><?php } ?> -->
+                                                  
                                                     <?php if ($id_card[0]->enable_fathers_name == 1) { ?><li><?php echo $this->lang->line('father_name'); ?><span><?php echo $student->father_name; ?></span></li><?php } ?>
                                                     <?php if ($id_card[0]->enable_phone == 1) { ?><li>Phone<span><?php echo $student->mobileno; ?></span></li><?php } ?>
-                                                    <!-- <?php
-                                                    if ($id_card[0]->enable_dob == 1) {
-                                                        ?>
-                                                    <li><?php echo $this->lang->line('d_o_b');?>
-                                                    <span>
-                                                                <?php
-                                                                echo $dob = "";
-                                                                if ((!empty($student->dob)) && ($student->dob != "0000-00-00")) {
-                                                                    $dob = date($this->customlib->getSchoolDateFormat(), $this->customlib->dateYYYYMMDDtoStrtotime($student->dob));
-                                                                }
-                                                                echo $dob;
-                                                                ?>
-                                                            </span></li>
-                                                        <?php
-                                                    }
-                                                    ?>
-
-                                                    <?php if ($id_card[0]->enable_blood_group == 1) { ?><li class="stred"><?php echo $this->lang->line('blood_group'); ?><span><?php echo $student->blood_group; ?></span></li><?php } ?> -->
+                                   
                                     </ul>
-                                    <!-- <div class="signature" style="margin-bottom: 8px;"><img src="<?php echo $this->media_storage->getImageURL('uploads/student_id_card/signature/'.$id_card[0]->sign_image); ?>" width="150" height="24" style="width: 150px;" /></div>   -->
-
-                                    <!-- <?php if ($id_card[0]->enable_student_barcode == 1) { ?> -->
-                                    <!-- <div class="signature"><img src="<?php echo $this->media_storage->getImageURL($student->barcode); ?>" style="max-width: 65px; margin: 0 auto; height:auto" /></div> -->
-                                    <!-- <?php } ?> -->
+                                  
                                     
                                 </td>
                             </tr>

@@ -116,8 +116,9 @@ class Generateidcard extends Admin_Controller
         $data['students']        = $students;
         
         $data['sch_settingdata'] = $this->sch_setting_detail;
-
+        
         $id_cards = $this->load->view('admin/certificate/generatemultiple', $data, true);
+        
         echo $id_cards;
     }
 

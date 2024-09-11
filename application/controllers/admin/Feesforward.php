@@ -36,6 +36,7 @@ class Feesforward extends Admin_Controller {
         $section_id = $this->input->post('section_id');
         if ($this->input->server('REQUEST_METHOD') == "POST") {
             $setting_result = $this->setting_model->get();
+            
             $current_session = $setting_result[0]['session_id'];
             $data['current_session'] = $current_session;
             $pre_session = $this->session_model->getPreSession($current_session);

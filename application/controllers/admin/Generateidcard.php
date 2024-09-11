@@ -70,7 +70,7 @@ class Generateidcard extends Admin_Controller
                     $resultlist           = $this->student_model->searchByClassSection($class, $section);
                     $data['resultlist']   = $resultlist;
                     $title                = $this->classsection_model->getDetailbyClassSection($data['class_id'], $data['section_id']);
-                    $data['title']        = 'Student Details for ' . $title['class'] . "(" . $title['section'] . ")";
+                    $data['title']        = 'Student Details for ' . ($title['class']??'-') . "(" . ($title['section']??'-') . ")";
                 }
             }
 

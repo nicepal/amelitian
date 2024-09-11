@@ -41,7 +41,9 @@ class Attendance extends MY_Addon_QRAttendanceController
         $admission_no = $this->input->post('text');
         $data['sch_setting']  = $this->setting_model->getSetting();
         $date = date('Y-m-d');
-        $student = $this->qrsetting_model->qrcode_attendance($admission_no, $date);
+        $in_out = $this->input->post('in_out');
+        
+        $student = $this->qrsetting_model->qrcode_attendance($admission_no, $date,$in_out);
     
         $data['student'] = $student;
         $msg = "";
@@ -79,6 +81,8 @@ class Attendance extends MY_Addon_QRAttendanceController
         $this->form_validation->set_rules('attendance_for', $this->lang->line('attendance_type'), 'required|trim|xss_clean');
         $this->form_validation->set_rules('record_id', $this->lang->line('attendance_type'), 'required|trim|xss_clean');
         $this->form_validation->set_rules('attendence_type_id', $this->lang->line('attendance_type'), 'required|trim|xss_clean');
+        $this->form_validation->set_rules('in_out', $this->lang->line('in_out'), 'required|trim|xss_clean');
+
         $data = array();
         $status="";
 
@@ -87,7 +91,8 @@ class Attendance extends MY_Addon_QRAttendanceController
             $data = array(
                 'attendance_for'               => form_error('attendance_for'),
                 'record_id'                    => form_error('record_id'),
-                'attendence_type_id'           => form_error('attendence_type_id')
+                'attendence_type_id'           => form_error('attendence_type_id'),
+                'in_out'                       => form_error('in_out')
             );
             $array = array('status' => 0, 'error' => $data);
             echo json_encode($array);
@@ -119,6 +124,7 @@ class Attendance extends MY_Addon_QRAttendanceController
                     'attendence_type_id'    => $this->input->post('attendence_type_id'),
                     'qrcode_attendance'     => 1,
                     'remark'                => '',
+                    'in_out'                => $this->input->post('in_out'),
                     'created_at'            => date('Y-m-d H:i:s'),
                     'biometric_device_data' => json_encode($biometric_device_data),
                     'user_agent' => getAgentDetail(),
@@ -136,6 +142,7 @@ class Attendance extends MY_Addon_QRAttendanceController
                     'staff_attendance_type_id'    => $this->input->post('attendence_type_id'),
                     'qrcode_attendance'  => 1,
                     'remark'                => '',
+                    'in_out'                => $this->input->post('in_out'),
                     'created_at'            => date('Y-m-d H:i:s'),
                     'biometric_device_data' => json_encode($biometric_device_data),
                     'user_agent' => getAgentDetail(),

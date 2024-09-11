@@ -110,10 +110,10 @@ if($id_card[0]->enable_vertical_card)
                                 <td valign="top">
                                     <div class="stimg center-block">
                                         <img src="<?php
-                                                        if (is_file($student->image)) {
-                                                            echo $this->media_storage->getImageURL($student->image);
+                                                        // if (is_file($student->image)) {
+                                                            // echo $this->media_storage->getImageURL($student->image);
                                                             // echo "../../".$student->image;
-                                                        } else {
+                                                        // } else {
 
                                                             if ($student->gender == 'Female') {
                                                                 echo $this->media_storage->getImageURL("uploads/student_images/default_female.jpg");
@@ -121,7 +121,7 @@ if($id_card[0]->enable_vertical_card)
                                                                 echo $this->media_storage->getImageURL("uploads/student_images/default_male.jpg");
                                                             }
 
-                                                        }
+                                                        // }
                                                         ?>" class="img-responsive img-circle block-center" style="border-radius: 8px; border:3px solid <?php echo $id_card[0]->header_color; ?>">
                                     </div>
                                 </td>

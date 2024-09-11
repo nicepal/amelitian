@@ -272,34 +272,27 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 <script type="text/javascript">
 
     var base_url = '<?php echo base_url() ?>';
-    function Popup(data)
-    {
+    function Popup(data) {
+    var frame1 = $('<iframe />', {
+        name: "frame1",
+        style: "position:absolute;top:-1000px"
+    });
 
-        var frame1 = $('<iframe />');
-        frame1[0].name = "frame1";
+    $("body").append(frame1);
+    var frameDoc = frame1[0].contentWindow || frame1[0].contentDocument.document || frame1[0].contentDocument;
 
-        $("body").append(frame1);
-        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
-        frameDoc.document.open();
-//Create a new HTML document.
-        frameDoc.document.write('<html>');
-        frameDoc.document.write('<head>');
-        frameDoc.document.write('<title></title>');
-// frameDoc.document.write('<link rel="stylesheet" href="' + base_url + 'backend/dist/css/idcard.css">');
+    frameDoc.document.open();
+    frameDoc.document.write('<html><head><title>Print</title>');
+    frameDoc.document.write('<link rel="stylesheet" href="' + base_url + 'backend/dist/css/idcard.css">');
+    frameDoc.document.write('</head><body>');
+    frameDoc.document.write(data);
+    frameDoc.document.write('</body></html>');
+    frameDoc.document.close();
 
-        frameDoc.document.write('</head>');
-        frameDoc.document.write('<body>');
-        frameDoc.document.write(data);
-        frameDoc.document.write('</body>');
-        frameDoc.document.write('</html>');
-        frameDoc.document.close();
-        setTimeout(function () {
-            window.frames["frame1"].focus();
-            window.frames["frame1"].print();
-            frame1.remove();
-        }, 500);
-
-
-        return true;
-    }
+    setTimeout(function () {
+        window.frames["frame1"].focus();
+        window.frames["frame1"].print();
+        frame1.remove();
+    }, 500);
+}
 </script>

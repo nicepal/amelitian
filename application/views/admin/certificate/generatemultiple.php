@@ -111,7 +111,8 @@ if($id_card[0]->enable_vertical_card)
                                     <div class="stimg center-block">
                                         <img src="<?php
                                                         if (is_file($student->image)) {
-                                                            echo $this->media_storage->getImageURL($student->image);
+                                                            // echo $this->media_storage->getImageURL($student->image);
+                                                            echo "../../".$student->image;
                                                         } else {
 
                                                             if ($student->gender == 'Female') {

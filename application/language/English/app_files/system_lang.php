@@ -1315,6 +1315,16 @@ $lang['confirm_msg'] = "Status changed";
 $lang['published'] = "Published";
 $lang['upto'] = "Upto";
 $lang['fees_reminder'] = "Fees Reminder";
+$lang['online_classes'] = "Online Classes";
+$lang['online_meeting'] = "Online Meeting";
+$lang['outpass'] = "Outpass";
+
+$lang['marks_template'] = "Marks Template";
+$lang['marks_publish'] = "Marks Publish";
+$lang['marks_for_1_to_5'] = "Marks for I and V";
+$lang['marks_for_6_to_10'] = "MARKS for VI to X";
+$lang['marks_for_6_to_10'] = "MARKS for XI to XII";
+
 $lang['mobile_app'] = "Mobile App";
 $lang['print_headerfooter'] = "Print Header Footer";
 $lang['content'] = "Content";

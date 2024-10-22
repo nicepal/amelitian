@@ -49,14 +49,14 @@
 
                             if ($this->rbac->hasPrivilege('visitor_book', 'can_view')) {
                                 ?>
-                                <li class="<?php echo set_Submenu('admin/visitors/in_passs'); ?>"><a href="<?php echo base_url(); ?>admin/visitors/in_pass"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('in_pass'); ?></a></li>
+                                <!-- <li class="<?php echo set_Submenu('admin/visitors/in_passs'); ?>"><a href="<?php echo base_url(); ?>admin/visitors/in_pass"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('in_pass'); ?></a></li> -->
 
                                 <?php
                             }
 
                             if ($this->rbac->hasPrivilege('visitor_book', 'can_view')) {
                                 ?>
-                                <li class="<?php echo set_Submenu('admin/visitors/out_pass'); ?>"><a href="<?php echo base_url(); ?>admin/visitors/out_pass"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('out_pass'); ?></a></li>
+                                <!-- <li class="<?php echo set_Submenu('admin/visitors/out_pass'); ?>"><a href="<?php echo base_url(); ?>admin/visitors/out_pass"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('out_pass'); ?></a></li> -->
 
                                 <?php
                             }

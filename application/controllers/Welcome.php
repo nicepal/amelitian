@@ -111,7 +111,8 @@ class Welcome extends Front_Controller
                     $response_message = $form['email_title']['mail_response'];
                     $record           = $this->input->post();
 
-                    if ($record['form_name'] == 'contact_us') {
+                    if ($record['form_name'] == 'contact_us') { 
+
                         $email     = $this->input->post('email');
                         $name      = $this->input->post('name');
                         $cont_data = array(
@@ -122,7 +123,7 @@ class Welcome extends Front_Controller
                             'date'    => date('Y-m-d'),
                             'note'    => $this->input->post('description') . " (Sent from online front site)",
                         );
-                        $visitor_id = $this->Visitors_model->add($cont_data);
+                        // $visitor_id = $this->Visitors_model->add($cont_data);
                     }
 
                     if ($record['form_name'] == 'complain') {

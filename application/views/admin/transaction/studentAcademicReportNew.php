@@ -21,7 +21,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                         <div class="box-body">
                             <?php echo $this->customlib->getCSRF(); ?>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('class'); ?><small class="req"> *</small></label>
                                         <select autofocus="" id="class_id" name="class_id" class="form-control" >
@@ -39,7 +39,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <span class="text-danger"><?php echo form_error('class_id'); ?></span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('section'); ?><small class="req"> *</small></label>
                                         <select  id="section_id" name="section_id" class="form-control" >
@@ -59,6 +59,22 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <span class="text-danger"><?php echo form_error('section_id'); ?></span>
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">From Date</label> <small class="req">*</small>
+                                        <input id="date" name="from_date" placeholder="" type="text" class="form-control date" value="<?php echo $from_date; ?>" readonly="readonly" autocomplete="off">
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">To Date</label> <small class="req">*</small>
+                                        <input id="date1" name="to_date" placeholder="" type="text" class="form-control date" value="<?php echo $to_date; ?>" readonly="readonly" autocomplete="off">
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                         <div class="box-footer">

@@ -211,7 +211,10 @@
                                         ?>
                                     <tr>
                                         <td><?php echo $student['roll_no'] ?></td>
-                                        <td><?php echo $student['admission_no'] ?></td>
+                                        <td><?php echo $student['admission_no'] ?>
+                                            <input type="hidden" name="student_name[<?php echo $student['onlineexam_student_id']; ?>]" value="<?php echo $student['firstname'] ?> <?php echo $student['lastname'] ?>">
+                                            <input type="hidden" name="class_name[<?php echo $student['onlineexam_student_id']; ?>]" value="<?php echo $student['class'] ?>">
+                                    </td>
                                         <td><?php echo $student['firstname'] ?> <?php echo $student['lastname'] ?></td>
                                         
                                         <?php foreach($examSubjects as $subject){ 
@@ -221,6 +224,10 @@
                                             ?>
                                             <td style="<?php echo ($resultInfo['attendence']??'' == "Absent")?('background-color:#ff00002e'):(''); ?>">
                                                 <input name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][internal]" value="<?php echo isset($resultInfo['internal_marks'])?($resultInfo['internal_marks']):('0'); ?>" type="text" class="form-control">
+                                                <input type="hidden" name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][subject]" value="<?php echo $subject['name'] ?>">
+                                                <input type="hidden" name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][guardian_phone]" value="<?php echo $student['guardian_phone'] ?>">
+                                                <input type="hidden" name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][student_id]" value="<?php echo $student['id'] ?>">
+
                                             </td>
                                             <td style="border-right:solid 1px #ccc;<?php echo ($resultInfo['attendence']??'' == "Absent")?('background-color:#ff00002e'):(''); ?>">
                                                 <input name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][external]" value="<?php echo isset($resultInfo['external_marks'])?($resultInfo['external_marks']):('0'); ?>"  type="text" class="form-control">

@@ -20,7 +20,11 @@
     <div class="col-md-12">
         <p class="lead_template"><?php echo $this->lang->line($record->type); ?></p>
         <input type="hidden" name="temp_id" value="<?php echo $record->id; ?>">
+       
         <div class="form-group">
+            <label for="form_message">Bulk SMS <?php echo $this->lang->line('template'); ?> ID</label>
+            <input type="text" class="form-control" name="template_id" value="<?php echo $record->template_id; ?>">
+            <br />
             <label for="form_message"><?php echo $this->lang->line('template'); ?></label>
             <textarea id="form_message" name="template_message" class="form-control" rows="7"><?php echo $record->template; ?></textarea>
             <div class="text text-danger template_message_error"></div>

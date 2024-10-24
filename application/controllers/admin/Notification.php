@@ -312,6 +312,7 @@ class Notification extends Admin_Controller
         if ($this->form_validation->run() == false) {
             $data = array(
                 'temp_id'          => form_error('temp_id'),
+                'template_id'          => form_error('template_id'),
                 'template_message' => form_error('template_message'),
             );
             $response = array('status' => 0, 'error' => $data);
@@ -320,6 +321,7 @@ class Notification extends Admin_Controller
             $data_update = array(
                 'id'       => $this->input->post('temp_id'),
                 'template' => $this->input->post('template_message'),
+                'template_id' => $this->input->post('template_id')
             );
             $this->notificationsetting_model->update($data_update);
             $response = array('status' => 1, 'message' => $this->lang->line('update_message'));

@@ -88,7 +88,8 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                     <div class="col-md-12">
                                         <div class="sfborder">  
                                             <div class="col-md-2">
-                                                <img width="115" height="115" class="round5" src="<?php echo base_url() . $student['image'] ?>" alt="No Image">
+                                                <a href="<?php echo base_url() . $student['image'] ?>" class="btn btn-primary box" style="margin-top:30px;" target="_blank">View Image</a>
+                                                <!-- <img width="115" height="115" class="round5" src="<?php echo base_url() . $student['image'] ?>" alt="No Image"> -->
                                             </div>
 
                                             <div class="col-md-10">

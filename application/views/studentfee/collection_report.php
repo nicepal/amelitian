@@ -146,7 +146,8 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 $student_class[] = $collect['class'] . " (" . $collect['section'] . ")";
                                                 $fees_type[] = $collect['type'];
                                                 $pay_mode[] = $collect['payment_mode'];
-                                                $note[] = $collect['description'];
+                                                $exp = explode("Collected By",$collect['description']);
+                                                $note[] = $exp[0];
                                                 $collection_by[] = $collect['received_byname']['name'] . " (" . $collect['received_byname']['employee_id'] . ")";
 
                                                 $amountLabel[] = number_format($collect['amount'], 2, '.', '');
@@ -322,6 +323,8 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 </div>  
 </section>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
 <iframe id="txtArea1" style="display:none"></iframe>
 
 <script>
@@ -337,6 +340,16 @@ if ($search_type == 'period') {
 }
 ?>
 
+function downloadExcel() {
+            // Get the table element
+            var table = document.getElementById("headerTable");
+
+            // Convert the table to a worksheet
+            var workbook = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
+
+            // Create the Excel file and download it
+            XLSX.writeFile(workbook, 'table.xlsx');
+        }
 
     document.getElementById("print").style.display = "block";
     document.getElementById("btnExport").style.display = "block";

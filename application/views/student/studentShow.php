@@ -52,7 +52,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                             <a class="" href="<?php echo base_url() . "student/view/" . $stvalue["id"] ?>">
                                                 <div class="icon">
 												<?php if($sch_setting->student_photo){?>
-												<img src="<?php
+												<!-- <img src="<?php
                                                     if (!empty($stvalue["image"])) {
                                                         echo base_url() . $stvalue["image"];
                                                     } else {
@@ -64,7 +64,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                         }
                                                        
                                                     }
-                                                    ?>" alt="User Image">
+                                                    ?>" alt="User Image"> -->
                                                 <?php } ?>
                                                 </div>
                                                 <div class="student-tittle"><?php echo $this->customlib->getFullName($stvalue['firstname'],$stvalue['middlename'],$stvalue['lastname'],$sch_setting->middlename,$sch_setting->lastname); ?></div></a>

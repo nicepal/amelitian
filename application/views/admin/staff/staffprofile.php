@@ -68,7 +68,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         ?>
                                         <div class="studentname">
                                             <a  href="<?php echo base_url() . "admin/staff/profile/" . $svalue["id"] ?>">
-                                                <div class="icon"><img src="<?php echo base_url() . "uploads/staff_images/" . $image; ?>" alt="User Image"></div>
+                                                <!-- <div class="icon"><img src="<?php echo base_url() . "uploads/staff_images/" . $image; ?>" alt="User Image"></div> -->
                                                 <div class="student-tittle"><?php echo $svalue['name'] . " " . $svalue['surname']; ?></div></a>
                                         </div>
                                         <?php

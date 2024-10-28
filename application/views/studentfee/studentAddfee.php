@@ -98,13 +98,20 @@ $language_name = $language["short_code"];
                             <div class="col-md-12">
                                 <div class="sfborder">
                                     <div class="col-md-2">
-                                        <img width="115" height="115" class="round5" src="<?php
+                                        <!-- <img width="115" height="115" class="round5" src="<?php
                                         if (!empty($student['image'])) {
                                             echo base_url() . $student['image'];
                                         } else {
                                             echo base_url() . "uploads/student_images/no_image.png";
                                         }
-                                        ?>" alt="No Image">
+                                        ?>" alt="No Image"> -->
+                                        <a href="<?php
+                                        if (!empty($student['image'])) {
+                                            echo base_url() . $student['image'];
+                                        } else {
+                                            echo base_url() . "uploads/student_images/no_image.png";
+                                        }
+                                        ?>" class="btn btn-primary box" style="margin-top:30px;" target="_blank">View Image</a>
                                     </div>
 
                                     <div class="col-md-10">

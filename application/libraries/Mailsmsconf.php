@@ -19,10 +19,9 @@ class Mailsmsconf {
     public function mailsms($send_for, $sender_details, $date = null, $exam_schedule_array = null) {
 
         $send_for = $this->config_mailsms[$send_for];
-
         $chk_mail_sms = $this->CI->customlib->sendMailSMS($send_for);
-
         if (!empty($chk_mail_sms)) {
+
             if ($send_for == "student_admission") {
                 if ($chk_mail_sms['mail'] && $chk_mail_sms['template'] != "") {
                     $this->CI->mailgateway->sentRegisterMail($sender_details['student_id'], $sender_details['email'], $chk_mail_sms['template']);
@@ -44,13 +43,12 @@ class Mailsmsconf {
                 }
             } elseif ($send_for == "fee_submission") {
 
-
+               
                 if ($chk_mail_sms['mail'] && $chk_mail_sms['template'] != "") {
                     $this->CI->mailgateway->sentAddFeeMail($sender_details, $chk_mail_sms['template']);
                 }
 
                 if ($chk_mail_sms['sms'] && $chk_mail_sms['template'] != "") {
-
                     $this->CI->smsgateway->sentAddFeeSMS($sender_details, $chk_mail_sms['template']);
                 }
 
@@ -84,6 +82,22 @@ class Mailsmsconf {
                 $this->sendMeeting($chk_mail_sms, $sender_details, $chk_mail_sms['template']);
             } elseif ($send_for == "outpass") {
                 return $this->CI->smsgateway->sendSMS($sender_details['contact_no'], $chk_mail_sms['template'], $sender_details);
+            } elseif($send_for == "marks_for_1_to_5"){
+                if ($chk_mail_sms['sms'] && $chk_mail_sms['template'] != "") {
+                    $this->CI->smsgateway->sendSMS($sender_details['contact_no'], $chk_mail_sms['template'],$sender_details);
+                }
+            } elseif($send_for == "marks_for_6_to_10"){
+                if ($chk_mail_sms['sms'] && $chk_mail_sms['template'] != "") {
+                    return $this->CI->smsgateway->sendSMS($sender_details['contact_no'], $chk_mail_sms['template'],$sender_details);
+                }
+            } elseif($send_for == "p_marks_for_6_to_10"){
+                if ($chk_mail_sms['sms'] && $chk_mail_sms['template'] != "") {
+                    return $this->CI->smsgateway->sendSMS($sender_details['contact_no'], $chk_mail_sms['template'],$sender_details);
+                }
+            } elseif($send_for == "marks_for_11_to_12"){
+                if ($chk_mail_sms['sms'] && $chk_mail_sms['template'] != "") {
+                    return $this->CI->smsgateway->sendSMS($sender_details['contact_no'], $chk_mail_sms['template'],$sender_details);
+                }
             } else {
                 
             }

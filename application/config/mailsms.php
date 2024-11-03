@@ -20,6 +20,10 @@ $config['mailsms'] = array(
     'forgot_password' => 'forgot_password',
     'online_examination_publish_exam' => 'online_examination_publish_exam',
     'online_examination_publish_result' => 'online_examination_publish_result',
+    'marks_for_1_to_5' => 'marks_for_1_to_5',
+    'marks_for_6_to_10' => 'marks_for_6_to_10',
+    'p_marks_for_6_to_10' => 'p_marks_for_6_to_10',
+    'marks_for_11_to_12' => 'marks_for_11_to_12',
     'outpass' => 'outpass',
 );
 $config['smtp_encryption'] = array(

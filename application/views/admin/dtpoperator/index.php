@@ -176,6 +176,7 @@
                     <div class="box-header ptbnull">
                         <h3 class="box-title titlefix"> <?php echo $this->lang->line('exam') . " " . $this->lang->line('group') . " " . $this->lang->line('list') ?></h3>
                         <div class="box-tools pull-right">
+                                                        <a href="javascript:void(0);" onclick="checkAndSendDataToSms();" class="btn btn-primary btn-sm">Send SMS</a>
                         </div><!-- /.box-tools -->
                     </div><!-- /.box-header -->
                     <div class="box-body">
@@ -185,6 +186,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
+                                       
                                         <td rowspan="2">Roll No</td>
                                         <td rowspan="2">Admission No</td>
                                         <td rowspan="2">Student Name</td>
@@ -194,6 +196,9 @@
                                             <td colspan="2" style="text-align:center;border-right:solid 1px #ccc;"><?php echo $subject['name']; ?></td>
                                         <?php }
                                         } ?>
+                                         <td rowspan="2">
+                                            <input type="checkbox" class="select_all" id="select_all">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <!-- <td></td> -->
@@ -207,32 +212,43 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($examStudents as $student){ 
-                                        ?>
+                                    <?php foreach($examStudents as $student){ ?>
                                     <tr>
+                                        
                                         <td><?php echo $student['roll_no'] ?></td>
                                         <td><?php echo $student['admission_no'] ?>
                                             <input type="hidden" name="student_name[<?php echo $student['onlineexam_student_id']; ?>]" value="<?php echo $student['firstname'] ?> <?php echo $student['lastname'] ?>">
                                             <input type="hidden" name="class_name[<?php echo $student['onlineexam_student_id']; ?>]" value="<?php echo $student['class'] ?>">
-                                    </td>
+                                        </td>
                                         <td><?php echo $student['firstname'] ?> <?php echo $student['lastname'] ?></td>
                                         
                                         <?php foreach($examSubjects as $subject){ 
-                                            // echo $student['onlineexam_student_id'].' | '.$subject['exam_subject_id'];
                                             $resultInfo = $this->examresult_model->getSingleStudentExamResult($student['onlineexam_student_id'],$subject['exam_subject_id']);
-                                            // dd($resultInfo,0);
+                                            $sms_data[$subject['exam_subject_id']]['subject'] = $subject['name'];
+                                            $sms_data[$subject['exam_subject_id']]['name'] = $student['name'];
+                                            $sms_data[$subject['exam_subject_id']]['guardian_phone'] = $student['guardian_phone'];
+                                            $sms_data[$subject['exam_subject_id']]['student_id'] = $student['id'];
+                                            $sms_data[$subject['exam_subject_id']]['student_name'] = $student['firstname'];
+                                            $sms_data[$subject['exam_subject_id']]['class_name'] = $student['class'];
+                                            $sms_data[$subject['exam_subject_id']]['exam_group_data'] = $exam_group_data['name'];
+                                            
+                    
+
                                             ?>
                                             <td style="<?php echo ($resultInfo['attendence']??'' == "Absent")?('background-color:#ff00002e'):(''); ?>">
-                                                <input name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][internal]" value="<?php echo isset($resultInfo['internal_marks'])?($resultInfo['internal_marks']):('0'); ?>" type="text" class="form-control">
+                                                <input name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][internal]" value="<?php echo isset($resultInfo['internal_marks'])?($resultInfo['internal_marks']):('0'); ?>" data-id="<?php echo $subject['exam_subject_id']; ?>" type="text" class="form-control internal">
                                                 <input type="hidden" name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][subject]" value="<?php echo $subject['name'] ?>">
                                                 <input type="hidden" name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][guardian_phone]" value="<?php echo $student['guardian_phone'] ?>">
                                                 <input type="hidden" name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][student_id]" value="<?php echo $student['id'] ?>">
 
                                             </td>
                                             <td style="border-right:solid 1px #ccc;<?php echo ($resultInfo['attendence']??'' == "Absent")?('background-color:#ff00002e'):(''); ?>">
-                                                <input name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][external]" value="<?php echo isset($resultInfo['external_marks'])?($resultInfo['external_marks']):('0'); ?>"  type="text" class="form-control">
+                                                <input name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][external]" value="<?php echo isset($resultInfo['external_marks'])?($resultInfo['external_marks']):('0'); ?>" data-id="<?php echo $subject['exam_subject_id']; ?>"  type="text" class="form-control external">
                                             </td>
                                         <?php } ?>
+                                        <td>
+                                            <input type="checkbox" data-id="<?php echo $student['onlineexam_student_id']; ?>" class="select_item" value='<?php echo json_encode($sms_data); ?>'>
+                                        </td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>
@@ -250,7 +266,77 @@
 </div><!-- /.content-wrapper -->
 
 <script type="text/javascript">
-     var class_id = '<?php echo $class_id; ?>';
+
+function checkAndSendDataToSms() {
+
+    let counter = 0;
+    let examgroup = $("#examgroup_id option:selected").text();
+    // first check if at-least one student is selected
+    $('.select_item').each(function() {
+        if ($(this).prop("checked") === true) {
+            counter++;
+        }
+    });
+
+    if(counter == 0){
+        alert('Select atleast 1 student record to send sms');
+        return false;
+    }
+
+    $('.select_item').each(function() {
+        if ($(this).prop("checked") === true) {
+            // console.log($(this).data("id"));
+            let jsonData = $(this).val();
+            let exam_id = $(this).data("id");
+
+            // Initialize internal and external as objects
+            let internal = {};
+            let external = {};
+
+         
+
+            // Populate `internal` object with data
+            $(this).parent().parent().find(".internal").each(function() {
+                if ($(this).val() !== "") {
+                    let data_key = $(this).data("id");
+                    internal[data_key] = $(this).val();
+                }
+            });
+
+            // Populate `external` object with data
+            $(this).parent().parent().find(".external").each(function() {
+                if ($(this).val() !== "") {
+                    let data_key = $(this).data("id");
+                    external[data_key] = $(this).val();
+                }
+            });
+
+            // Send AJAX request
+            $.ajax({
+                url: "<?php echo base_url('/admin/dtpoperator/sendResultSms'); ?>",
+                type: "POST",
+                data: { 'data': jsonData, 'external': external, 'internal': internal,'examgroup':examgroup },
+                success: function(data) {
+                    // Handle success
+                }
+            });
+        }
+    });
+}
+
+
+$(document).ready(function() {
+        $('#select_all').on('change', function() {
+            $('.select_item').prop('checked', this.checked);
+        });
+
+        // Update #select_all based on individual checkbox selection
+        $('.select_item').on('change', function() {
+            $('#select_all').prop('checked', $('.select_item:checked').length === $('.select_item').length);
+        });
+    });
+
+    var class_id = '<?php echo $class_id; ?>';
     var section_id = '<?php echo $section_id; ?>';
     getSectionByClass(class_id, section_id);
     getExamSubject(<?php echo $exam_id; ?>);

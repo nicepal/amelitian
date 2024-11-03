@@ -51,8 +51,17 @@ class Dtpoperator extends Admin_Controller {
             // query();
             // dd($data['examSubjects'],1);
         }
-        // die();
+        $data['post'] = $this->input->post();
+        
+        $idss = $data['post']['examgroup_id'];
+        $result = array_filter($data['examgrouplist'], function($exam) use ($idss) {
+            if($exam->id === $idss){
+                return $exam;
+            }
+        });
+        $result = array_values($result);
 
+        $data['exam_group_data'] = (array)$result[0];
         $this->load->view('layout/header', $data);
         $this->load->view('admin/dtpoperator/index', $data);
         $this->load->view('layout/footer', $data);
@@ -60,9 +69,182 @@ class Dtpoperator extends Admin_Controller {
     }
 
 
+
+    public function sendResultSms(){
+
+        
+        $data = (array)json_decode($this->input->post('data'));
+        $external = (array)$this->input->post('external');
+        $internal = (array)$this->input->post('internal');
+        $examgroup = $this->input->post("examgroup");
+       
+           $class_name = '';
+            $flag = true;
+            $total = 0;
+            $counter = 0;
+            $exam_group_data = '';
+            foreach($data as $k => $v){
+              
+         
+                if($counter == 0 ){
+                    $class_name = $data[$k]->class_name;
+                    $marks_for_1_to_5_subjects = array(
+                        'student_name' => $data[$k]->student_name,
+                        'class_name' => $data[$k]->class_name,
+                        'tel_mark' => 0,
+                        'hin_mark' => 0,
+                        'eng_mark' => 0,
+                        'mat_mark' => 0,
+                        'evs_mark' => 0,
+                        'com_mark' => 0,
+                        'total' => 0,
+                        'percentage' => 0,
+                        'contact_no' => '',
+                        'student_id' => 0
+                    );
+                    $exam_group_data = $v[$k]->exam_group_data;
+                }
+                    $internalMarks = ($internal[$k] != "A")?($internal[$k]):('A');
+                    $externalMarks = ($external[$k] != "A")?($external[$k]):('A');
+                    $marks_for_1_to_5_subjects['contact_no']= $v->guardian_phone;
+                    $marks_for_1_to_5_subjects['student_id']= $v->student_id;
+                    $sumValA = ($internalMarks != 'A')?($internalMarks):(0);
+                    $sumValB = ($externalMarks != 'A')?($externalMarks):(0);
+                    $sum =  $sumValA + $sumValB;
+                //    dd(array($sumValA,$sumValB));
+                    $total = $total + $sum;
+                    if($v->subject == "TELUGU"){
+                        $marks_for_1_to_5_subjects['tel_mark'] = $sum;
+                    }
+                    if($v->subject == "ENGLISH"){
+                        $marks_for_1_to_5_subjects['eng_mark'] = $sum;
+                    }
+                    if($v->subject == "MATHEMATICS"){
+                        $marks_for_1_to_5_subjects['mat_mark'] = $sum;
+                    }
+                    if($v->subject == "HINDI"){
+                        $marks_for_1_to_5_subjects['hin_mark'] = $sum;
+                    }
+                    if($v->subject == "SOCIAL SCIENCE"){
+                        $marks_for_1_to_5_subjects['evs_mark'] = $sum;
+                    }
+
+                    if($v->subject == "SOCIAL SCIENCE"){
+                        $marks_for_1_to_5_subjects['soc_sci_mark'] = $sum;
+                    }
+
+                    if($v->subject == "SCIENCE"){
+                        $marks_for_1_to_5_subjects['com_mark'] = $sum;
+                    }
+
+                    if($v->subject == "PHYSICS"){
+                        $marks_for_1_to_5_subjects['phy_mark'] = $sum;
+                    }
+                    if($v->subject == "CHEMISTRY"){
+                        $marks_for_1_to_5_subjects['che_mark'] = $sum;
+                    }
+                    if($v->subject == "SCIENCE"){
+                        $marks_for_1_to_5_subjects['sci_mark'] = $sum;
+                    }
+
+                    if($v->subject == "PHYSICS"){
+                        $marks_for_1_to_5_subjects['phy_mark'] = $sum;
+                    }
+
+            }
+            
+
+            // Send msg 
+            $marks_for_1_to_5_subjects['total'] = $total;
+            $percentage = ($total / 600) * 100;
+            $marks_for_1_to_5_subjects['percentage'] = number_format($percentage,2);
+
+            $classOneToFive = array(
+            'I CLASS',
+            'II CLASS',
+            'III CLASS',
+            'IV CLASS',
+            'V CLASS'
+           );
+           $classSixToTen = array(
+            'VI CLASS',
+            'VII CLASS',
+            'VIII CLASS',
+            'IX CLASS',
+            'X CLASS'
+           );
+
+           $classElevenToTwelve = array(
+            'XI',
+            'XII'
+           );
+        print_r($sum);
+            if($sum > 0){
+                if(strstr($exam_group_data,'Periodic') == true){
+                    $this->session->set_userdata("template_id",'168600');
+                        
+                    echo "SUM1: $sum <br />";
+                    echo $class_name;
+                    echo "<br />";
+                    var_dump($this->mailsmsconf->mailsms('p_marks_for_6_to_10', $marks_for_1_to_5_subjects));
+
+                    }else{
+                    if(in_array($class_name,$classOneToFive)){
+                        $this->session->set_userdata("template_id",'168920');
+                        
+                        echo "SUM1: $sum <br />";
+                        echo $class_name;
+                        echo "<br />";
+                        var_dump($this->mailsmsconf->mailsms('marks_for_1_to_5', $marks_for_1_to_5_subjects));
+                    }elseif(in_array($class_name,$classSixToTen)){
+                        $this->session->set_userdata("template_id",'168599');
+
+                        echo "SUM2: $sum <br />";
+                        echo $class_name;
+                        echo "<br />";
+                        if (strpos($examgroup, "periodic") !== false) {
+                            var_dump($this->mailsmsconf->mailsms('p_marks_for_6_to_10', $marks_for_1_to_5_subjects));
+                        }else{
+                            var_dump($this->mailsmsconf->mailsms('marks_for_6_to_10', $marks_for_1_to_5_subjects));
+
+                        }
+                    }else if(in_array($class_name,$classElevenToTwelve)){
+                        $this->session->set_userdata("template_id",'167640');
+
+                        echo "SUM1: $sum <br />";
+                        echo $class_name;
+                        echo "<br />";
+                        var_dump($this->mailsmsconf->mailsms('marks_for_11_to_12', $marks_for_1_to_5_subjects));
+
+                    }
+                }
+            }
+            $counter++;
+        // }
+
+    }
+
     public function addExamResult(){
         $result = $this->input->post("result");
+        $student_name = $this->input->post("student_name");
+        $class_name = $this->input->post("class_name");
         foreach($result as $key => $val){
+            $marks_for_1_to_5_subjects = array(
+                'student_name' => $student_name[$key],
+                'class_name' => $class_name[$key],
+                'tel_mark' => 0,
+                'hin_mark' => 0,
+                'eng_mark' => 0,
+                'mat_mark' => 0,
+                'evs_mark' => 0,
+                'com_mark' => 0,
+                'total' => 0,
+                'percentage' => 0,
+                'contact_no' => '',
+                'student_id' => 0
+            );
+            $flag = true;
+            $total = 0;
             foreach($val as $k => $v){
                 $insertRecord = array(
                     'exam_group_class_batch_exam_student_id' => $key,
@@ -73,22 +255,109 @@ class Dtpoperator extends Admin_Controller {
                     'get_marks' => ($v['internal'] != "A" && $v['external'] !=  "A")?($v['internal']+$v['external']):(0),
                     'note' => ''
                 );
-
-
+                echo "$key, $k <br />";
                 // Check if the record with the given ID exists in the database
                 $existingRecord = $this->db->get_where('exam_group_exam_results', array('exam_group_class_batch_exam_student_id' => $key,"exam_group_class_batch_exam_subject_id" => $k))->row_array();
-                
+                // dd($existingRecord);
                 if ($existingRecord) {
                     // Update the existing record
                     $this->db->where('exam_group_class_batch_exam_student_id', $key);
                     $this->db->where('exam_group_class_batch_exam_subject_id', $k);
                     $this->db->update('exam_group_exam_results', $insertRecord);
                 } else {
+
+                    $internalMarks = ($v['internal'] != "A")?($v['internal']):('A');
+                    $externalMarks = ($v['external'] != "A")?($v['external']):('A');
+                    $marks_for_1_to_5_subjects['contact_no']= $v['guardian_phone'];
+                    $marks_for_1_to_5_subjects['student_id']= $v['student_id'];
+                    $sumValA = ($internalMarks != 'A')?($internalMarks):(0);
+                    $sumValB = ($externalMarks != 'A')?($externalMarks):(0);
+                    $sum =  $sumValA + $sumValB;
+                    $total = $total + $sum;
+
+                    if($v['subject'] == "TELUGU"){
+                        $marks_for_1_to_5_subjects['tel_mark'] = $sum;
+                    }
+                    if($v['subject'] == "ENGLISH"){
+                        $marks_for_1_to_5_subjects['eng_mark'] = $sum;
+                    }
+                    if($v['subject'] == "MATHEMATICS"){
+                        $marks_for_1_to_5_subjects['mat_mark'] = $sum;
+                    }
+                    if($v['subject'] == "HINDI"){
+                        $marks_for_1_to_5_subjects['hin_mark'] = $sum;
+                    }
+                    if($v['subject'] == "SOCIAL SCIENCE"){
+                        $marks_for_1_to_5_subjects['evs_mark'] = $sum;
+                    }
+
+                    if($v['subject'] == "SOCIAL SCIENCE"){
+                        $marks_for_1_to_5_subjects['soc_sci_mark'] = $sum;
+                    }
+
+                    if($v['subject'] == "SCIENCE"){
+                        $marks_for_1_to_5_subjects['com_mark'] = $sum;
+                    }
+
+                    if($v['subject'] == "PHYSICS"){
+                        $marks_for_1_to_5_subjects['phy_mark'] = $sum;
+                    }
+                    if($v['subject'] == "CHEMISTRY"){
+                        $marks_for_1_to_5_subjects['che_mark'] = $sum;
+                    }
+                    if($v['subject'] == "SCIENCE"){
+                        $marks_for_1_to_5_subjects['sci_mark'] = $sum;
+                    }
+
+                    if($v['subject'] == "PHYSICS"){
+                        $marks_for_1_to_5_subjects['phy_mark'] = $sum;
+                    }
+
+                    
                     // Insert a new record
                     $this->db->insert('exam_group_exam_results', $insertRecord);
                 }
 
 
+            }
+            
+            // Send msg 
+            $marks_for_1_to_5_subjects['total'] = $total;
+            $percentage = ($total / 600) * 100;
+            $marks_for_1_to_5_subjects['percentage'] = number_format($percentage,2);
+
+           $classOneToFive = array(
+            'I CLASS',
+            'II CLASS',
+            'III CLASS',
+            'IV CLASS',
+            'V CLASS'
+           );
+           $classSixToTen = array(
+            'VI CLASS',
+            'VII CLASS',
+            'VIII CLASS',
+            'IX CLASS',
+            'X CLASS'
+           );
+
+           $classElevenToTwelve = array(
+            'XI',
+            'XII'
+           );
+
+            if($sum > 0){
+                if(in_array($class_name[$key],$classOneToFive)){
+                 
+                    // $this->mailsmsconf->mailsms('marks_for_1_to_5', $marks_for_1_to_5_subjects);
+                }elseif(in_array($class_name[$key],$classSixToTen)){
+                  
+                    // $this->mailsmsconf->mailsms('marks_for_6_to_10', $marks_for_1_to_5_subjects);
+                }else if(in_array($class_name[$key],$classElevenToTwelve)){
+                    
+                //    $this->mailsmsconf->mailsms('marks_for_11_to_12', $marks_for_1_to_5_subjects);
+
+                }
             }
         }
         redirect(base_url("admin/dtpoperator"));

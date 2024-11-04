@@ -102,7 +102,7 @@ class Dtpoperator extends Admin_Controller {
                         'contact_no' => '',
                         'student_id' => 0
                     );
-                    $exam_group_data = $v[$k]->exam_group_data;
+                    $exam_group_data = $data[$k]->exam_group_data;
                 }
                     $internalMarks = ($internal[$k] != "A")?($internal[$k]):('A');
                     $externalMarks = ($external[$k] != "A")?($external[$k]):('A');
@@ -178,7 +178,6 @@ class Dtpoperator extends Admin_Controller {
             'XI',
             'XII'
            );
-        print_r($sum);
             if($sum > 0){
                 if(strstr($exam_group_data,'Periodic') == true){
                     $this->session->set_userdata("template_id",'168600');

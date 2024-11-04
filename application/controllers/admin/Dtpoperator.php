@@ -151,6 +151,13 @@ class Dtpoperator extends Admin_Controller {
                         $marks_for_1_to_5_subjects['phy_mark'] = $sum;
                     }
 
+                    if($v->subject == "EVS"){
+                        $marks_for_1_to_5_subjects['evs_mark'] = $sum;
+                    }
+                    if($v->subject == "COMPUTER"){
+                        $marks_for_1_to_5_subjects['com_mark'] = $sum;
+                    }
+
             }
             
 

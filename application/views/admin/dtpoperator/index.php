@@ -282,7 +282,8 @@ function checkAndSendDataToSms() {
         alert('Select atleast 1 student record to send sms');
         return false;
     }
-
+    let total = $('.select_item').length;
+    let counterLoop = 0;
     $('.select_item').each(function() {
         if ($(this).prop("checked") === true) {
             // console.log($(this).data("id"));
@@ -321,7 +322,11 @@ function checkAndSendDataToSms() {
                 }
             });
         }
+        counterLoop++;
     });
+    if(total == counterLoop){
+        alert("Msgs has been sent successfully!");
+    }
 }
 
 

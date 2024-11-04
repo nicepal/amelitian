@@ -89,25 +89,27 @@ class Dtpoperator extends Admin_Controller {
                 if($counter == 0 ){
                     $class_name = $data[$k]->class_name;
                     $marks_for_1_to_5_subjects = array(
-                        'student_name' => $data[$k]->student_name,
-                        'class_name' => $data[$k]->class_name,
-                        'tel_mark' => 0,
-                        'hin_mark' => 0,
-                        'eng_mark' => 0,
-                        'mat_mark' => 0,
-                        'evs_mark' => 0,
-                        'com_mark' => 0,
-                        'total' => 0,
-                        'percentage' => 0,
-                        'contact_no' => '',
-                        'student_id' => 0
+                        'student_name'  => $data[$k]->student_name,
+                        'class_name'    => $data[$k]->class_name,
+                        'tel_mark'      => 0,
+                        'hin_mark'      => 0,
+                        'eng_mark'      => 0,
+                        'mat_mark'      => 0,
+                        'evs_mark'      => 0,
+                        'com_mark'      => 0,
+                        'total'         => 0,
+                        'percentage'    => 0,
+                        'contact_no'    => '',
+                        'student_id'    => 0
                     );
                     $exam_group_data = $data[$k]->exam_group_data;
                 }
                     $internalMarks = ($internal[$k] != "A")?($internal[$k]):('A');
                     $externalMarks = ($external[$k] != "A")?($external[$k]):('A');
+
                     $marks_for_1_to_5_subjects['contact_no']= $v->guardian_phone;
                     $marks_for_1_to_5_subjects['student_id']= $v->student_id;
+
                     $sumValA = ($internalMarks != 'A')?($internalMarks):(0);
                     $sumValB = ($externalMarks != 'A')?($externalMarks):(0);
                     $sum =  $sumValA + $sumValB;
@@ -115,49 +117,62 @@ class Dtpoperator extends Admin_Controller {
                     $total = $total + $sum;
                     if($v->subject == "TELUGU"){
                         $marks_for_1_to_5_subjects['tel_mark'] = $sum;
+                        
                     }
                     if($v->subject == "ENGLISH"){
                         $marks_for_1_to_5_subjects['eng_mark'] = $sum;
+                        
                     }
                     if($v->subject == "MATHEMATICS"){
                         $marks_for_1_to_5_subjects['mat_mark'] = $sum;
+                        
                     }
                     if($v->subject == "HINDI"){
                         $marks_for_1_to_5_subjects['hin_mark'] = $sum;
+                        
                     }
                     if($v->subject == "SOCIAL SCIENCE"){
                         $marks_for_1_to_5_subjects['evs_mark'] = $sum;
+                        
                     }
 
                     if($v->subject == "SOCIAL SCIENCE"){
                         $marks_for_1_to_5_subjects['soc_sci_mark'] = $sum;
+                        
                     }
 
                     if($v->subject == "SCIENCE"){
                         $marks_for_1_to_5_subjects['com_mark'] = $sum;
+                        
                     }
 
                     if($v->subject == "PHYSICS"){
                         $marks_for_1_to_5_subjects['phy_mark'] = $sum;
+                        
                     }
                     if($v->subject == "CHEMISTRY"){
                         $marks_for_1_to_5_subjects['che_mark'] = $sum;
+                        
                     }
                     if($v->subject == "SCIENCE"){
                         $marks_for_1_to_5_subjects['sci_mark'] = $sum;
+                        
                     }
 
                     if($v->subject == "PHYSICS"){
                         $marks_for_1_to_5_subjects['phy_mark'] = $sum;
+                        
                     }
 
                     if($v->subject == "EVS"){
                         $marks_for_1_to_5_subjects['evs_mark'] = $sum;
+                        
                     }
                     if($v->subject == "COMPUTER"){
                         $marks_for_1_to_5_subjects['com_mark'] = $sum;
+                        
                     }
-
+                    $counter++;
             }
             
 
@@ -185,6 +200,7 @@ class Dtpoperator extends Admin_Controller {
             'XI',
             'XII'
            );
+          
             if($sum > 0){
                 if(strstr($exam_group_data,'Periodic') == true){
                     $this->session->set_userdata("template_id",'168600');
@@ -225,7 +241,7 @@ class Dtpoperator extends Admin_Controller {
                     }
                 }
             }
-            $counter++;
+        
         // }
 
     }

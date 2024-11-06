@@ -302,14 +302,14 @@ function checkMarks(row,subject,type){
 
     let sum = Number(internal) + Number(external);
     if(sum < minRange){
-        alert(sum+": Minimum Number should be greater than "+minRange);
+        alert("Minimum Number should be greater than "+minRange);
         // $("."+row+"_"+subject+"_"+type).val(0);
         
         return false;
     }
 
     if(sum > maxRange){
-        alert(sum+": Maximum Number should be less than "+maxRange);
+        alert("Maximum Number should be less than "+maxRange);
         // $("."+row+"_"+subject+"_"+type).val(0);
         // $("."+row+"_"+subject+"_"+type).
         return false;

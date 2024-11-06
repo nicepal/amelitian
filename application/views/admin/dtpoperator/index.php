@@ -300,7 +300,7 @@ function checkMarks(row,subject,type){
     let internal = Number($("."+row+"_"+subject+"_internal").val());
     let external = Number($("."+row+"_"+subject+"_external").val());
 
-    let sum = internal +external;
+    let sum = Number(internal) + Number(external);
     if(sum < minRange){
         alert("Minimum Number should be greater than "+minRange);
         // $("."+row+"_"+subject+"_"+type).val(0);

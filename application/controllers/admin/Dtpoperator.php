@@ -83,24 +83,33 @@ class Dtpoperator extends Admin_Controller {
             $total = 0;
             $counter = 0;
             $exam_group_data = '';
+            $total_marks = 0;
             foreach($data as $k => $v){
               
-         
+                $total_marks = $total_marks + $data[$k]->max_marks;
                 if($counter == 0 ){
                     $class_name = $data[$k]->class_name;
                     $marks_for_1_to_5_subjects = array(
                         'student_name'  => $data[$k]->student_name,
                         'class_name'    => $data[$k]->class_name,
-                        'tel_mark'      => 0,
-                        'hin_mark'      => 0,
-                        'eng_mark'      => 0,
-                        'mat_mark'      => 0,
-                        'evs_mark'      => 0,
-                        'com_mark'      => 0,
-                        'total'         => 0,
-                        'percentage'    => 0,
-                        'contact_no'    => '',
-                        'student_id'    => 0
+                        'tel_mark' => 0,
+                        'hin_mark' => 0,
+                        'eng_mark' => 0,
+                        'mat_mark' => 0,
+                        'evs_mark' => 0,
+                        'com_mark' => 0,
+                        'civ_mark' => 0,
+                        'zoo_mark' => 0,
+                        'bot_mark' => 0,
+                        'phy_edu_mark' => 0,
+                        'gam_mark' => 0,
+                        'dan_mark' => 0,
+                        'tel_san_mark' => 0,
+                        'hin_san_mark' => 0,
+                        'total' => 0,
+                        'percentage' => 0,
+                        'contact_no' => '',
+                        'student_id' => 0
                     );
                     $exam_group_data = $data[$k]->exam_group_data;
                 }
@@ -115,70 +124,80 @@ class Dtpoperator extends Admin_Controller {
                     $sum =  $sumValA + $sumValB;
                 //    dd(array($sumValA,$sumValB));
                     $total = $total + $sum;
-                    if($v->subject == "TELUGU"){
+                     if($v->subject == "TELUGU"){
                         $marks_for_1_to_5_subjects['tel_mark'] = $sum;
-                        
                     }
                     if($v->subject == "ENGLISH"){
                         $marks_for_1_to_5_subjects['eng_mark'] = $sum;
-                        
                     }
                     if($v->subject == "MATHEMATICS"){
                         $marks_for_1_to_5_subjects['mat_mark'] = $sum;
-                        
                     }
                     if($v->subject == "HINDI"){
                         $marks_for_1_to_5_subjects['hin_mark'] = $sum;
-                        
                     }
-                    if($v->subject == "SOCIAL SCIENCE"){
-                        $marks_for_1_to_5_subjects['evs_mark'] = $sum;
-                        
-                    }
+                    // if($v->subject == "SOCIAL SCIENCE"){
+                    //     $marks_for_1_to_5_subjects['evs_mark'] = $sum;
+                    // }
 
                     if($v->subject == "SOCIAL SCIENCE"){
                         $marks_for_1_to_5_subjects['soc_sci_mark'] = $sum;
-                        
                     }
 
                     if($v->subject == "SCIENCE"){
-                        $marks_for_1_to_5_subjects['com_mark'] = $sum;
-                        
+                        $marks_for_1_to_5_subjects['sci_mark'] = $sum;
                     }
 
                     if($v->subject == "PHYSICS"){
                         $marks_for_1_to_5_subjects['phy_mark'] = $sum;
-                        
                     }
                     if($v->subject == "CHEMISTRY"){
                         $marks_for_1_to_5_subjects['che_mark'] = $sum;
-                        
-                    }
-                    if($v->subject == "SCIENCE"){
-                        $marks_for_1_to_5_subjects['sci_mark'] = $sum;
-                        
                     }
 
                     if($v->subject == "PHYSICS"){
                         $marks_for_1_to_5_subjects['phy_mark'] = $sum;
-                        
                     }
 
-                    if($v->subject == "EVS"){
-                        $marks_for_1_to_5_subjects['evs_mark'] = $sum;
-                        
+                    if($v->subject == "CIVIL"){
+                        $marks_for_1_to_5_subjects['civ_mark'] = $sum;
                     }
-                    if($v->subject == "COMPUTER"){
-                        $marks_for_1_to_5_subjects['com_mark'] = $sum;
-                        
+
+                    if($v->subject == "ZOOLOGY"){
+                        $marks_for_1_to_5_subjects['zoo_mark'] = $sum;
                     }
+
+                    if($v->subject == "BOTANY"){
+                        $marks_for_1_to_5_subjects['bot_mark'] = $sum;
+                    }
+
+                    if($v->subject == "PHYSICAL EDUCATION"){
+                        $marks_for_1_to_5_subjects['phy_edu_mark'] = $sum;
+                    }
+
+                    if($v->subject == "GAMES"){
+                        $marks_for_1_to_5_subjects['gam_mark'] = $sum;
+                    }
+
+                    if($v->subject == "Dance"){
+                        $marks_for_1_to_5_subjects['dan_mark'] = $sum;
+                    }
+
+                    if($v->subject == "TELUGU / SANSKRIT"){
+                        $marks_for_1_to_5_subjects['tel_san_mark'] = $sum;
+                    }
+
+                    if($v->subject == "HINDI / SANSKRIT"){
+                        $marks_for_1_to_5_subjects['hin_san_mark'] = $sum;
+                    }
+
                     $counter++;
             }
             
 
             // Send msg 
             $marks_for_1_to_5_subjects['total'] = $total;
-            $percentage = ($total / 600) * 100;
+            $percentage = ($total / $total_marks) * 100;
             $marks_for_1_to_5_subjects['percentage'] = number_format($percentage,2);
 
             $classOneToFive = array(
@@ -251,7 +270,7 @@ class Dtpoperator extends Admin_Controller {
         $student_name = $this->input->post("student_name");
         $class_name = $this->input->post("class_name");
         foreach($result as $key => $val){
-            $marks_for_1_to_5_subjects = array(
+              $marks_for_1_to_5_subjects = array(
                 'student_name' => $student_name[$key],
                 'class_name' => $class_name[$key],
                 'tel_mark' => 0,
@@ -260,6 +279,16 @@ class Dtpoperator extends Admin_Controller {
                 'mat_mark' => 0,
                 'evs_mark' => 0,
                 'com_mark' => 0,
+
+                'civ_mark' => 0,
+                'zoo_mark' => 0,
+                'bot_mark' => 0,
+                'phy_edu_mark' => 0,
+                'gam_mark' => 0,
+                'dan_mark' => 0,
+                'tel_san_mark' => 0,
+                'hin_san_mark' => 0,
+                
                 'total' => 0,
                 'percentage' => 0,
                 'contact_no' => '',
@@ -309,16 +338,16 @@ class Dtpoperator extends Admin_Controller {
                     if($v['subject'] == "HINDI"){
                         $marks_for_1_to_5_subjects['hin_mark'] = $sum;
                     }
-                    if($v['subject'] == "SOCIAL SCIENCE"){
-                        $marks_for_1_to_5_subjects['evs_mark'] = $sum;
-                    }
+                    // if($v['subject'] == "SOCIAL SCIENCE"){
+                    //     $marks_for_1_to_5_subjects['evs_mark'] = $sum;
+                    // }
 
                     if($v['subject'] == "SOCIAL SCIENCE"){
                         $marks_for_1_to_5_subjects['soc_sci_mark'] = $sum;
                     }
 
                     if($v['subject'] == "SCIENCE"){
-                        $marks_for_1_to_5_subjects['com_mark'] = $sum;
+                        $marks_for_1_to_5_subjects['sci_mark'] = $sum;
                     }
 
                     if($v['subject'] == "PHYSICS"){
@@ -327,12 +356,41 @@ class Dtpoperator extends Admin_Controller {
                     if($v['subject'] == "CHEMISTRY"){
                         $marks_for_1_to_5_subjects['che_mark'] = $sum;
                     }
-                    if($v['subject'] == "SCIENCE"){
-                        $marks_for_1_to_5_subjects['sci_mark'] = $sum;
-                    }
 
                     if($v['subject'] == "PHYSICS"){
                         $marks_for_1_to_5_subjects['phy_mark'] = $sum;
+                    }
+
+                    if($v['subject'] == "CIVIL"){
+                        $marks_for_1_to_5_subjects['civ_mark'] = $sum;
+                    }
+
+                    if($v['subject'] == "ZOOLOGY"){
+                        $marks_for_1_to_5_subjects['zoo_mark'] = $sum;
+                    }
+
+                    if($v['subject'] == "BOTANY"){
+                        $marks_for_1_to_5_subjects['bot_mark'] = $sum;
+                    }
+
+                    if($v['subject'] == "PHYSICAL EDUCATION"){
+                        $marks_for_1_to_5_subjects['phy_edu_mark'] = $sum;
+                    }
+
+                    if($v['subject'] == "GAMES"){
+                        $marks_for_1_to_5_subjects['gam_mark'] = $sum;
+                    }
+
+                    if($v['subject'] == "Dance"){
+                        $marks_for_1_to_5_subjects['dan_mark'] = $sum;
+                    }
+
+                    if($v['subject'] == "TELUGU / SANSKRIT"){
+                        $marks_for_1_to_5_subjects['tel_san_mark'] = $sum;
+                    }
+
+                    if($v['subject'] == "HINDI / SANSKRIT"){
+                        $marks_for_1_to_5_subjects['hin_san_mark'] = $sum;
                     }
 
                     

@@ -70,6 +70,18 @@
 .select2-selection .select2-selection--multiple:after {
 	content: 'hhghgh';
 }
+
+.table tbody tr.success td{
+background-color:#004d00cc;
+color:#fff;
+}
+.table .pull-right{
+    float: right !important;
+    font-size:10px;
+}
+.table .pull-left{
+    font-size:10px;
+}
 </style>
     <!-- Main content -->
     <section class="content">
@@ -192,8 +204,14 @@
                                         <td rowspan="2">Student Name</td>
                                         <?php 
                                         if(isset($examSubjects)){ 
-                                        foreach($examSubjects as $subject){ ?>
-                                            <td colspan="2" style="text-align:center;border-right:solid 1px #ccc;"><?php echo $subject['name']; ?></td>
+                                            $sub_marks = array();
+                                        foreach($examSubjects as $subject){
+                                            ?>
+                                            <td colspan="2" style="text-align:center;border-right:solid 1px #ccc;">
+                                            <span class="pull-left"><small><?php echo number_format($subject['min_marks']); ?></small></span>
+                                            <?php echo $subject['name']; ?>
+                                            <span class="pull-right"><small><?php echo number_format($subject['max_marks']); ?></small></span>
+                                        </td>
                                         <?php }
                                         } ?>
                                          <td rowspan="2">
@@ -204,16 +222,22 @@
                                         <!-- <td></td> -->
                                         <?php 
                                         if(isset($examSubjects)){ 
-                                            foreach($examSubjects as $subject){ ?>
-                                            <td style="text-align:center">Internal</td>
+                                            foreach($examSubjects as $subject){ 
+                                                $sub_marks[strtolower($subject['name'])] = $subject['max_marks'];
+                                                ?>
+                                            <td style="text-align:center">Internal
+                                                <input type="hidden" class="<?php echo strtolower($subject['name']); ?>_min" value="<?php echo $subject['min_marks']; ?>">
+                                                <input type="hidden" class="<?php echo strtolower($subject['name']); ?>_max" value="<?php echo $subject['max_marks']; ?>">
+                                            </td>
                                             <td style="text-align:center;border-right:solid 1px #ccc;">External</td>
                                         <?php }
                                         } ?>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($examStudents as $student){ ?>
-                                    <tr>
+                                    <?php foreach($examStudents as $student){ 
+                                        ?>
+                                    <tr id="row_<?php echo $student['student_session_id']; ?>">
                                         
                                         <td><?php echo $student['roll_no'] ?></td>
                                         <td><?php echo $student['admission_no'] ?>
@@ -231,23 +255,24 @@
                                             $sms_data[$subject['exam_subject_id']]['student_name'] = $student['firstname'];
                                             $sms_data[$subject['exam_subject_id']]['class_name'] = $student['class'];
                                             $sms_data[$subject['exam_subject_id']]['exam_group_data'] = $exam_group_data['name'];
+                                            $sms_data[$subject['exam_subject_id']]['max_marks'] = $sub_marks[strtolower($subject['name'])];
                                             
                     
 
                                             ?>
-                                            <td style="<?php echo ($resultInfo['attendence']??'' == "Absent")?('background-color:#ff00002e'):(''); ?>">
-                                                <input name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][internal]" value="<?php echo isset($resultInfo['internal_marks'])?($resultInfo['internal_marks']):('0'); ?>" data-id="<?php echo $subject['exam_subject_id']; ?>" type="text" class="form-control internal">
+                                            <td style="<?php //echo ($resultInfo['attendence']??'' == "Absent")?('background-color:#ff00002e'):(''); ?>">
+                                                <input name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][internal]" value="<?php echo isset($resultInfo['internal_marks'])?($resultInfo['internal_marks']):('0'); ?>" data-id="<?php echo $subject['exam_subject_id']; ?>" type="text" class="form-control internal <?php echo $student['student_session_id'].'_'.strtolower($subject['name']); ?>_internal">
                                                 <input type="hidden" name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][subject]" value="<?php echo $subject['name'] ?>">
                                                 <input type="hidden" name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][guardian_phone]" value="<?php echo $student['guardian_phone'] ?>">
                                                 <input type="hidden" name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][student_id]" value="<?php echo $student['id'] ?>">
 
                                             </td>
-                                            <td style="border-right:solid 1px #ccc;<?php echo ($resultInfo['attendence']??'' == "Absent")?('background-color:#ff00002e'):(''); ?>">
-                                                <input name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][external]" value="<?php echo isset($resultInfo['external_marks'])?($resultInfo['external_marks']):('0'); ?>" data-id="<?php echo $subject['exam_subject_id']; ?>"  type="text" class="form-control external">
+                                            <td style="border-right:solid 1px #ccc;<?php //echo ($resultInfo['attendence']??'' == "Absent")?('background-color:#ff00002e'):(''); ?>">
+                                                <input name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][external]" onBlur="checkMarks('<?php echo $student['student_session_id']; ?>','<?php echo strtolower($subject['name']); ?>','external');"  value="<?php echo isset($resultInfo['external_marks'])?($resultInfo['external_marks']):('0'); ?>" data-id="<?php echo $subject['exam_subject_id']; ?>"  type="text" class="form-control external <?php echo $student['student_session_id'].'_'.strtolower($subject['name']); ?>_external">
                                             </td>
                                         <?php } ?>
                                         <td>
-                                            <input type="checkbox" data-id="<?php echo $student['onlineexam_student_id']; ?>" class="select_item" value='<?php echo json_encode($sms_data); ?>'>
+                                            <input type="checkbox" id="check_<?php echo $student['student_session_id']; ?>" data-row="<?php echo $student['student_session_id']; ?>" data-id="<?php echo $student['onlineexam_student_id']; ?>" class="select_item" value='<?php echo json_encode($sms_data); ?>'>
                                         </td>
                                     </tr>
                                     <?php } ?>
@@ -266,6 +291,31 @@
 </div><!-- /.content-wrapper -->
 
 <script type="text/javascript">
+
+function checkMarks(row,subject,type){
+
+    let minRange = Number($("."+subject+"_min").val());
+    let maxRange = Number($("."+subject+"_max").val());
+
+    let internal = Number($("."+row+"_"+subject+"_internal").val());
+    let external = Number($("."+row+"_"+subject+"_external").val());
+
+    let sum = internal +external;
+    if(sum < minRange){
+        alert("Minimum Number should be greater than "+minRange);
+        // $("."+row+"_"+subject+"_"+type).val(0);
+        
+        return false;
+    }
+
+    if(sum > maxRange){
+        alert("Maximum Number should be less than "+maxRange);
+        // $("."+row+"_"+subject+"_"+type).val(0);
+        // $("."+row+"_"+subject+"_"+type).
+        return false;
+    }
+
+}
 
 function checkAndSendDataToSms() {
 
@@ -289,7 +339,9 @@ function checkAndSendDataToSms() {
             // console.log($(this).data("id"));
             let jsonData = $(this).val();
             let exam_id = $(this).data("id");
-
+            let row = $(this).data("row");
+            let img = '<img class="loader_'+row+'" src="<?php echo base_url('backend/images/loading.gif'); ?>">';
+            $("#check_"+row).before(img);
             // Initialize internal and external as objects
             let internal = {};
             let external = {};
@@ -318,15 +370,16 @@ function checkAndSendDataToSms() {
                 type: "POST",
                 data: { 'data': jsonData, 'external': external, 'internal': internal,'examgroup':examgroup },
                 success: function(data) {
-                    // Handle success
+                    $("#row_"+row).addClass('success');
+                    $("#check_"+row).prop('checked',false);
+                    $(".loader_"+row).remove();
+                    
                 }
             });
         }
         counterLoop++;
     });
-    if(total == counterLoop){
-        alert("Msgs has been sent successfully!");
-    }
+    
 }
 
 

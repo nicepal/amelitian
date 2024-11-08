@@ -329,10 +329,12 @@ class Transaction extends Admin_Controller {
         $data['classlist'] = $class;
         $class_id = $this->input->post('class_id');
         $section_id = $this->input->post('section_id');
+        $to_date = $this->input->post('to_date');
+        $from_date = $this->input->post('from_date');
         $feetype = $this->input->post('feetype');
         $feetype_arr = $this->input->post('feetype_arr');
         $data['section_list'] = $this->section_model->getClassBySection($this->input->post('class_id'));
-        $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|xss_clean|required');
+        $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|xss_clean');
         $this->form_validation->set_rules('section_id', $this->lang->line('section'), 'trim|xss_clean');
 
 
@@ -342,13 +344,15 @@ class Transaction extends Admin_Controller {
 
             $data['class_id'] = "";
             $data['section_id'] = "";
+            $data['from_date'] = "";
+            $data['to_date'] = "";
             $data['feetype'] = "";
             $data['feetype_arr'] = array();
         } else {
             $student_Array = array(); 
 
             $section = array();
-
+            
             $classlist = $this->student_model->getAllClassSection($class_id, $section_id);
             // $classlist = $this->student_model->getAllClassSection($class_id, null);
             foreach ($classlist as $key => $value) {
@@ -462,6 +466,8 @@ class Transaction extends Admin_Controller {
             $data['class_id'] = $class_id;
             $data['section_id'] = $section_id;
             $data['feetype'] = $feetype;
+            $data['to_date'] = $to_date;
+            $data['from_date'] = $from_date;
             $data['feetype_arr'] = $feetype_arr;
             $data['previousFeeRecords'] = $previousFeeRecords;
         }

@@ -86,6 +86,21 @@ class Visitors extends Admin_Controller {
             
             $otp = rand(0000,9999);
 
+            // $options = array(
+            //     'To Meet Management',
+            //     'To Meet Teacher',
+            //     'To pay School Fee',
+            //     'To Meet Principal',
+            //     'To Meet Child within Campus',
+            //     'To Take Child Outside Campus'
+            // );
+            // if(!in_array($this->input->post('purpose'),$options) == false){
+            //     die('Something Went Wront');
+            // }
+            // if (preg_match('/<[^>]*>|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/', $this->input->post('name'))) {
+            //     die('Something Went Wront');
+            // }
+
             $visitors = array(
                 'admission_no' => $this->input->post('admission_no'),
                 'purpose' => $this->input->post('purpose'),

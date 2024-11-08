@@ -136,9 +136,13 @@ class Dtpoperator extends Admin_Controller {
                     if($v->subject == "HINDI"){
                         $marks_for_1_to_5_subjects['hin_mark'] = $sum;
                     }
-                    // if($v->subject == "SOCIAL SCIENCE"){
-                    //     $marks_for_1_to_5_subjects['evs_mark'] = $sum;
-                    // }
+                    if($v->subject == "EVS"){
+                        $marks_for_1_to_5_subjects['evs_mark'] = $sum;
+                    }
+
+                    if($v->subject == "COMPUTER"){
+                        $marks_for_1_to_5_subjects['com_mark'] = $sum;
+                    }
 
                     if($v->subject == "SOCIAL SCIENCE"){
                         $marks_for_1_to_5_subjects['soc_sci_mark'] = $sum;
@@ -338,9 +342,12 @@ class Dtpoperator extends Admin_Controller {
                     if($v['subject'] == "HINDI"){
                         $marks_for_1_to_5_subjects['hin_mark'] = $sum;
                     }
-                    // if($v['subject'] == "SOCIAL SCIENCE"){
-                    //     $marks_for_1_to_5_subjects['evs_mark'] = $sum;
-                    // }
+                    if($v->subject == "HINDI"){
+                        $marks_for_1_to_5_subjects['hin_mark'] = $sum;
+                    }
+                    if($v->subject == "EVS"){
+                        $marks_for_1_to_5_subjects['evs_mark'] = $sum;
+                    }
 
                     if($v['subject'] == "SOCIAL SCIENCE"){
                         $marks_for_1_to_5_subjects['soc_sci_mark'] = $sum;

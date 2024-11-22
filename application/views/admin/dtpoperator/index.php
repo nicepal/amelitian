@@ -201,7 +201,8 @@ color:#fff;
                                        
                                         <td rowspan="2">Roll No</td>
                                         <td rowspan="2">Admission No</td>
-                                        <td rowspan="2">Student Name</td>
+                                        <td rowspan="2" data-sort="asc">Student Name <span class="sort-icon">↑</span></td>
+
                                         <?php 
                                         if(isset($examSubjects)){ 
                                             $sub_marks = array();
@@ -291,6 +292,35 @@ color:#fff;
 </div><!-- /.content-wrapper -->
 
 <script type="text/javascript">
+
+function sortTable(table, columnIndex, order) {
+        var asc = order === 'asc',
+            tbody = table.find('tbody');
+
+        tbody.find('tr').sort(function(a, b) {
+            var aText = $('td:eq(' + columnIndex + ')', a).text();
+            var bText = $('td:eq(' + columnIndex + ')', b).text();
+
+            return asc ? aText.localeCompare(bText) : bText.localeCompare(aText);
+        }).appendTo(tbody);
+    }
+
+    // Add event listener to <th> elements
+    $('.table thead tr td').on('click', function() {
+        var table = $(this).closest('table');
+        var columnIndex = $(this).index();
+        var order = $(this).data('sort');
+
+        // Toggle sorting order
+        var newOrder = order === 'asc' ? 'desc' : 'asc';
+        $(this).data('sort', newOrder);
+
+        // Update the icon
+        $('.sort-icon', this).text(newOrder === 'asc' ? '↑' : '↓');
+
+        // Sort the table
+        sortTable(table, columnIndex, newOrder);
+    });
 
 function checkMarks(row,subject,type){
 

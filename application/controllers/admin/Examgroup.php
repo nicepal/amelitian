@@ -305,7 +305,6 @@ class Examgroup extends Admin_Controller {
 
         $data['current_session'] = $this->sch_current_session;
         $data['examgroup'] = $this->examgroup_model->get($id);
-
         $this->load->view('layout/header', $data);
         $this->load->view('admin/examgroup/addexam', $data);
         $this->load->view('layout/footer', $data);
@@ -551,7 +550,8 @@ class Examgroup extends Admin_Controller {
 
     public function getexam() {
         $examgroup_id = $this->input->post('examgroup_id');
-        $data['examList'] = $this->examgroup_model->getExamByExamGroup($examgroup_id);
+        $session_id = $this->sch_current_session;
+        $data['examList'] = $this->examgroup_model->getExamByExamGroup($examgroup_id,false,$session_id);
 
         $data['exam_page'] = $this->load->view('admin/examgroup/_partialexamList', $data, true);
 

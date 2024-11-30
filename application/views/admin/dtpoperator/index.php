@@ -237,7 +237,7 @@ color:#fff;
                                 </thead>
                                 <tbody>
                                     <?php foreach($examStudents as $student){ 
-                                        ?>
+                                        if($student['onlineexam_student_id'] != 0){ ?>
                                     <tr id="row_<?php echo $student['student_session_id']; ?>">
                                         
                                         <td><?php echo $student['roll_no'] ?></td>
@@ -262,7 +262,7 @@ color:#fff;
 
                                             ?>
                                             <td style="<?php //echo ($resultInfo['attendence']??'' == "Absent")?('background-color:#ff00002e'):(''); ?>">
-                                                <input name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][internal]" value="<?php echo isset($resultInfo['internal_marks'])?($resultInfo['internal_marks']):('0'); ?>" data-id="<?php echo $subject['exam_subject_id']; ?>" type="text" class="form-control internal <?php echo $student['student_session_id'].'_'.strtolower($subject['name']); ?>_internal">
+                                                <input name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][internal]" onBlur="checkMarks('<?php echo $student['student_session_id']; ?>','<?php echo strtolower($subject['name']); ?>','internal');"  value="<?php echo isset($resultInfo['internal_marks'])?($resultInfo['internal_marks']):('0'); ?>" data-id="<?php echo $subject['exam_subject_id']; ?>" type="text" class="form-control internal <?php echo $student['student_session_id'].'_'.strtolower($subject['name']); ?>_internal">
                                                 <input type="hidden" name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][subject]" value="<?php echo $subject['name'] ?>">
                                                 <input type="hidden" name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][guardian_phone]" value="<?php echo $student['guardian_phone'] ?>">
                                                 <input type="hidden" name="result[<?php echo $student['onlineexam_student_id']; ?>][<?php echo $subject['exam_subject_id']; ?>][student_id]" value="<?php echo $student['id'] ?>">
@@ -276,7 +276,8 @@ color:#fff;
                                             <input type="checkbox" id="check_<?php echo $student['student_session_id']; ?>" data-row="<?php echo $student['student_session_id']; ?>" data-id="<?php echo $student['onlineexam_student_id']; ?>" class="select_item" value='<?php echo json_encode($sms_data); ?>'>
                                         </td>
                                     </tr>
-                                    <?php } ?>
+                                    <?php }
+                                    } ?>
                                 </tbody>
                             </table>
                             <input type="submit" class="btn btn-primary pull-right" value="Submit">
@@ -327,22 +328,26 @@ function checkMarks(row,subject,type){
     let minRange = Number($("."+subject+"_min").val());
     let maxRange = Number($("."+subject+"_max").val());
 
-    let internal = Number($("."+row+"_"+subject+"_internal").val());
-    let external = Number($("."+row+"_"+subject+"_external").val());
-
+    let internal = Number(($("."+row+"_"+subject+"_internal").val() == "N/A")?(0):($("."+row+"_"+subject+"_internal").val()));
+    let external = Number(($("."+row+"_"+subject+"_external").val() == "N/A")?(0):($("."+row+"_"+subject+"_external").val()));
+    $("."+row+"_"+subject+"_internal").removeClass('bg-danger');
+    $("."+row+"_"+subject+"_external").removeClass('bg-danger');
     let sum = Number(internal) + Number(external);
-    if(sum < minRange){
-        alert("Minimum Number should be greater than "+minRange);
-        // $("."+row+"_"+subject+"_"+type).val(0);
-        
-        return false;
+    if((sum < minRange || sum > maxRange) && type == 'internal'){
+       if($("."+row+"_"+subject+"_internal").val() != "N/A" && $("."+row+"_"+subject+"_external").val() != "N/A"){
+            $("."+row+"_"+subject+"_internal").focus();
+            $("."+row+"_"+subject+"_internal").addClass('bg-danger');
+            return false;
+       }
     }
 
-    if(sum > maxRange){
-        alert("Maximum Number should be less than "+maxRange);
-        // $("."+row+"_"+subject+"_"+type).val(0);
-        // $("."+row+"_"+subject+"_"+type).
-        return false;
+    if((sum < minRange || sum > maxRange) && type == 'external'){
+        if($("."+row+"_"+subject+"_internal").val() != "N/A" && $("."+row+"_"+subject+"_external").val() != "N/A"){
+
+            $("."+row+"_"+subject+"_external").addClass('bg-danger');
+            $("."+row+"_"+subject+"_external").focus();
+            return false;
+        }
     }
 
 }

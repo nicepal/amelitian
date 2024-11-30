@@ -77,7 +77,6 @@ class Dtpoperator extends Admin_Controller {
         $external = (array)$this->input->post('external');
         $internal = (array)$this->input->post('internal');
         $examgroup = $this->input->post("examgroup");
-       
            $class_name = '';
             $flag = true;
             $total = 0;
@@ -85,8 +84,10 @@ class Dtpoperator extends Admin_Controller {
             $exam_group_data = '';
             $total_marks = 0;
             foreach($data as $k => $v){
-              
-                $total_marks = $total_marks + $data[$k]->max_marks;
+                // echo $internal[$k] .' | '. $external[$k] .' | '.$data[$k]->max_marks.' | '.$k;
+                $tm = ($internal[$k]=="N/A" && $external[$k]=="N/A")?(0):($data[$k]->max_marks);
+                $total_marks = $total_marks + $tm;
+                // echo "<br />";
                 if($counter == 0 ){
                     $class_name = $data[$k]->class_name;
                     $marks_for_1_to_5_subjects = array(
@@ -113,14 +114,14 @@ class Dtpoperator extends Admin_Controller {
                     );
                     $exam_group_data = $data[$k]->exam_group_data;
                 }
-                    $internalMarks = ($internal[$k] != "A")?($internal[$k]):('A');
-                    $externalMarks = ($external[$k] != "A")?($external[$k]):('A');
+                    $internalMarks = ($internal[$k] != "A" && $internal[$k] != "N/A")?($internal[$k]):($internal[$k]);
+                    $externalMarks = ($external[$k] != "A" && $external[$k] != "N/A")?($external[$k]):($external[$k]);
 
                     $marks_for_1_to_5_subjects['contact_no']= $v->guardian_phone;
                     $marks_for_1_to_5_subjects['student_id']= $v->student_id;
 
-                    $sumValA = ($internalMarks != 'A')?($internalMarks):(0);
-                    $sumValB = ($externalMarks != 'A')?($externalMarks):(0);
+                    $sumValA = ($internalMarks != 'A' && $internalMarks != 'N/A')?($internalMarks):(0);
+                    $sumValB = ($externalMarks != 'A' && $externalMarks != 'N/A')?($externalMarks):(0);
                     $sum =  $sumValA + $sumValB;
                 //    dd(array($sumValA,$sumValB));
                     $total = $total + $sum;
@@ -128,7 +129,7 @@ class Dtpoperator extends Admin_Controller {
                         $marks_for_1_to_5_subjects['tel_mark'] = $sum;
                     }
                     if($v->subject == "ENGLISH"){
-                        $marks_for_1_to_5_subjects['eng_mark'] = $sum;
+                        $marks_for_1_to_5_subjects['eng_mark'] = ($internalMarks == 'N/A' && $externalMarks == 'N/A')?('N/A'):($sum);
                     }
                     if($v->subject == "MATHEMATICS"){
                         $marks_for_1_to_5_subjects['mat_mark'] = $sum;
@@ -198,7 +199,7 @@ class Dtpoperator extends Admin_Controller {
                     $counter++;
             }
             
-
+            // dd($total .' | '. $total_marks);
             // Send msg 
             $marks_for_1_to_5_subjects['total'] = $total;
             $percentage = ($total / $total_marks) * 100;
@@ -305,9 +306,9 @@ class Dtpoperator extends Admin_Controller {
                     'exam_group_class_batch_exam_student_id' => $key,
                     'exam_group_class_batch_exam_subject_id' => $k,
                     'attendence' => ($v['internal'] == "A" || $v['external'] == "A")?('Absent'):('Present'),
-                    'internal_marks' => ($v['internal'] != "A")?($v['internal']):('A'),
-                    'external_marks' => ($v['external'] != "A")?($v['external']):('A'),
-                    'get_marks' => ($v['internal'] != "A" && $v['external'] !=  "A")?($v['internal']+$v['external']):(0),
+                    'internal_marks' => ($v['internal'] != "A" && $v['internal'] != "N/A")?($v['internal']):($v['internal']),
+                    'external_marks' => ($v['external'] != "A" && $v['external'] != "N/A")?($v['external']):($v['external']),
+                    'get_marks' => ($v['internal'] != "A" && $v['external'] !=  "A" && $v['external'] != "N/A" && $v['internal'] != "N/A")?($v['internal']+$v['external']):(0),
                     'note' => ''
                 );
                 echo "$key, $k <br />";
@@ -321,8 +322,8 @@ class Dtpoperator extends Admin_Controller {
                     $this->db->update('exam_group_exam_results', $insertRecord);
                 } else {
 
-                    $internalMarks = ($v['internal'] != "A")?($v['internal']):('A');
-                    $externalMarks = ($v['external'] != "A")?($v['external']):('A');
+                    $internalMarks = ($v['internal'] != "A" && $v['internal'] != "N/A")?($v['internal']):($v['internal']);
+                    $externalMarks = ($v['external'] != "A" && $v['external'] != "N/A")?($v['external']):($v['external']);
                     $marks_for_1_to_5_subjects['contact_no']= $v['guardian_phone'];
                     $marks_for_1_to_5_subjects['student_id']= $v['student_id'];
                     $sumValA = ($internalMarks != 'A')?($internalMarks):(0);

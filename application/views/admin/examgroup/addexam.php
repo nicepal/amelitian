@@ -97,14 +97,12 @@
                         <div class="form-group col-xs-12 col-sm-3 col-md-3 col-lg-3">
                             <label for="exam"><?php echo $this->lang->line('session') ?></label>
                             <select  id="session_id" name="session_id" class="form-control" >
-                                <option value=""><?php echo $this->lang->line('select'); ?></option>
-                                <?php
-foreach ($sessionlist as $session) {
-    ?>
-                                    <option value="<?php echo $session['id']; ?>" <?php echo set_select('session_id', 'session_id', (($current_session == $session['id']) ? true : false)); ?>><?php echo $session['session']; ?></option>
-                                    <?php
-}
-?>
+                                <!-- <option value=""><?php echo $this->lang->line('select'); ?></option> -->
+                                <?php foreach ($sessionlist as $session) { 
+                                        if($current_session == $session['id']){ ?>
+                                    <option selected="selected" value="<?php echo $session['id']; ?>" <?php echo set_select('session_id', 'session_id', (($current_session == $session['id']) ? true : false)); ?>><?php echo $session['session']; ?></option>
+                                    <?php } 
+                                    } ?>
                             </select>
                             <span class="text text-danger" id="session_id_error"></span>
                         </div>

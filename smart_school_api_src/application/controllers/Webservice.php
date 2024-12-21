@@ -2363,16 +2363,16 @@ class Webservice extends CI_Controller
                         $exam->exam_quality_points = 0;
                         $exam->exam_credit_hour = 0;
                         $exam->exam_credit_hour = 0;
-                        $exam->exam_result_status = "pass";
+                        $exam->exam_result_status = "-";
                         if ($exam_result->exam_result['exam_connection'] == 0) {
                             $exam->is_consolidate = 0;
                             foreach ($exam_result->exam_result['result'] as $exam_result_key => $exam_result_value) {
 
                                 $subject_array = array();
                                 if ($exam_result_value->attendence != "present") {
-                                    $exam->exam_result_status = "fail";
+                                    $exam->exam_result_status = "-";
                                 } elseif ($exam_result_value->get_marks < $exam_result_value->min_marks) {
-                                    $exam->exam_result_status = "fail";
+                                    $exam->exam_result_status = "-";
                                 }
                                 $exam->total_max_marks = $exam->total_max_marks + $exam_result_value->max_marks;
                                 $exam->total_get_marks = $exam->total_get_marks + $exam_result_value->get_marks;
@@ -2408,10 +2408,10 @@ class Webservice extends CI_Controller
                             if ($exam_result->exam_type == "average_passing") {
 
                                 if ($exam_result->passing_percentage <= $exam->percentage) {
-                                    $exam->exam_result_status = "pass";
+                                    $exam->exam_result_status = "-";
                                 } else {
                                     echo "string";                                  
-                                    $exam->exam_result_status = "fail";
+                                    $exam->exam_result_status = "-";
                                 }
                             }
 
@@ -2429,10 +2429,10 @@ class Webservice extends CI_Controller
 
                                     $subject_array = array();
                                     if ($exam_result_value->attendence != "present") {
-                                        $exam->exam_result_status = "fail";
+                                        $exam->exam_result_status = "-";
                                     } elseif ($exam_result_value->get_marks < $exam_result_value->min_marks) {
 
-                                        $exam->exam_result_status = "fail";
+                                        $exam->exam_result_status = "-";
                                     }
                                     $exam->total_max_marks = $exam->total_max_marks + $exam_result_value->max_marks;
                                     $exam->total_get_marks = $exam->total_get_marks + $exam_result_value->get_marks;
@@ -2467,9 +2467,9 @@ class Webservice extends CI_Controller
                                 if ($exam_result->exam_type == "average_passing") {
 
                                     if ($exam_result->passing_percentage <= $exam->percentage) {
-                                        $exam->exam_result_status = "pass";
+                                        $exam->exam_result_status = "-";
                                     } else {
-                                        $exam->exam_result_status = "fail";
+                                        $exam->exam_result_status = "-";
                                     }
                                 }
 
@@ -2496,14 +2496,14 @@ class Webservice extends CI_Controller
                                             if ($exam_result->exam_type == "average_passing") {
 
                                                 if ($each_exam_value->passing_percentage < $exam->percentage) {
-                                                    $exam->exam_result_status = "pass";
+                                                    $exam->exam_result_status = "-";
                                                 } else {
-                                                    $exam->exam_result_status = "fail";
+                                                    $exam->exam_result_status = "-";
                                                 }
                                             }
 
                                         } elseif ($consolidate_each->exam_status == "fail") {
-                                            $consolidate_result_status = "fail";
+                                            $consolidate_result_status = "-";
                                         }
 
                                         $consolidate_get_percentage_mark = getConsolidateRatio($exam_result->exam_result['exam_connection_list'], $each_exam_value->id, $consolidate_each->get_marks, $consolidate_each->max_marks);

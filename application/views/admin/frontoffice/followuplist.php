@@ -51,7 +51,7 @@
         } else {
            
             $.ajax({
-                url: '<?php echo base_url(); ?>admin/enquiry/follow_up_delete/' + follow_up_id + '/' + enquiry_id,
+                url: '<?php echo base_url(); ?>admin/followup/follow_up_delete/' + follow_up_id + '/' + enquiry_id,
 
                 success: function (data) {
                     follow_up(enquiry_id);
@@ -67,12 +67,12 @@
 
     function follow_up(id) {
         $.ajax({
-            url: '<?php echo base_url(); ?>admin/enquiry/follow_up/' + id + "/" + status,
+            url: '<?php echo base_url(); ?>admin/followup/follow_up/' + id + "/" + status,
             success: function (data) {
                 $('#getdetails_follow_up').html(data);
                 $.ajax({
 
-                    url: '<?php echo base_url(); ?>admin/enquiry/follow_up_list/' + id,
+                    url: '<?php echo base_url(); ?>admin/followup/follow_up_list/' + id,
 
                     success: function (data) {
                         $('#timeline').html(data);

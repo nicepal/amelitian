@@ -16,12 +16,13 @@
 
     .tcmybg {
         background:top center;
-        background-size: 100% 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        z-index: 1;
+                background-size: 35% 50%;
+                position: absolute;
+                top: 0;
+                left: 35%;
+                bottom: 0;
+                z-index: 1;
+                opacity:0.1;
     }
     .tablemain{position: relative;z-index: 2}
 
@@ -35,7 +36,7 @@ if (!empty($student_details)) {
             <?php
 if ($admitcard->background_img != "") {
             ?>
-                <img src="<?php echo base_url('uploads/admit_card/' . $admitcard->background_img); ?>" class="tcmybg" width="100%" height="100%" />
+                <img src="<?php echo base_url('uploads/admit_card/' . $admitcard->background_img); ?>" class="tcmybg" width="35%" height="50%" />
                 <?php
 }
         ?>

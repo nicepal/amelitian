@@ -56,7 +56,7 @@
                                         foreach ($sessionlist as $session) {
                                             ?>
                                             <option value="<?php echo $session['id'] ?>" <?php
-                                            if (set_value('session_id') == $session['id']) {
+                                            if ((set_value('session_id') == $session['id']) || ($sch_setting->session_id == $session['id'])) {
                                                 echo "selected=selected";
                                             }
                                             ?>><?php echo $session['session'] ?></option>

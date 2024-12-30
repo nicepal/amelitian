@@ -95,6 +95,7 @@ class Examresult extends Admin_Controller {
             $data['exam_group_id'] = $exam_group_id;
         }
         $data['sch_setting'] = $this->sch_setting_detail;
+     
         $this->load->view('layout/header', $data);
         $this->load->view('admin/examresult/admitcard', $data);
         $this->load->view('layout/footer', $data);

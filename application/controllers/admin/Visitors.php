@@ -377,6 +377,32 @@ class Visitors extends Admin_Controller {
             echo 0;
         }
     }
+    public function get_student_record_id($admission_no=''){
+        if($admission_no){
+            $class                   = $this->class_model->get();
+            $data['classlist']       = $class;
+    
+            $carray   = array();
+    
+            if (!empty($data["classlist"])) {
+                foreach ($data["classlist"] as $ckey => $cvalue) {
+    
+                    $carray[] = $cvalue["id"];
+                }
+            }
+            $records = $this->student_model->searchFullText($admission_no,$carray);
+            if($records){
+                
+                // echo $records[0]['id'];
+                echo json_encode($records[0]);  
+                
+            }else{
+                echo 0;
+            }
+        }else{
+            echo 0;
+        }
+    }
 
     public function download($documents) {
         $this->load->helper('download');

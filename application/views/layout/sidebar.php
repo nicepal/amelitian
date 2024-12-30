@@ -33,6 +33,7 @@
                             <?php if ($this->rbac->hasPrivilege('admission_enquiry', 'can_view')) { ?>
 
                                 <li class="<?php echo set_Submenu('admin/enquiry'); ?>"><a href="<?php echo base_url(); ?>admin/enquiry"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('admission_enquiry'); ?> </a></li>
+                                <li class="<?php echo set_Submenu('admin/followup'); ?>"><a href="<?php echo base_url(); ?>admin/followup"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('admission_followup'); ?> </a></li>
 
                                 <?php
                             }

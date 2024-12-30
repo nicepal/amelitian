@@ -394,7 +394,59 @@ class Visitors extends Admin_Controller {
             if($records){
                 
                 // echo $records[0]['id'];
-                echo json_encode($records[0]);  
+                $student_record = $records[0];
+                $resultlist         = $this->student_model->searchFullText($records[0]['admission_no']);
+                $count = 1;
+                foreach ($resultlist as $student) {
+                    $student_due_fee = $this->studentfeemaster_model->getStudentFees($student['student_session_id']);
+                    $fee_paid = 0;
+                    $fee_discount = 0;
+                    $fee_fine = 0;
+                    $fees_fine_amount = 0;
+                    $total_amount = 0;
+                    $total_balance_amount = 0;
+
+                    $newBalance = 0;
+                    $newTotalFeePaid = 0;
+                    $total_fees_fine_amount = 0;
+                    foreach ($student_due_fee as $key => $fee) {
+
+                        foreach ($fee->fees as $fee_key => $fee_value) {
+                            
+                            if (!empty($fee_value->amount_detail)) {
+                                $fee_deposits = json_decode(($fee_value->amount_detail));
+
+                                foreach ($fee_deposits as $fee_deposits_key => $fee_deposits_value) {
+                                    $fee_paid = $fee_paid + $fee_deposits_value->amount;
+                                    $fee_discount = $fee_discount + $fee_deposits_value->amount_discount;
+                                    $fee_fine = $fee_fine + $fee_deposits_value->amount_fine;
+                                }
+                            }
+                            if (($fee_value->due_date != "0000-00-00" && $fee_value->due_date != NULL) && (strtotime($fee_value->due_date) < strtotime(date('Y-m-d')))) {
+                                $fees_fine_amount=$fee_value->fine_amount;
+                                // $total_fees_fine_amount=$total_fees_fine_amount+$fee_value->fine_amount;
+                           }
+
+                          
+                            $total_amount = $total_amount + $fee_value->amount;
+                            // $total_discount_amount = $total_discount_amount + $fee_discount;
+                            // $total_deposite_amount += $total_deposite_amount + $fee_paid + $fee_discount;
+                            // $total_fine_amount += $total_fine_amount + $fee_fine;
+                            // $feetype_balance += $fee_value->amount - ($fee_paid);
+                            $total_balance_amount += $total_amount + $fee_paid;
+                        }
+                     
+                    }
+
+                  
+                    $newTotalFeePaid = $fee_paid + $fee_discount;
+                    $student_record['total_amount'] = $total_amount;
+                    $student_record['newTotalFeePaid'] = $newTotalFeePaid;
+                    $student_record['final'] = $total_amount-$newTotalFeePaid;
+
+                }
+                echo json_encode($student_record);
+
                 
             }else{
                 echo 0;

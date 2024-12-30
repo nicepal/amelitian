@@ -237,7 +237,20 @@
                                             </span>
                                         </div>
                                     </div>
-                                    
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Total Fee</th>
+                                            <th>Total Paid</th>
+                                            <th>Total Due</th>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="total_fee"></span></td>
+                                            <td><span class="total_paid"></span></td>
+                                            <td><span class="total_due"></span></td>
+                                        </tr>
+                                    </table>
+                                </div>
                                     
                               
                                     <div class="col-sm-4">
@@ -302,7 +315,7 @@
                                     
                                    
 
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-3 hide">
                                         <div class="form-group">
                                             <label for="pwd"><?php echo $this->lang->line('next_follow_up_date'); ?></label>
                                             <input type="text" id="date_of_call" name="follow_up_date"class="form-control date" value="<?php echo set_value('follow_up_date', date($this->customlib->getSchoolDateFormat())); ?>" readonly="">
@@ -348,7 +361,7 @@
                                             <th>Student Name</th>
                                             <th>Date Of Birth</th>
                                             <th>Class</th>
-                                            <th>Aadhar#</th>
+                                            <th>Section</th>
                                         </tr>
                                    </thead>
                                    <tbody class="studentBody">
@@ -392,7 +405,7 @@
             <div class="modal-content modal-media-content">
                 <div class="modal-header modal-media-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h4 class="box-title"><?php echo $this->lang->line('edit_admission_enquiry'); ?></h4>
+                    <h4 class="box-title">Edit <?php echo $this->lang->line('admission_followup'); ?></h4>
 
                 </div>
                 <div class="modal-body pt0 pb0" id="getdetails">
@@ -407,7 +420,7 @@
             <div class="modal-content modal-media-content">
                 <div class="modal-header modal-media-header">
                     <button type="button" class="close" onclick="update()" data-dismiss="modal">&times;</button>
-                    <h4 class="box-title"><?php echo $this->lang->line('follow_up_admission_enquiry'); ?></h4>
+                    <h4 class="box-title"><?php echo $this->lang->line('admission_followup'); ?></h4>
                 </div>
                 <div class="modal-body pt0 pb0" id="getdetails_follow_up">
                 </div>
@@ -430,20 +443,34 @@ $(document).ready(function() {
                                 success: function (result) {
                                     if(result == 0){
                                         $(".view_btn").empty();
-                                        $(".hidden_student_id").remove();
+                                        $('.total_fee').text(0);
+                                        $('.total_paid').text(0);
+                                        $('.total_due').text(0);
+                                        $("#hidden_student_id").remove();
+                                        $("#hidden_admission_no").remove();
                                         alert("Admission # is not correct");
                                         $("#admission_no").val('');
                                     }else{
                                         let res = JSON.parse(result);
+                                        let input_admission = '<input type="hidden" id="hidden_admission_no" name="admission_no" value="'+res.admission_no+'">';
                                         let input = '<input type="hidden" id="hidden_student_id" name="student_id" value="'+res.id+'">';
                                         $(".view_btn").empty();
                                         let btn = '<a target="_blank" href="<?php echo base_url('student/view/'); ?>'+res.id+'" class="btn btn-primary mt20">View Student</a>';
                                         $(".view_btn").html(btn);
                                         $('#admission_no').after(input);
+                                        $('#admission_no').after(input_admission);
+                                        $('#name_add').val(res.guardian_name);
+                                        $('input[name="email"]').val(res.email);
+                                        $('textarea[name="address"]').val(res.address);
+                                        $('#number').val(res.guardian_phone);
                                         $(".no_of_child").val(1).change();
                                         $('input[name="student_name[]"]').eq(1).val(res.firstname+" "+res.lastname);
                                         $('input[name="date_of_birth[]"]').eq(1).val(res.dob);
                                         $('select[name="class[]"]').eq(1).val(res.class).change();
+                                        $('input[name="adhar_no[]"]').eq(1).val(res.section);
+                                        $('.total_fee').text(res.total_amount);
+                                        $('.total_paid').text(res.newTotalFeePaid);
+                                        $('.total_due').text(res.final);
                                     }
                                 }
                             });

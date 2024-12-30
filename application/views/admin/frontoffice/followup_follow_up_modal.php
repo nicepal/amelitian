@@ -124,21 +124,17 @@
 
                 <label><?php echo $this->lang->line('phone'); ?>: <?php echo $enquiry_data['contact']; ?></label>
                 <label><?php echo $this->lang->line('address'); ?>: <?php echo $enquiry_data['address']; ?></label>
-                <label><?php echo $this->lang->line('reference'); ?>: <?php echo $enquiry_data['reference']; ?></label>
                 <label><?php echo $this->lang->line('description'); ?>: <?php echo $enquiry_data['description']; ?></label>
                 <label><?php echo $this->lang->line('note'); ?>: <?php echo $enquiry_data['note']; ?></label>
-                <label><?php echo $this->lang->line('source'); ?>: <?php echo $enquiry_data['source']; ?></label>
                 <label><?php echo $this->lang->line('assigned'); ?>: <?php echo $staff['name']; ?></label>
                 <label><?php echo $this->lang->line('email'); ?>: <?php echo $enquiry_data['email']; ?></label>
                 <!-- <label><?php echo $this->lang->line('class'); ?>: <?php echo $enquiry_data['classname']; ?></label> -->
-                <label><?php echo $this->lang->line('number_of_child'); ?>: <?php echo $enquiry_data['no_of_child']; ?></label>
                 <table class="table table-bordered" style="font-size:11px;">
                     <thead>
                         <tr>
                             <td>Name</td>
-                            <td>DOB</td>
+                            <!-- <td>DOB</td> -->
                             <td>Class</td>
-                            <td>Adhaar#</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -146,16 +142,26 @@
                        foreach($enquiry_student as $key => $val){ ?>
                             <tr>
                                 <td><?php echo $val['name']; ?></td>
-                                <td><?php echo $val['dob']; ?></td>
-                                <td><?php echo $val['class']; ?></td>
-                                <td><?php echo $val['adhar_no']; ?></td>
+                                <!-- <td><?php echo $val['dob']; ?></td> -->
+                                <td><?php echo $val['class']; ?> (<?php echo $val['adhar_no']; ?>)</td>
 
                             </tr>
                         <?php   }
                     } ?>
                     </tbody>
                 </table>
-               
+                <table class="table table-bordered" style="font-size:11px;">
+                    <tr>
+                        <th>Total Fee</th>
+                        <th>Total Paid</th>
+                        <th>Total Due</th>
+                    </tr>
+                    <tr>
+                        <td><span class="total_fee"><?php echo $total_amount; ?></span></td>
+                        <td><span class="total_paid"><?php echo $newTotalFeePaid; ?></span></td>
+                        <td><span class="total_due"><?php echo $final; ?></span></td>
+                    </tr>
+                </table>
             </div> 
         </div>
     </div>  

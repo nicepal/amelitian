@@ -96,6 +96,7 @@ class Followup extends Admin_Controller {
             $enquiry = array(
                 'name' => $this->input->post('name'),
                 'contact' => $this->input->post('contact'),
+                'student_id' => $this->input->post('student_id'),
                 'address' => $this->input->post('address'),
                 'reference' => $this->input->post('reference')??'-',
                 'date' => date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('date'))),

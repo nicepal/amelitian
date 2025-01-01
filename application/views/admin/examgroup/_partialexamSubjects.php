@@ -24,7 +24,8 @@
                 <th class=""><?php echo $this->lang->line('date'); ?></th>
                 <th class=""><?php echo $this->lang->line('time');?></th>
                 <th class=""><?php echo $this->lang->line('duration')?></th>
-                <th class=""><?php echo $this->lang->line('credit')." ".$this->lang->line('hours') ?></th>
+                <!-- <th class=""><?php echo $this->lang->line('credit')." ".$this->lang->line('hours') ?></th> -->
+                <th class="">Int/Ext Marks</th>
                 <th class=""><?php echo $this->lang->line('room')." ".$this->lang->line('no')?></th>
                 <th class="tddm150"><?php echo $this->lang->line('marks')." (".$this->lang->line('max').".)";?></th>
                 <th class="tddm150"><?php echo $this->lang->line('marks')." (".$this->lang->line('min').".)";?></th>
@@ -91,7 +92,10 @@
 </td>
 
                     <td>
-                        <input class="form-control credit_hours tddm150" name="credit_hours_<?php echo $count; ?>" type="text" value="<?php echo $exam_subject_value->credit_hours; ?>"/>
+                        <input style="display:none;" class="form-control credit_hours tddm150" name="credit_hours_<?php echo $count; ?>" type="text" value="<?php echo $exam_subject_value->credit_hours; ?>"/>
+                        <select name="in_ext_marks_<?php echo $count; ?>" class="form-control">
+                            <option <?php echo ($exam_subject_value->in_ext_marks == 'int_ext')?(' selected="selected"'):(''); ?> value="int_ext">Int/Ext Marks</option>
+                            <option <?php echo ($exam_subject_value->in_ext_marks == 'ext_only')?(' selected="selected"'):(''); ?> value="ext_only">Ext Marks Only</option></select>
                     </td>
                          <td>
                         <input class="form-control room_no" name="room_no_<?php echo $count; ?>" type="text" value="<?php echo $exam_subject_value->room_no ?>"/>

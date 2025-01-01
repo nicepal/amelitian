@@ -743,7 +743,7 @@ if (set_value('class_id') == $class['id']) {
         html += '<td><div class="input-group datepicker_init"><input type="text" name="date_from_' + x + '" class="form-control"/><span class="input-group-addon" id="basic-addon2"><i class="fa fa-calendar"></i></span></div></td>';
         html += '<td><div class="input-group datepicker_init_time"><input type="text" name="time_from' + x + '" class="form-control"/><span class="input-group-addon" id="basic-addon2"><i class="fa fa-calendar"></i></span></div></td>';
         html += '<td><input type="text" name="duration' + x + '" class="form-control duration" value="0"/></td>';
-        html += '<td><input type="number" name="credit_hours' + x + '" class="form-control credit_hours" value="0"/></td>';
+        html += '<td><input type="number" name="credit_hours' + x + '" class="form-control credit_hours" style="display:none;" value="0"/><select name="in_ext_marks_' + x + '" class="form-control"><option value="int_ext">Int/Ext Marks</option><option value="ext_only">Ext Marks Only</option></select></td>';
         html += '<td class=""><input type="text" name="room_no_' + x + '" class="form-control room_no" /></td>';
         html += '<td class=""><input type="number" name="max_marks_' + x + '" class="form-control max_marks" /></td>';
         html += '<td class=""><input type="hidden" name="rows[]" value="' + x + '"> <input name="prev_row[' + x + ']" type="hidden" value="0"><input type="number" name="min_marks_' + x + '" class="form-control min_marks" /></td>';

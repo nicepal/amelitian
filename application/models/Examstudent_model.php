@@ -32,7 +32,7 @@ class Examstudent_model extends CI_Model {
 
     public function getExamSubjects($subject_id,$exam_id){
 
-        $this->db->select('subjects.*,exam_group_class_batch_exam_subjects.max_marks,exam_group_class_batch_exam_subjects.id as exam_subject_id')->from('subjects');
+        $this->db->select('subjects.*,exam_group_class_batch_exam_subjects.max_marks,exam_group_class_batch_exam_subjects.in_ext_marks,exam_group_class_batch_exam_subjects.min_marks,exam_group_class_batch_exam_subjects.id as exam_subject_id')->from('subjects');
         $this->db->join('exam_group_class_batch_exam_subjects', 'exam_group_class_batch_exam_subjects.subject_id = subjects.id');
         $this->db->where('exam_group_class_batch_exam_subjects.exam_group_class_batch_exams_id',$exam_id);
         $this->db->where_in('exam_group_class_batch_exam_subjects.id',$subject_id);
@@ -44,14 +44,15 @@ class Examstudent_model extends CI_Model {
 
     public function searchExamStudentsDTP($class_id,$section_id,$exam_id,$subject_id) {
 
-        $this->db->select('exam_group_class_batch_exam_students.student_id as exam_students_id,classes.id AS `class_id`,student_session.id as student_session_id,students.id,classes.class,sections.id AS `section_id`,sections.section,students.id,students.admission_no , students.roll_no,students.admission_date,students.firstname, students.middlename, students.lastname,students.image,    students.mobileno, students.email ,students.state ,   students.city , students.pincode ,     students.religion,     students.dob ,students.current_address,    students.permanent_address,IFNULL(students.category_id, 0) as `category_id`,IFNULL(categories.category, "") as `category`,students.adhar_no,students.samagra_id,students.bank_account_no,students.bank_name, students.ifsc_code , students.guardian_name , students.guardian_relation,students.guardian_phone,students.guardian_address,students.is_active ,students.created_at ,students.updated_at,students.father_name,students.rte,students.gender,IFNULL(exam_group_class_batch_exam_students.id, 0) as onlineexam_student_id,IFNULL(exam_group_class_batch_exam_students.student_session_id, 0) as onlineexam_student_session_id')->from('students');
+        $this->db->select('exam_group_class_batch_exam_students.student_id as exam_students_id,classes.id AS `class_id`,student_session.id as student_session_id,students.id,classes.class,sections.id AS `section_id`,sections.section,students.id,students.admission_no , students.roll_no,students.admission_date,students.firstname, students.middlename, students.lastname,students.image,    students.mobileno, students.email ,students.state ,   students.city , students.pincode ,     students.religion,     students.dob ,students.current_address,    students.permanent_address,IFNULL(students.category_id, 0) as `category_id`,IFNULL(categories.category, "") as `category`,students.adhar_no,students.samagra_id,students.bank_account_no,students.bank_name, students.ifsc_code , students.guardian_name , students.guardian_relation,students.guardian_phone,students.guardian_address,students.is_active ,students.created_at ,students.updated_at,students.father_name,students.rte,students.gender,IFNULL(exam_group_class_batch_exam_students.id, 0) as onlineexam_student_id,IFNULL(exam_group_class_batch_exam_students.student_session_id, 0) as onlineexam_student_session_id')
+        ->from('students');
         $this->db->join('student_session', 'student_session.student_id = students.id');
         $this->db->join('classes', 'student_session.class_id = classes.id');
         $this->db->join('sections', 'sections.id = student_session.section_id');
         $this->db->join('categories', 'students.category_id = categories.id', 'left');
         $this->db->join('exam_group_class_batch_exam_students', 'exam_group_class_batch_exam_students.student_session_id = student_session.id and exam_group_class_batch_exam_students.exam_group_class_batch_exam_id=' . $exam_id, 'left');
-        // $this->db->join('exam_group_class_batch_exam_subjects', 'exam_group_class_batch_exam_subjects.student_session_id = student_session.id and exam_group_class_batch_exam_subjects.exam_group_class_batch_exam_id=' . $exam_id, 'left');
-
+        // $this->db->join('exam_group_class_batch_exam_subjects', 'exam_group_class_batch_exam_subjects.exam_group_class_batch_exams_id = exam_group_class_batch_exam_students.exam_group_class_batch_exam_id', 'left');
+        // $this->db->join("subjects","subjects.id = exam_group_class_batch_exam_subjects.subject_id","left");
         $this->db->where('student_session.session_id', $this->current_session);
         // $this->db->where_id();
         $this->db->where('student_session.class_id', $class_id);

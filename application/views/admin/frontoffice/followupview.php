@@ -224,8 +224,8 @@
                                 <div class="row">
                                     <div class="col-sm-10">
                                         <div class="form-group">
-                                            <label for="pwd">Search By Keyword</label>  <small class="req"> *</small>
-                                            <input type="text" placeholder="Search By Student Name, Roll Number, Enroll Number, National Id, Local Id Etc." class="form-control admission_no" id="admission_no" value="<?php echo set_value('admission_no'); ?>" name="admission_no_search">
+                                            <label for="pwd">Search By Admission No</label>  <small class="req"> *</small>
+                                            <input type="text" placeholder="Search By Roll Number, Enroll Number etc" class="form-control admission_no" id="admission_no" value="<?php echo set_value('admission_no'); ?>" name="admission_no_search">
                                             <span class="text-danger"><?php echo form_error('admission_no'); ?></span>
                                             <small class="text-danger">Press enter to get student record</small>                                    
                                         </div><!--./form-group-->

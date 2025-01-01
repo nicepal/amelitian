@@ -648,6 +648,7 @@ class Examgroup extends Admin_Controller {
                             'exam_group_class_batch_exams_id' => $this->input->post('exam_group_class_batch_exam_id'),
                             'subject_id' => $this->input->post('subject_' . $row_value),
                             'credit_hours' => $this->input->post('credit_hours' . $row_value),
+                            'in_ext_marks' => $this->input->post('in_ext_marks_' . $row_value),
                             'date_from' => date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('date_from_' . $row_value))),
                             'time_from' => $this->input->post('time_from' . $row_value),
                             'duration' => $this->input->post('duration' . $row_value),
@@ -661,6 +662,7 @@ class Examgroup extends Admin_Controller {
                     $update_array[] = array(
                         'id' => $update_id,
                         'credit_hours' => $this->input->post('credit_hours_' . $row_value),
+                        'in_ext_marks' => $this->input->post('in_ext_marks_' . $row_value),
                         'exam_group_class_batch_exams_id' => $this->input->post('exam_group_class_batch_exam_id'),
                         'subject_id' => $this->input->post('subject_' . $row_value),
                         'date_from' => date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('date_from_' . $row_value))),

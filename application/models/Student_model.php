@@ -1104,7 +1104,10 @@ class Student_model extends MY_Model
 
     public function getPreviousSessionStudent($previous_session_id, $class_id, $section_id)
     {
-        $sql = "SELECT student_session.student_id as student_id, student_session.id as current_student_session_id, student_session.class_id as current_session_class_id ,previous_session.id as previous_student_session_id,students.firstname,students.middlename,students.lastname,students.admission_no,students.roll_no,students.father_name,students.admission_date FROM `student_session` left JOIN (SELECT * FROM `student_session` where session_id=$previous_session_id) as previous_session on student_session.student_id=previous_session.student_id INNER join students on students.id =student_session.student_id where student_session.session_id=$this->current_session and student_session.class_id=$class_id ";
+        $sql = "SELECT student_session.student_id as student_id, student_session.id as current_student_session_id, student_session.class_id as current_session_class_id ,previous_session.id as previous_student_session_id,students.firstname,students.middlename,students.lastname,students.admission_no,students.roll_no,students.father_name,students.admission_date FROM `student_session` left JOIN (SELECT * FROM `student_session` where session_id=$previous_session_id) as previous_session on student_session.student_id=previous_session.student_id INNER join students on students.id =student_session.student_id where student_session.session_id=$this->current_session ";
+        if($class_id){
+            $sql .=" and student_session.class_id=$class_id ";
+        }
         if($section_id){
             $sql .=" and student_session.section_id=$section_id ";
         }
@@ -1467,7 +1470,7 @@ class Student_model extends MY_Model
         return $this->db->select('class_id,section_id')->from('student_session')->where('session_id', $schoolsessionId)->where('student_id', $studentid)->get()->row_array();
     }
 
-    public function reportClassSection($class_id = null, $section_id = null,$previous = false)
+    public function reportClassSection($class_id = null, $section_id = null,$previous = false,$from_date=false,$to_date=false)
     {
 
         $i = 1;
@@ -1499,10 +1502,26 @@ class Student_model extends MY_Model
         }
         $this->db->where('students.is_active', "yes");
 
-        $this->db->where('student_session.class_id', $class_id);
-        if($section_id){
+        if($class_id && trim($class_id) != ""){
+            $this->db->where('student_session.class_id', $class_id);
+        }
+
+        if($section_id && trim($section_id) != ""){
             $this->db->where('student_session.section_id', $section_id);
         }
+
+        if($from_date){
+            $formatted_input_date_1 = DateTime::createFromFormat('Y-m-d h:i:s', $from_date);
+
+            $this->db->where('DATE(student_session.created_at) >= ', $formatted_input_date_1);
+        }
+
+        if($to_date){
+            $formatted_input_date = DateTime::createFromFormat('Y-m-d h:i:s', $to_date);
+
+            $this->db->where('DATE(student_session.created_at) <= ', $formatted_input_date);
+        }
+
         $this->db->group_by('students.id');
         $this->db->order_by('students.admission_no', 'asc');
 

@@ -33,14 +33,13 @@ class Smsgateway {
         }
     }
 
-    public function sendSMS($send_to, $template = '', $detail='') {
+    public function sendSMS($send_to, $template = '', $detail='',$multi=false) {
         $sms_detail = $this->_CI->smsconfig_model->getActiveSMS();
         if ($template != "") {
             $msg = $this->getContent($detail, $template);
         } else {
             $msg = $detail;
         }
-
         if (!empty($sms_detail)) {
             if ($sms_detail->type == 'clickatell') {
 
@@ -107,7 +106,11 @@ class Smsgateway {
                 $from = $sms_detail->contact;
                 $to = $send_to;
                 $message = $msg;
-                $this->_CI->customsms->sendSMS($to, $message);
+                if($multi == true){
+                    return $this->_CI->customsms->sendMultiSMS($to, $message);
+                }else{
+                    return $this->_CI->customsms->sendSMS($to, $message);
+                }
             } else {
                 
             }
@@ -192,14 +195,26 @@ class Smsgateway {
         return true;
     }
 
+    function formatPhoneNumber($phone) {
+        // Check if the phone number starts with +91
+        if (substr($phone, 0, 3) !== '+91') {
+            // Add +91 if not present
+            return '+91' . $phone;
+        }
+        
+        // Return the phone number as is if +91 is already present
+        return $phone;
+    }
+
+    
     public function sentAddFeeSMS($detail, $template) {
 
         $sms_detail = $this->_CI->smsconfig_model->getActiveSMS();
         $send_to = $detail->contact_no;
         $msg = $this->getAddFeeContent($detail, $template);
-
         if (!empty($sms_detail)) {
             if ($sms_detail->type == 'clickatell') {
+
                 $params = array(
                     'apiToken' => $sms_detail->api_id,
                 );
@@ -222,20 +237,21 @@ class Smsgateway {
                     'api_version' => '2010-04-01',
                     'number' => $sms_detail->contact
                 );
-
+         
                 $this->_CI->load->library('twilio', $params);
 
                 $from = $sms_detail->contact;
-                $to = $send_to;
+                $to = $this->formatPhoneNumber($send_to);
                 $message = $msg;
                 $response = $this->_CI->twilio->sms($from, $to, $message);
-
+        
                 if ($response->IsError) {
                     return false;
                 } else {
                     return true;
                 }
             } else if ($sms_detail->type == 'msg_nineone') {
+
                 $params = array(
                     'authkey' => $sms_detail->authkey,
                     'senderid' => $sms_detail->senderid,
@@ -243,6 +259,7 @@ class Smsgateway {
                 $this->_CI->load->library('msgnineone', $params);
                 $this->_CI->msgnineone->sendSMS($send_to, $msg);
             } else if ($sms_detail->type == 'smscountry') {
+
                 $params = array(
                     'username' => $sms_detail->username,
                     'sernderid' => $sms_detail->senderid,
@@ -257,12 +274,14 @@ class Smsgateway {
                 );
                 $this->_CI->load->library('textlocalsms', $params);
                 $this->_CI->textlocalsms->sendSms(array($send_to), $msg, $sms_detail->senderid);
+
             } else if ($sms_detail->type == 'custom') {
+
                 $this->_CI->load->library('customsms');
                 $from = $sms_detail->contact;
                 $to = $send_to;
                 $message = $msg;
-                $this->_CI->customsms->sendSMS($to, $message);
+                dd($this->_CI->customsms->sendSMS($to, $message));
             } else {
                 
             }
@@ -881,6 +900,17 @@ class Smsgateway {
             $template = str_replace('{{' . $key . '}}', $value, $template);
         }
 
+        return $template;
+    }
+
+
+    public function sendClassResult($student_detail, $template) {
+
+        // $session_name = $this->_CI->setting_model->getCurrentSessionName();
+        // $student_detail['current_session_name'] = $session_name;
+        foreach ($student_detail as $key => $value) {
+            $template = str_replace('{{' . $key . '}}', $value, $template);
+        }
         return $template;
     }
 

@@ -36,10 +36,10 @@
                 <!-- Custom Tabs (Pulled to the right) -->
                 <div class="nav-tabs-custom theme-shadow">
                     <ul class="nav nav-tabs pull-right">
-                        <li><a href="#tab_birthday" data-toggle="tab"><?php echo $this->lang->line('todays_birtday'); ?></a></li>
-                        <li><a href="#tab_class" data-toggle="tab"><?php echo $this->lang->line('class'); ?></a></li>
-                        <li><a href="#tab_perticular" data-toggle="tab"><?php echo $this->lang->line('individual'); ?></a></li>
-                        <li class="active"><a href="#tab_group" data-toggle="tab"><?php echo $this->lang->line('group'); ?></a></li>
+                        <!-- <li><a href="#tab_birthday" data-toggle="tab"><?php echo $this->lang->line('todays_birtday'); ?></a></li> -->
+                        <!-- <li><a href="#tab_class" data-toggle="tab"><?php echo $this->lang->line('class'); ?></a></li> -->
+                        <!-- <li><a href="#tab_perticular" data-toggle="tab"><?php echo $this->lang->line('individual'); ?></a></li> -->
+                        <!-- <li class="active"><a href="#tab_group" data-toggle="tab"><?php echo $this->lang->line('group'); ?></a></li> -->
 
 
                         <li class="pull-left header"><?php echo $this->lang->line('send') . " " . $this->lang->line('sms') ?></li>
@@ -53,7 +53,10 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label><?php echo $this->lang->line('title'); ?></label> <small class="req">*</small>
-                                                <input autofocus="" class="form-control" name="group_title">
+                                                <!-- <input autofocus="" class="form-control" name="group_title"> -->
+                                                <select name="template_id" class="form-control">
+                                                    <option value="fees_reminder">Fee Reminder</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label class="pr20"><?php echo $this->lang->line('send_through'); ?><small class="req"> *</small></label>
@@ -62,12 +65,12 @@
                                                     <input type="checkbox" value="sms" name="group_send_by[]"><?php echo $this->lang->line('sms'); ?>
                                                 </label>
                                                 <label class="checkbox-inline">
-                                                    <input type="checkbox" value="push" name="group_send_by[]"><?php echo $this->lang->line('mobile_app'); ?>
+                                                    <input type="checkbox" disabled="disabled" value="push" name="group_send_by[]"><?php echo $this->lang->line('mobile_app'); ?>
                                                 </label>
 
                                                 <span class="text-danger"><?php echo form_error('message'); ?></span>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="hide form-group">
                                                 <label><?php echo $this->lang->line('message'); ?></label><small class="req"> *</small>
                                                 <textarea id="group_msg_text" name="group_message" class="form-control compose-textarea" rows="12"><?php echo set_value('message'); ?></textarea>
                                                 <span class="text-muted tot_count_group_msg_text pull-right word_counter"><?php echo $this->lang->line('character') . " " . $this->lang->line('count') ?>: 0</span>
@@ -85,7 +88,7 @@
                                                     <?php if($sch_setting->guardian_name){
                                                         ?>
                                                          <div class="checkbox">
-                                                        <label><input type="checkbox" name="user[]" value="parent"> <b><?php echo $this->lang->line('guardians'); ?></b></label>
+                                                        <label><input type="checkbox" disabled="disabled" name="user[]" value="parent"> <b><?php echo $this->lang->line('guardians'); ?></b></label>
                                                     </div>
                                                         <?php
                                                     }?>
@@ -95,7 +98,7 @@
                                                         ?>
 
                                                         <div class="checkbox">
-                                                            <label><input type="checkbox" name="user[]" value="<?php echo $role_value['id']; ?>"> <b><?php echo $role_value['name']; ?></b></label>
+                                                            <label><input type="checkbox" disabled="disabled" name="user[]" value="<?php echo $role_value['id']; ?>"> <b><?php echo $role_value['name']; ?></b></label>
                                                         </div>
 
 
@@ -142,7 +145,7 @@
                                                     <input type="checkbox" value="sms" name="individual_send_by[]"><?php echo $this->lang->line('sms'); ?>
                                                 </label>
                                                 <label class="checkbox-inline">
-                                                    <input type="checkbox" value="push" name="individual_send_by[]"><?php echo $this->lang->line('mobile_app'); ?>
+                                                    <input type="checkbox" disabled="disabled" value="push" name="individual_send_by[]"><?php echo $this->lang->line('mobile_app'); ?>
                                                 </label>
 
                                                 <span class="text-danger"><?php echo form_error('message'); ?></span>
@@ -242,7 +245,7 @@
                                                     <input type="checkbox" value="sms" name="class_send_by[]"><?php echo $this->lang->line('sms'); ?>
                                                 </label>
                                                 <label class="checkbox-inline">
-                                                    <input type="checkbox" value="push" name="class_send_by[]"> <?php echo $this->lang->line('mobile_app'); ?>
+                                                    <input type="checkbox" disabled="disabled" value="push" name="class_send_by[]"> <?php echo $this->lang->line('mobile_app'); ?>
                                                 </label>
 
                                                 <span class="text-danger"><?php echo form_error('message'); ?></span>
@@ -313,7 +316,7 @@
                                                     <input type="checkbox" value="sms" name="birthday_send_by[]"><?php echo $this->lang->line('sms'); ?>
                                                 </label>
                                                 <label class="checkbox-inline">
-                                                    <input type="checkbox" value="push" name="birthday_send_by[]"><?php echo $this->lang->line('mobile_app'); ?>
+                                                    <input type="checkbox" disabled="disabled" value="push" name="birthday_send_by[]"><?php echo $this->lang->line('mobile_app'); ?>
                                                 </label>
 
                                                 <span class="text-danger"><?php echo form_error('message'); ?></span>
@@ -340,8 +343,7 @@
                                                     if (!empty($birthDaysList)) {
                                                         // print_r($birthDaysList['students']);
 
-                                                        if (isset($birthDaysList['students'])) {
-                                                            ?>
+                                                        if (isset($birthDaysList['students'])) { ?>
 
 
                                                             <h4><?php echo $this->lang->line('students'); ?></h4>
@@ -351,7 +353,7 @@
                                                                 foreach ($birthDaysList['students'] as $student_key => $student_value) {
                                                                     ?>
                                                                     <div class="checkbox">
-                                                                        <label><input type="checkbox" name="user[]" app-key="<?php echo $student_value['app_key']; ?>" value="<?php echo $student_value['contact_no'] ?>" checked> <b><?php echo $student_value['name']; ?></b></label>
+                                                                        <label><input disabled="disabled" type="checkbox" name="user[]" app-key="<?php echo $student_value['app_key']; ?>" value="<?php echo $student_value['contact_no'] ?>" checked> <b><?php echo $student_value['name']; ?></b></label>
                                                                     </div>
                                                                     <?php
                                                                 }
@@ -369,7 +371,7 @@
                                                                 foreach ($birthDaysList['staff'] as $staff_key => $staff_value) {
                                                                     ?>
                                                                     <div class="checkbox">
-                                                                        <label><input type="checkbox" name="user[]" app-key="" value="<?php echo $staff_value['contact_no'] ?>" checked> <b><?php echo $staff_value['name']; ?></b></label>
+                                                                        <label><input disabled="disabled" type="checkbox" name="user[]" app-key="" value="<?php echo $staff_value['contact_no'] ?>" checked> <b><?php echo $staff_value['name']; ?></b></label>
                                                                     </div>
                                                                     <?php
                                                                 }

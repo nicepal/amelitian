@@ -216,6 +216,26 @@ class Student_model extends MY_Model
         }
     }
 
+    public function get_just_student_table($id = null)
+    {
+        $this->db->select('*')->from('students');
+        $this->db->join('student_session', 'student_session.student_id = students.id','left');
+        $this->db->where('student_session.session_id', $this->current_session);
+        if ($id != null) {
+            $this->db->where('students.id', $id);
+        } else {
+            $this->db->where('students.is_active', 'yes');
+            $this->db->order_by('students.id', 'desc');
+        }
+        $query = $this->db->get();
+        if ($id != null) {
+            // return $query->row_array();
+            return $query->result_array();
+        } else {
+            return $query->result_array();
+        }
+    }
+
     public function findByAdmission($admission_no = null)
     {
 

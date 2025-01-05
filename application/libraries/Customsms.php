@@ -44,7 +44,8 @@ class Customsms {
         $data['sender'] = $this->senderId;
         $data['number'] = $to;
         $data['message'] = $message;
-        $data['template_id'] = "";
+        // $data['template_id'] = "";
+        $data['template_id'] = $this->_CI->session->userdata("template_id")??'0';
 
         $data_string = json_encode($data);
     
@@ -58,6 +59,40 @@ class Customsms {
         );
         $result = curl_exec($ch);
         //  echo $result;
+        $this->_CI->session->unset_userdata("template_id");
+
+    }
+
+    function sendMultiSMS($to, $message) {
+
+        $curl = curl_init();
+
+
+
+        $data = array();
+        $data['api_id'] = $this->AUTH_KEY;
+        $data['api_password'] = $this->api_pass;
+        $data['sms_type'] = "Transactional";
+        $data['sms_encoding'] = "text";
+        $data['sender'] = $this->senderId;
+        $data['number'] = $to;
+        $data['message'] = $message;
+        // $data['template_id'] = "";
+        $data['template_id'] = $this->_CI->session->userdata("template_id")??'0';
+
+        $data_string = json_encode($data);
+    
+        $ch = curl_init('https://www.bulksmsplans.com/api/send_sms_multi');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($data_string))
+        );
+        $result = curl_exec($ch);
+        //  echo $result;
+        $this->_CI->session->unset_userdata("template_id");
 
     }
 

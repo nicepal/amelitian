@@ -10,7 +10,8 @@ class Followup extends Admin_Controller {
         $this->load->library('form_validation');
         $this->load->model("followup_model");
         $this->config->load("payroll");
-        $this->enquiry_status = $this->config->item('enquiry_status');
+        $this->enquiry_status = $this->config->item('fee_followup_status');
+   
     }
 
     public function index() {

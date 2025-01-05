@@ -45,6 +45,18 @@ $config['enquiry_status'] = array(
     'won' => lang('won'),
     'lost' => lang('lost'),
 );
+
+$config['fee_followup_status'] = array(
+    'pending' => 'Pending',
+    'installment_1_pending' => 'Installment 1 Pending',
+    'installment_1_paid' => 'Installment 1 Paid',
+    'installment_2_pending' => 'Installment 2 Pending',
+    'installment_2_paid' => 'Installment 2 Paid',
+    'installment_3_pending' => 'Installment 3 Pending',
+    'installment_3_paid' => 'Installment 3 Paid',
+    'fully_paid' => 'Full Paid',
+);
+
 $config['search_type'] = array(
     'today' => lang('today'),
     'this_week' => lang('this_week'),

@@ -456,21 +456,21 @@ class Mailsms extends Admin_Controller {
     public function send_group_sms() {
 
         $this->form_validation->set_error_delimiters('<li>', '</li>');
-        $this->form_validation->set_rules('group_title', $this->lang->line('title'), 'required');
-        $this->form_validation->set_rules('group_message', $this->lang->line('message'), 'required');
-        $this->form_validation->set_rules('user[]', $this->lang->line('message') . " " . $this->lang->line('to'), 'required');
-        $this->form_validation->set_rules('group_send_by[]', $this->lang->line('send_through'), 'required');
+        $this->form_validation->set_rules('template_id', $this->lang->line('title'), 'required');
+        // $this->form_validation->set_rules('group_message', $this->lang->line('message'), 'required');
+        // $this->form_validation->set_rules('user[]', $this->lang->line('message') . " " . $this->lang->line('to'), 'required');
+        // $this->form_validation->set_rules('group_send_by[]', $this->lang->line('send_through'), 'required');
         if ($this->form_validation->run()) {
             $user_array = array();
 
-            $sms_mail = $this->input->post('group_send_by');
+            // $sms_mail = $this->input->post('group_send_by');
 
-            $message = $this->input->post('group_message');
-            $message_title = $this->input->post('group_title');
+            // $message = $this->input->post('group_message');
+            $message_title = $this->input->post('template_id');
             $data = array(
                 'is_group' => 1,
                 'title' => $message_title,
-                'message' => $message,
+                'message' => 'Send fee reminder message',
                 'send_mail' => 0,
                 'send_sms' => 1,
                 'group_list' => json_encode(array()),
@@ -478,71 +478,90 @@ class Mailsms extends Admin_Controller {
             );
             $this->messages_model->add($data);
 
-            $userlisting = $this->input->post('user[]');
-            foreach ($userlisting as $users_key => $users_value) {
-                if ($users_value == "student") {
-                    $student_array = $this->student_model->get();
-
-                    if (!empty($student_array)) {
-                        foreach ($student_array as $student_key => $student_value) {
-
-                            $array = array(
-                                'user_id' => $student_value['id'],
-                                'email' => $student_value['email'],
-                                'mobileno' => $student_value['mobileno'],
-                                'app_key' => $student_value['app_key'],
-                            );
-                            $user_array[] = $array;
-                        }
-                    }
-                } else if ($users_value == "parent") {
-                    $parent_array = $this->student_model->get();
-                    if (!empty($parent_array)) {
-                        foreach ($parent_array as $parent_key => $parent_value) {
-                            $array = array(
-                                'user_id' => $parent_value['id'],
-                                'email' => $parent_value['guardian_email'],
-                                'mobileno' => $parent_value['guardian_phone'],
-                                'app_key' => $parent_value['parent_app_key'],
-                            );
-                            $user_array[] = $array;
-                        }
-                    }
-                } else if (is_numeric($users_value)) {
-
-                    $staff = $this->staff_model->getEmployeeByRoleID($users_value);
-                    if (!empty($staff)) {
-                        foreach ($staff as $staff_key => $staff_value) {
-                            $array = array(
-                                'user_id' => $staff_value['id'],
-                                'email' => $staff_value['email'],
-                                'mobileno' => $staff_value['contact_no'],
-                            );
-                            $user_array[] = $array;
-                        }
-                    }
+            // $userlisting = $this->input->post('user[]');
+            $student_array = $this->student_model->get_just_student_table(4677);
+            $phoneNumbers = array();
+            foreach($student_array as $phone){
+                if($phone['guardian_phone'] != ''){
+                    $phoneNumbers[] = $phone['guardian_phone'];
                 }
             }
 
-            if (!empty($user_array)) {
+            $chunks = array_chunk($phoneNumbers, 100);
 
-                foreach ($user_array as $user_mail_key => $user_mail_value) {
-                    if (in_array("sms", $sms_mail)) {
-                        if ($user_mail_value['mobileno'] != "") {
-                            $this->smsgateway->sendSMS($user_mail_value['mobileno'], "", ($message));
-                        }
-                    }
-                    if (in_array("push", $sms_mail)) {
-                        $push_array = array(
-                            'title' => $message_title,
-                            'body' => $message,
-                        );
-                        if ($user_mail_value['app_key'] != "") {
-                            $this->pushnotification->send($user_mail_value['app_key'], $push_array, "mail_sms");
-                        }
-                    }
-                }
+            $smsData = array();
+            foreach($chunks as $finalData){
+                $smsData[] = implode(",",$finalData);
             }
+            $this->load->library('customlib');
+
+            $chk_mail_sms = $this->customlib->sendMailSMS('fees_reminder');
+            // dd($chk_mail_sms);
+
+            // foreach ($userlisting as $users_key => $users_value) {
+            //     if ($users_value == "student") {
+            //         $student_array = $this->student_model->get();
+
+            //         if (!empty($student_array)) {
+            //             foreach ($student_array as $student_key => $student_value) {
+
+            //                 $array = array(
+            //                     'user_id' => $student_value['id'],
+            //                     'email' => $student_value['email'],
+            //                     'mobileno' => $student_value['mobileno'],
+            //                     'app_key' => $student_value['app_key'],
+            //                 );
+            //                 $user_array[] = $array;
+            //             }
+            //         }
+            //     } else if ($users_value == "parent") {
+            //         $parent_array = $this->student_model->get();
+            //         if (!empty($parent_array)) {
+            //             foreach ($parent_array as $parent_key => $parent_value) {
+            //                 $array = array(
+            //                     'user_id' => $parent_value['id'],
+            //                     'email' => $parent_value['guardian_email'],
+            //                     'mobileno' => $parent_value['guardian_phone'],
+            //                     'app_key' => $parent_value['parent_app_key'],
+            //                 );
+            //                 $user_array[] = $array;
+            //             }
+            //         }
+            //     } else if (is_numeric($users_value)) {
+
+            //         $staff = $this->staff_model->getEmployeeByRoleID($users_value);
+            //         if (!empty($staff)) {
+            //             foreach ($staff as $staff_key => $staff_value) {
+            //                 $array = array(
+            //                     'user_id' => $staff_value['id'],
+            //                     'email' => $staff_value['email'],
+            //                     'mobileno' => $staff_value['contact_no'],
+            //                 );
+            //                 $user_array[] = $array;
+            //             }
+            //         }
+            //     }
+            // }
+
+            // if (!empty($smsData)) {
+
+                foreach ($smsData as $user_mail_key => $user_mail_value) {
+                    // if (in_array("sms", $sms_mail)) {
+                        // if ($user_mail_value != "") {
+                            $this->smsgateway->sendSMS($user_mail_value, "", ($chk_mail_sms['template']),true);
+                        // }
+                    // }
+                //     if (in_array("push", $sms_mail)) {
+                //         $push_array = array(
+                //             'title' => $message_title,
+                //             'body' => $message,
+                //         );
+                //         if ($user_mail_value['app_key'] != "") {
+                //             $this->pushnotification->send($user_mail_value['app_key'], $push_array, "mail_sms");
+                //         }
+                //     }
+                // }
+                }
 
             echo json_encode(array('status' => 0, 'msg' => $this->lang->line('message_sent_successfully')));
         } else {

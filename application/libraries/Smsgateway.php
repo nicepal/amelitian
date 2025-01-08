@@ -281,7 +281,7 @@ class Smsgateway {
                 $from = $sms_detail->contact;
                 $to = $send_to;
                 $message = $msg;
-                dd($this->_CI->customsms->sendSMS($to, $message));
+                $this->_CI->customsms->sendSMS($to, $message);
             } else {
                 
             }

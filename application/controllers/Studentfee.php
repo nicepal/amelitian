@@ -574,10 +574,11 @@ class Studentfee extends Admin_Controller
             $mailsms_array->contact_no     = $send_to;
             $mailsms_array->email          = $email;
             $mailsms_array->parent_app_key = $parent_app_key;
-
+       
             $this->mailsmsconf->mailsms('fee_submission', $mailsms_array);
 
             $array = array('status' => 'success', 'error' => '', 'print' => $print_record);
+      
             echo json_encode($array);
         }
     }
@@ -828,7 +829,7 @@ class Studentfee extends Admin_Controller
         } else {
             $collected_array = array();
             $collected_by    = " Collected By: " . $this->customlib->getAdminSessionUserName();
-
+            
             $send_to            = $this->input->post('guardian_phone');
             $email              = $this->input->post('guardian_email');
             $parent_app_key     = $this->input->post('parent_app_key');

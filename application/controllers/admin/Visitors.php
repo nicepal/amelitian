@@ -44,7 +44,7 @@ class Visitors extends Admin_Controller {
         $start = $this->input->post('start');
         $search_value = $this->input->post('search')['value']; // Get search value from DataTables
 
-        $data = $this->Visitors_model->git($start, $limit, $search_value);
+        $data = $this->Visitors_model->paginated_visitors_list($start, $limit, $search_value);
         $total_records = $this->Visitors_model->get_total_visitors_count($search_value);
         $output = array(
             "draw" => intval($this->input->post('draw')),

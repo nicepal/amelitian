@@ -374,8 +374,8 @@
                                 <?php echo $this->session->flashdata('msg') ?>
 
                                 <div class="form-group col-md-12">
-                                    <label for="pwd">Search By Keyword</label>  <small class="req"> *</small>
-                                    <input type="text" placeholder="Search By Student Name, Roll Number, Enroll Number, National Id, Local Id Etc." class="form-control admission_no" id="admission_no" value="<?php echo set_value('admission_no'); ?>" name="admission_no_search">
+                                    <label for="pwd">Search By Roll Number</label>  <small class="req"> *</small>
+                                    <input type="text" placeholder="Search By Roll Number, Enroll Number, National Id, Local Id Etc." class="form-control admission_no" id="admission_no" value="<?php echo set_value('admission_no'); ?>" name="admission_no_search">
                                     <span class="text-danger"><?php echo form_error('admission_no'); ?></span>
                                     <small class="text-danger">Press enter to get student record</small>
                                 </div>
@@ -573,7 +573,7 @@ if ($this->rbac->hasPrivilege('visitor_book', 'can_add')) {
                                         <th><?php echo $this->lang->line('date'); ?></th>
                                         <th><?php echo $this->lang->line('in_time'); ?></th>
                                         <th><?php echo $this->lang->line('out_time'); ?></th>
-                                        <!-- <th class="text-right"><?php echo $this->lang->line('action'); ?></th> -->
+                                        <th class="text-right"><?php echo $this->lang->line('action'); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -615,7 +615,9 @@ if ($this->rbac->hasPrivilege('visitor_book', 'can_add')) {
                                                         }
                                                         ?>
                                         <?php  if($value['purpose'] == "To Meet Child within Campus" || $value['purpose'] == "To Take Child Outside Campus"){ ?>
-                                            <?php if($value['otp_status'] == 0){ ?>
+                                            <?php 
+                                                print_r($value['otp_status']);
+                                                if($value['otp_status'] == 0){ ?>
                                                 <a onClick="verifyOtp(<?php echo $value['id']; ?>);" data-target="#otp" data-toggle="modal">
                                                     <i class="fa fa-envelope"></i>
                                                 </a>
@@ -781,6 +783,23 @@ if ($this->rbac->hasPrivilege('visitor_book', 'can_add')) {
             { "data": "date" },
             { "data": "in_time" },
             { "data": "out_time" },
+            {
+            "data": null, // Use null to pass the entire row data
+            "render": function (data, type, row) {
+                // Your logic to determine the action button
+                if (row.purpose === "To Meet Child within Campus" || row.purpose === "To Take Child Outside Campus") {
+                    if (row.otp_status === "0") {
+                        return `<a onClick="verifyOtp(${row.id});" data-target="#otp" data-toggle="modal">
+                                    <i class="fa fa-envelope"></i>
+                                </a>`;
+                    }
+                    if (row.otp_status === "1") {
+                        return `<i class="fa fa-check"></i>`;
+                    }
+                }
+                return ''; // Return empty string if no button should be displayed
+            }
+        }
             // Add more columns as needed
         ],
         "pagingType": "full_numbers", // You can customize pagination type here

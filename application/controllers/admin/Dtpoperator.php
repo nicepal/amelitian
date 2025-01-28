@@ -311,7 +311,7 @@ class Dtpoperator extends Admin_Controller {
                     'get_marks' => ($v['internal'] != "A" && $v['external'] !=  "A" && $v['external'] != "N/A" && $v['internal'] != "N/A")?($v['internal']+$v['external']):(0),
                     'note' => ''
                 );
-                echo "$key, $k <br />";
+                // echo "$key, $k <br />";
                 // Check if the record with the given ID exists in the database
                 $existingRecord = $this->db->get_where('exam_group_exam_results', array('exam_group_class_batch_exam_student_id' => $key,"exam_group_class_batch_exam_subject_id" => $k))->row_array();
                 // dd($existingRecord);
@@ -326,9 +326,11 @@ class Dtpoperator extends Admin_Controller {
                     $externalMarks = ($v['external'] != "A" && $v['external'] != "N/A")?($v['external']):($v['external']);
                     $marks_for_1_to_5_subjects['contact_no']= $v['guardian_phone'];
                     $marks_for_1_to_5_subjects['student_id']= $v['student_id'];
-                    $sumValA = ($internalMarks != 'A')?($internalMarks):(0);
-                    $sumValB = ($externalMarks != 'A')?($externalMarks):(0);
+                    $sumValA = ($internalMarks != 'A' && $internalMarks != 'N/A')?($internalMarks):(0);
+                    $sumValB = ($externalMarks != 'A' && $externalMarks != 'N/A')?($externalMarks):(0);
+                   
                     $sum =  $sumValA + $sumValB;
+
                     $total = $total + $sum;
 
                     if($v['subject'] == "TELUGU"){

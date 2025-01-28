@@ -1,6 +1,17 @@
 <div class="content-wrapper" style="min-height: 348px;">
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <style>
+
+.selected-profile{
+    background-color:#eaeaea;
+        cursor:pointer;
+        border:solid 1px #999999;
+}
+    .hover-profile:hover{
+        background-color:#eaeaea;
+        cursor:pointer;
+        border:solid 1px #999999;
+    }
       #loader {
             display: none;
             position: fixed;
@@ -368,16 +379,17 @@
                         <div class="box-header with-border">
                             <h3 class="box-title"><?php echo $this->lang->line('add'); ?> <?php echo $this->lang->line('visitor'); ?></h3>
                         </div><!-- /.box-header -->
+                        <span id="studentDetails"></span>
+
                         <form id="form1" action="<?php echo site_url('admin/visitors') ?>"   method="post" accept-charset="utf-8" enctype="multipart/form-data" >
                             <div class="box-body">
-                                <span id="studentDetails"></span>
                                 <?php echo $this->session->flashdata('msg') ?>
 
                                 <div class="form-group col-md-12">
                                     <label for="pwd">Search By Roll Number</label>  <small class="req"> *</small>
-                                    <input type="text" placeholder="Search By Roll Number, Enroll Number, National Id, Local Id Etc." class="form-control admission_no" id="admission_no" value="<?php echo set_value('admission_no'); ?>" name="admission_no_search">
+                                    <input type="text" placeholder="Search By Phone Number, Enroll Number, National Id, Local Id Etc." class="form-control admission_no" id="admission_no" value="<?php echo set_value('admission_no'); ?>" name="admission_no_search">
                                     <span class="text-danger"><?php echo form_error('admission_no'); ?></span>
-                                    <small class="text-danger">Press enter to get student record</small>
+                                    <small class="text-danger"><strong>Note:</strong> Press enter to get student record</small>
                                 </div>
 
                                 <div class="form-group col-md-12">
@@ -683,9 +695,32 @@ if ($this->rbac->hasPrivilege('visitor_book', 'can_add')) {
 
         $(function () {
 
-            $(".timepicker").timepicker({
+            $(document).on("click", ".hover-profile", function() {
+                if ($("#d_guardian_phone").length) {
+                    $("#d_guardian_phone").remove();
+                }
+
+                if ($("#d_admission_no").length) {
+                    $("#d_admission_no").remove();
+                }
+                $(".hover-profile").each(function() {
+                    $(this).removeClass("selected-profile");
+                });
+                let admission_input = '<input type="hidden" name="admission_no" id="d_admission_no" value="'+$(this).find('#admission_no').val()+'">';
+                let guardian_phone = '<input type="hidden" name="guardian_phone" id="d_guardian_phone" value="'+$(this).find('#guardian_phone').val()+'">';
+                
+                $('#form1').after(admission_input);
+                $('#form1').after(guardian_phone);
+
+                $(this).addClass("selected-profile");
+                $('html, body').animate({
+                    scrollTop: $('#form1').offset().top
+                }, 1000);
+         
 
             });
+
+            $(".timepicker").timepicker({});
         });
 
         function getRecord(id) {
@@ -762,72 +797,65 @@ if ($this->rbac->hasPrivilege('visitor_book', 'can_add')) {
 
    $(document).ready(function() {
 
-  
+    
 
-    $('#visitorTable').on('processing.dt', function (e, settings, processing) {
-        $('#loader').css('display', processing ? 'block' : 'none');
-    });
+    // if (!$.fn.dataTable.isDataTable('#visitorTable')) {
 
-    // $(document).ready(function() {
-    $('#visitorTable').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "ajax": {
-            "url": "<?php echo base_url('admin/visitors/ajax_fetch'); ?>",
-            "type": "POST"
-        },
-        "columns": [
-            { "data": "purpose" },
-            { "data": "name" },
-            { "data": "contact" },
-            { "data": "date" },
-            { "data": "in_time" },
-            { "data": "out_time" },
-            {
-            "data": null, // Use null to pass the entire row data
-            "render": function (data, type, row) {
-                // Your logic to determine the action button
-                if (row.purpose === "To Meet Child within Campus" || row.purpose === "To Take Child Outside Campus") {
-                    if (row.otp_status === "0") {
-                        return `<a onClick="verifyOtp(${row.id});" data-target="#otp" data-toggle="modal">
-                                    <i class="fa fa-envelope"></i>
-                                </a>`;
-                    }
-                    if (row.otp_status === "1") {
-                        return `<i class="fa fa-check"></i>`;
-                    }
-                }
-                return ''; // Return empty string if no button should be displayed
-            }
-        }
-            // Add more columns as needed
-        ],
-        "pagingType": "full_numbers", // You can customize pagination type here
-        "language": {
-            "lengthMenu": "Display _MENU_ records per page",
-            "zeroRecords": "No records found",
-            "info": "Showing _START_ to _END_ of _TOTAL_ records",
-            "infoEmpty": "Showing 0 to 0 of 0 records",
-            "infoFiltered": "(filtered from _MAX_ total records)",
-            "paginate": {
-                "first": "First",
-                "last": "Last",
-                "next": "Next",
-                "previous": "Previous"
+        // $('#visitorTable').DataTable().destroy(); // Destroy the existing instance
+
+        
+        $('#visitorTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "<?php echo base_url('admin/visitors/ajax_fetch'); ?>",
+                "type": "POST"
             },
-            "search": "Search:"
-        }
-    });
-// });
+            "columns": [
+                { "data": "purpose" },
+                { "data": "name" },
+                { "data": "contact" },
+                { "data": "date" },
+                { "data": "in_time" },
+                { "data": "out_time" },
+                {
+                "data": null, // Use null to pass the entire row data
+                "render": function (data, type, row) {
+                    // Your logic to determine the action button
+                    if (row.purpose === "To Meet Child within Campus" || row.purpose === "To Take Child Outside Campus") {
+                        if (row.otp_status === "0") {
+                            return `<a onClick="verifyOtp(${row.id});" data-target="#otp" data-toggle="modal">
+                                        <i class="fa fa-envelope"></i>
+                                    </a>`;
+                        }
+                        if (row.otp_status === "1") {
+                            return `<i class="fa fa-check"></i>`;
+                        }
+                    }
+                    return ''; // Return empty string if no button should be displayed
+                }
+            }
+                // Add more columns as needed
+            ],
+            "pagingType": "full_numbers", // You can customize pagination type here
+            "language": {
+                "lengthMenu": "Display _MENU_ records per page",
+                "zeroRecords": "No records found",
+                "info": "Showing _START_ to _END_ of _TOTAL_ records",
+                "infoEmpty": "Showing 0 to 0 of 0 records",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "paginate": {
+                    "first": "First",
+                    "last": "Last",
+                    "next": "Next",
+                    "previous": "Previous"
+                },
+                "search": "Search:"
+            }
+        });
+ 
 
-    // Initial data fetch
-    // fetchData(10, 0);
 
-    // Pagination click event handler
-    // $('#pagination').on('click', 'a', function(e) {
-    //     e.preventDefault();
-    //     var offset = $(this).data('offset');
-    //     fetchData(10, offset);
-    // });
+    
 });
  </script>

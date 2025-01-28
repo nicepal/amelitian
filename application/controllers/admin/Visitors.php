@@ -262,18 +262,19 @@ class Visitors extends Admin_Controller {
             }
             $records = $this->student_model->searchFullText($admission_no,$carray);
             if($records){
-                $counter = 0;
+                // $counter = 0;
                     echo '<div class="row">';
                     foreach($records as $record){
-                        if($counter == 0){
+                        // if($counter == 0){
 
                         // die(print_r($record));
-                        if($record['guardian_phone'] == ""){
-                            echo '<div class="alert alert-danger">Guardian No# is not available</div>';
-                        }
-                        echo '<input type="hidden" name="guardian_phone" value="'.$record['guardian_phone'].'">';
-                        echo '<input type="hidden" name="admission_no" value="'.$record['admission_no'].'">';
-                        echo '<div class="col-sm-6">';
+                        // if($record['guardian_phone'] == ""){
+                        //     echo '<div class="alert alert-danger">Guardian No# is not available</div>';
+                        // }
+                        
+                        echo '<div class="col-sm-6 hover-profile">';
+                        echo '<input type="hidden" name="guardian_phone" id="guardian_phone" value="'.$record['guardian_phone'].'">';
+                        echo '<input type="hidden" name="admission_no" id="admission_no" value="'.$record['admission_no'].'">';
                     echo '<div class="box-body box-profile" style="font-size:12px;">';
                     if(is_file($record['image'])){
                         $image = $record['image'];
@@ -288,7 +289,7 @@ class Visitors extends Admin_Controller {
 
 
                         <li class="list-group-item listnoback">
-                        <b>Admission No</b> <a class="pull-right text-aqua">'.$admission_no.'</a>
+                        <b>Admission No</b> <a class="pull-right text-aqua">'.$record['admission_no'].'</a>
                         </li>
 
                         <li class="list-group-item listnoback">
@@ -309,67 +310,68 @@ class Visitors extends Admin_Controller {
                         </ul>
                         </div>';
                         echo '</div>';
-                        echo '<div class="col-sm-6">';
-                        echo '<div class="box-body box-profile" style="font-size:12px;">';
-                        if(is_file($record['father_pic'])){
-                            $image1 = $record['father_pic'];
-                        }else{
-                            $image1 = "/uploads/student_images/default_male.jpg";
-                        }
-                        echo '<img class="profile-user-img img-responsive img-circle" src="'.base_url($image1).'" alt="User profile picture">';
+                        // echo '<div class="col-sm-6">';
+                        // echo '<div class="box-body box-profile" style="font-size:12px;">';
+                        // if(is_file($record['father_pic'])){
+                        //     $image1 = $record['father_pic'];
+                        // }else{
+                        //     $image1 = "/uploads/student_images/default_male.jpg";
+                        // }
+                        // echo '<img class="profile-user-img img-responsive img-circle" src="'.base_url($image1).'" alt="User profile picture">';
 
-                        echo '<h3 class="profile-username text-center">'.$record['father_name'].'</h3>
+                        // echo '<h3 class="profile-username text-center">'.$record['father_name'].'</h3>
         
-                            <ul class="list-group list-group-unbordered">
+                        //     <ul class="list-group list-group-unbordered">
         
         
-                            <li class="list-group-item listnoback">
-                            <b>Father Name</b> <a class="pull-right text-aqua">'.$record['father_name'].'</a>
-                            </li>
+                        //     <li class="list-group-item listnoback">
+                        //     <b>Father Name</b> <a class="pull-right text-aqua">'.$record['father_name'].'</a>
+                        //     </li>
         
-                            <li class="list-group-item listnoback">
-                            <b>Guardian Name</b> <a class="pull-right text-aqua">'.$record['guardian_name'].'</a>
-                            </li>
-                                                <li class="list-group-item listnoback">
-                            <b>Guardian Relation</b> <a class="pull-right text-aqua">'.$record['guardian_relation'].'</a>
-                            </li>
-                            <li class="list-group-item listnoback">
-                            <b>Guardian Phone</b> <a class="pull-right text-aqua">'.$record['guardian_phone'].'</a>
-                            </li>
-                                    <!--            <li class="list-group-item listnoback">
-                            <b>RTE</b> <a class="pull-right text-aqua">'.$record['rte'].'</a>
-                            </li>
-                                                <li class="list-group-item listnoback">
-                            <b>Gender</b> <a class="pull-right text-aqua">'.$record['gender'].'</a>
-                            </li> -->
-                            </ul>
-                            </div>';
-                        echo '</div>';
+                        //     <li class="list-group-item listnoback">
+                        //     <b>Guardian Name</b> <a class="pull-right text-aqua">'.$record['guardian_name'].'</a>
+                        //     </li>
+                        //                         <li class="list-group-item listnoback">
+                        //     <b>Guardian Relation</b> <a class="pull-right text-aqua">'.$record['guardian_relation'].'</a>
+                        //     </li>
+                        //     <li class="list-group-item listnoback">
+                        //     <b>Guardian Phone</b> <a class="pull-right text-aqua">'.$record['guardian_phone'].'</a>
+                        //     </li>
+                        //             <!--            <li class="list-group-item listnoback">
+                        //     <b>RTE</b> <a class="pull-right text-aqua">'.$record['rte'].'</a>
+                        //     </li>
+                        //                         <li class="list-group-item listnoback">
+                        //     <b>Gender</b> <a class="pull-right text-aqua">'.$record['gender'].'</a>
+                        //     </li> -->
+                        //     </ul>
+                        //     </div>';
+                        // echo '</div>';
 
-                        echo '<div class="col-sm-12"><div class="col-sm-4">';
-                        if(is_file($record['mother_pic'])){
-                            $image2 = $record['mother_pic'];
-                        }else{
-                            $image2 = "/uploads/student_images/default_male.jpg";
-                        }
-                            echo '<img class="profile-user-img img-responsive img-circle" src="'.base_url($image2).'" alt="User profile picture">
-                            <h3 class="profile-username text-center">Mother Picture</h3>';
-                        echo '</div>';
+                        // echo '<div class="col-sm-12"><div class="col-sm-4">';
+                        // if(is_file($record['mother_pic'])){
+                        //     $image2 = $record['mother_pic'];
+                        // }else{
+                        //     $image2 = "/uploads/student_images/default_male.jpg";
+                        // }
+                        //     echo '<img class="profile-user-img img-responsive img-circle" src="'.base_url($image2).'" alt="User profile picture">
+                        //     <h3 class="profile-username text-center">Mother Picture</h3>';
+                        // echo '</div>';
 
-                        echo '<div class="col-sm-4">';
-                        if(is_file($record['guardian_pic'])){
-                            $image3 = $record['guardian_pic'];
-                        }else{
-                            $image3 = "/uploads/student_images/default_male.jpg";
-                        }
-                            echo '<img class="profile-user-img img-responsive img-circle" src="'.base_url($image3).'" alt="User profile picture">
-                            <h3 class="profile-username text-center">Guardian Picture</h3>';
-                        echo '</div></div>';
-                        $counter++;
+                        // echo '<div class="col-sm-4">';
+                        // if(is_file($record['guardian_pic'])){
+                        //     $image3 = $record['guardian_pic'];
+                        // }else{
+                        //     $image3 = "/uploads/student_images/default_male.jpg";
+                        // }
+                            // echo '<img class="profile-user-img img-responsive img-circle" src="'.base_url($image3).'" alt="User profile picture">
+                            // <h3 class="profile-username text-center">Guardian Picture</h3>';
+                        // echo '</div></div>';
+                        // $counter++;
 
-                    }
-                    echo '</div>';
+                    // }
+                    // echo '</div>';
                 }
+                echo '</div>';
             }else{
                 echo 0;
             }

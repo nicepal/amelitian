@@ -827,11 +827,12 @@ if ($this->rbac->hasPrivilege('visitor_book', 'can_add')) {
                             return `<a onClick="verifyOtp(${row.id});" data-target="#otp" data-toggle="modal">
                                         <i class="fa fa-envelope"></i>
                                     </a>
-                                    <a  data-placement="left" onclick="getRecord(${row.id})" class="btn btn-default btn-xs" data-target="#visitordetails" data-toggle="modal"  title="View Record"><i class="fa fa-reorder"></i></a> 
 `;
                         }
                         if (row.otp_status === "1") {
-                            return `<i class="fa fa-check"></i>`;
+                            return `<i class="fa fa-check"></i>
+                                                                <a  data-placement="left" onclick="getRecord(${row.id})" class="btn btn-default btn-xs" data-target="#visitordetails" data-toggle="modal"  title="View Record"><i class="fa fa-reorder"></i></a> 
+`;
                         }
                     }
                     return ''; // Return empty string if no button should be displayed

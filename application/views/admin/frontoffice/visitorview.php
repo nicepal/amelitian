@@ -628,7 +628,7 @@ if ($this->rbac->hasPrivilege('visitor_book', 'can_add')) {
                                                         ?>
                                         <?php  if($value['purpose'] == "To Meet Child within Campus" || $value['purpose'] == "To Take Child Outside Campus"){ ?>
                                             <?php 
-                                                print_r($value['otp_status']);
+                                                
                                                 if($value['otp_status'] == 0){ ?>
                                                 <a onClick="verifyOtp(<?php echo $value['id']; ?>);" data-target="#otp" data-toggle="modal">
                                                     <i class="fa fa-envelope"></i>
@@ -826,7 +826,9 @@ if ($this->rbac->hasPrivilege('visitor_book', 'can_add')) {
                         if (row.otp_status === "0") {
                             return `<a onClick="verifyOtp(${row.id});" data-target="#otp" data-toggle="modal">
                                         <i class="fa fa-envelope"></i>
-                                    </a>`;
+                                    </a>
+                                    <a  data-placement="left" onclick="getRecord(${row.id})" class="btn btn-default btn-xs" data-target="#visitordetails" data-toggle="modal"  title="View Record"><i class="fa fa-reorder"></i></a> 
+`;
                         }
                         if (row.otp_status === "1") {
                             return `<i class="fa fa-check"></i>`;

@@ -385,9 +385,24 @@
                             <div class="box-body">
                                 <?php echo $this->session->flashdata('msg') ?>
 
-                                <div class="form-group col-md-12">
+                                <!-- <div class="form-group col-md-12">
                                     <label for="pwd">Search By Roll Number</label>  <small class="req"> *</small>
                                     <input type="text" placeholder="Search By Phone Number, Enroll Number, National Id, Local Id Etc." class="form-control admission_no" id="admission_no" value="<?php echo set_value('admission_no'); ?>" name="admission_no_search">
+                                    <span class="text-danger"><?php echo form_error('admission_no'); ?></span>
+                                    <small class="text-danger"><strong>Note:</strong> Press enter to get student record</small>
+                                </div> -->
+
+                                <div class="form-group col-md-12">
+                                    <label for="pwd">Search By Roll Number</label> <small class="req"> *</small>
+                                    <div class="input-group">
+                                        <input type="text" placeholder="Search By Phone Number, Enroll Number, National Id, Local Id Etc." class="form-control admission_no" id="admission_no" name="admission_no_search">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary btn-sm" type="button" id="searchBtn">
+                                                <span class="btn-text">Search</span>
+                                                <span class="spinner-border spinner-border-sm" id="loader" style="display: none;"></span>
+                                            </button>
+                                        </span>
+                                    </div>
                                     <span class="text-danger"><?php echo form_error('admission_no'); ?></span>
                                     <small class="text-danger"><strong>Note:</strong> Press enter to get student record</small>
                                 </div>
@@ -763,29 +778,52 @@ if ($this->rbac->hasPrivilege('visitor_book', 'can_add')) {
         //     }
         // });
 
-        $(document).ready(function() {
-            $('#admission_no').keydown(function(event) {
-                if (event.keyCode === 13) {
-                    event.preventDefault(); // Prevent the default form submission
+        function searchFunction() {
+    let val = $('#admission_no').val();
+    $("#studentDetails").empty();
+    
+    if (val != "") {
+        // Show loader and disable button
+        $("#searchBtn").prop("disabled", true);
+        $("#loader").show();
+        $(".btn-text").text("Searching...");
 
-                    let val = $(this).val();
-                        $("#studentDetails").empty('');
-                        if(val != ""){
-                            $.ajax({
-                                url: '<?php echo base_url(); ?>admin/visitors/get_student_record/' + val,
-                                success: function (result) {
-                                    if(result == 0){
-                                        alert("Admission # is not correct");
-                                        $("#admission_no").val('');
-                                    }else{
-                                        $('#studentDetails').html(result);
-                                    }
-                                }
-                            });
-                        }
+        $.ajax({
+            url: '<?php echo base_url(); ?>admin/visitors/get_student_record/' + val,
+            success: function (result) {
+                if (result == 0) {
+                    alert("Admission # is not correct");
+                    $("#admission_no").val('');
+                } else {
+                    $('#studentDetails').html(result);
                 }
-            });
+            },
+            complete: function () {
+                // Hide loader and enable button after request completes
+                $("#loader").hide();
+                $("#searchBtn").prop("disabled", false);
+                $(".btn-text").text("Search");
+            }
         });
+    }else{
+        alert('Search input is required');
+    }
+}
+
+$(document).ready(function () {
+    $('#admission_no').keydown(function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault(); // Prevent default form submission
+            searchFunction();
+        }
+    });
+
+    // Search button click event
+    $("#searchBtn").click(function () {
+        searchFunction();
+    });
+});
+
 
 
 </script>

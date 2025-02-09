@@ -724,8 +724,8 @@ if ($this->rbac->hasPrivilege('visitor_book', 'can_add')) {
                 let admission_input = '<input type="hidden" name="admission_no" id="d_admission_no" value="'+$(this).find('#admission_no').val()+'">';
                 let guardian_phone = '<input type="hidden" name="guardian_phone" id="d_guardian_phone" value="'+$(this).find('#guardian_phone').val()+'">';
                 
-                $('#form1').after(admission_input);
-                $('#form1').after(guardian_phone);
+                $('#form1').append(admission_input);
+                $('#form1').append(guardian_phone);
 
                 $(this).addClass("selected-profile");
                 $('html, body').animate({

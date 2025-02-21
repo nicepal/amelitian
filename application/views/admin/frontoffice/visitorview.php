@@ -555,12 +555,12 @@
             <?php }?>
 
             <div class="col-md-<?php
-if ($this->rbac->hasPrivilege('visitor_book', 'can_add')) {
-    echo "8";
-} else {
-    echo "12";
-}
-?>">
+            if ($this->rbac->hasPrivilege('visitor_book', 'can_add')) {
+                echo "8";
+            } else {
+                echo "12";
+            }
+            ?>">
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header ptbnull">
@@ -594,13 +594,17 @@ if ($this->rbac->hasPrivilege('visitor_book', 'can_add')) {
                                 <thead>
                                     
                                     <tr>
+                                        <th class="text-right"><?php echo $this->lang->line('action'); ?></th>
                                         <th><?php echo $this->lang->line('purpose'); ?></th>
+                                        <th><?php echo $this->lang->line('outing_reason'); ?></th>
                                         <th><?php echo $this->lang->line('name'); ?></th>
                                         <th><?php echo $this->lang->line('phone'); ?></th>
+                                        <th><?php echo $this->lang->line('no_of_pepple'); ?></th>
+                                        <th><?php echo $this->lang->line('permission_by'); ?></th>
                                         <th><?php echo $this->lang->line('date'); ?></th>
                                         <th><?php echo $this->lang->line('in_time'); ?></th>
+                                        <th><?php echo $this->lang->line('return_date'); ?></th>
                                         <th><?php echo $this->lang->line('out_time'); ?></th>
-                                        <th class="text-right"><?php echo $this->lang->line('action'); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -850,12 +854,7 @@ $(document).ready(function () {
                 "type": "POST"
             },
             "columns": [
-                { "data": "purpose" },
-                { "data": "name" },
-                { "data": "contact" },
-                { "data": "date" },
-                { "data": "in_time" },
-                { "data": "out_time" },
+               
                 {
                 "data": null, // Use null to pass the entire row data
                 "render": function (data, type, row) {
@@ -875,7 +874,17 @@ $(document).ready(function () {
                     }
                     return ''; // Return empty string if no button should be displayed
                 }
-            }
+            },
+            { "data": "purpose" },
+            {"data":"outing_reason"},
+                { "data": "name" },
+                { "data": "contact" },
+                {"data":"no_of_pepple"},
+                {"data":"permission_by"},
+                { "data": "date" },
+                { "data": "in_time" },
+                { "data": "return_date" },
+                { "data": "out_time" }
                 // Add more columns as needed
             ],
             "pagingType": "full_numbers", // You can customize pagination type here

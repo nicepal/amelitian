@@ -353,8 +353,11 @@ function downloadExcel() {
 
     document.getElementById("print").style.display = "block";
     document.getElementById("btnExport").style.display = "block";
-    document.getElementById("heading").style.display = "none";
-
+    //document.getElementById("heading").style.display = "none";
+    const heading = document.getElementById("heading");
+    if (heading) {
+        heading.style.display = "none";
+    }
     function printDiv() {
         document.getElementById("print").style.display = "none";
         document.getElementById("btnExport").style.display = "none";
@@ -370,39 +373,44 @@ function downloadExcel() {
         location.reload(true);
     }
 
-    function fnExcelReport()
-    {
-        var tab_text = "<table border='2px'><tr >";
-        var textRange;
-        var j = 0;
-        tab = document.getElementById('headerTable'); // id of table
+    function fnExcelReport() {
+    let table = document.getElementById("headerTable"); // ID of the table
 
-        for (j = 0; j < tab.rows.length; j++)
-        {
-            tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
-            //tab_text=tab_text+"</tr>";
-        }
+    let tab_text = `<html xmlns:x="urn:schemas-microsoft-com:office:excel">
+                    <head>
+                        <meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">
+                        <xml>
+                            <x:ExcelWorkbook>
+                                <x:ExcelWorksheets>
+                                    <x:ExcelWorksheet>
+                                        <x:Name>Sheet1</x:Name>
+                                        <x:WorksheetOptions>
+                                            <x:Panes></x:Panes>
+                                        </x:WorksheetOptions>
+                                    </x:ExcelWorksheet>
+                                </x:ExcelWorksheets>
+                            </x:ExcelWorkbook>
+                        </xml>
+                    </head>
+                    <body>
+                        <table border="1">${table.innerHTML}</table>
+                    </body>
+                    </html>`;
 
-        tab_text = tab_text + "</table>";
-        tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
-        tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
-        tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+    // Create a Blob with Excel MIME type
+    let blob = new Blob([tab_text], { type: "application/vnd.ms-excel" });
 
-        var ua = window.navigator.userAgent;
-        var msie = ua.indexOf("MSIE ");
+    // Create a download link
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "Table_Report.xls";
 
-        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
-        {
-            txtArea1.document.open("txt/html", "replace");
-            txtArea1.document.write(tab_text);
-            txtArea1.document.close();
-            txtArea1.focus();
-            sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xls");
-        } else                 //other browser not tested on IE 11
-            sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+    // Append the link, trigger download, and remove the link
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
 
-        return (sa);
-    }
 
 
 

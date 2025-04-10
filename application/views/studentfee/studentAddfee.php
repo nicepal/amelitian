@@ -177,7 +177,11 @@ $language_name = $language["short_code"];
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <div class="download_label "><?php echo $this->lang->line('student_fees') . ": " . $student['firstname'] . " " . $student['lastname'] ?> </div>
+                            <div class="download_label "><?php echo $this->lang->line('student_fees') . ": " . $student['firstname'] . " " . $student['lastname'] ?><br />
+                            Class: <?php echo $student["class"]; ?>, <?php echo $student["section"]; ?><br />
+                            Roll#: <?php echo $student['admission_no']; ?>
+                        
+                        </div>
                             <table class="table table-striped table-bordered table-hover example table-fixed-header">
                                 <thead class="header">
                                     <tr>

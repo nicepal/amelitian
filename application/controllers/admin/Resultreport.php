@@ -56,11 +56,17 @@ class ResultReport extends Admin_Controller
             $session_id =  $this->input->post("session_id");
             if(isset($search)) {
                 if ($search == 'search_filter') {
+                  
                     $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required|xss_clean');
                     if ($this->form_validation->run() == false) {
 
+                        $this->load->view('layout/header', $data);
+                        $this->load->view('studentfee/studentReport', $data);
+                        $this->load->view('layout/footer', $data);
+
                     } else {
-                        $resultlist         = $this->student_model->searchByClassSection($session_id,$class, $section);
+                        $resultlist         = $this->student_model->searchByClassSection($class, $section);
+                  
                         $data['resultlist'] = $resultlist;
                     }
                 } else if ($search == 'search_full') {

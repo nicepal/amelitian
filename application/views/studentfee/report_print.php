@@ -75,7 +75,7 @@ li {
                 $this->db->join('exam_group_exam_results as egr', 
                     'egr.exam_group_class_batch_exam_student_id = egstu.id 
                      AND egr.exam_group_class_batch_exam_subject_id = egs.id');
-                $this->db->where('egs.exam_group_class_batch_exams_id', $rs['exam_id']);
+                $this->db->where_in('egs.exam_group_class_batch_exams_id', $rs['exam_id']);
                 // $this->db->where("exam_group_class_batch_exam_students.student_session_id",$rs['student_session_id']);
                 $query2 = $this->db->get();                                  
                 $res2 = $query2->result_array(); // or result() for objects
@@ -137,7 +137,8 @@ li {
             <thead>
                 <tr>
                 <td colspan="1">Scholastic </td>
-                <?php  foreach($val['subjects_parent'] as $subs){ ?>
+                <?php  foreach($val['subjects_parent'] as $subs){ 
+                    ?>
                             <td colspan="3"> <?php echo $subs['exam'] ?></td>
                         <?php } ?>
                 <td colspan="2"> Overall </td>

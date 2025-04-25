@@ -306,7 +306,7 @@ li {
             <p class="note">
             <strong>
                 <span> Promoted to Class: <span style="text-decoration: underline;"><?php echo getNextClass($val['class']); ?></span></span>
-                <span>SCHOOL WILL RE-OPEN ON: <span style="text-decoration: underline;">June <?php echo date("Y",time())+1 ?></span> </span>
+                <span>SCHOOL WILL RE-OPEN ON: <span style="text-decoration: underline;">June 2025</span> </span>
                 <span>AT <span style="text-decoration: underline;">Montessori Elite EM School </span></span>
             </strong>
             </p>

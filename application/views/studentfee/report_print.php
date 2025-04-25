@@ -186,16 +186,17 @@ li {
                     <td><strong><?php echo $subject_name; ?></strong></td>
                     <?php  
                     $grand_total_row = 0;
-                    foreach($val['subjects_parent'] as $subs){ 
-                            $interal = $val['subjects'][$subs['exam_id']][$subject_id_key]['internal_marks']??0;
-                            $external = $val['subjects'][$subs['exam_id']][$subject_id_key]['external_marks']??0;
+                    foreach($val['subjects_parent'] as $subs){  ?>
+                          <?php
+                        $internal = (float) ($val['subjects'][$subs['exam_id']][$subject_id_key]['internal_marks'] ?? 0);
+                        $external = (float) ($val['subjects'][$subs['exam_id']][$subject_id_key]['external_marks'] ?? 0);
+                        $sum_row = $internal + $external;
+                        $grand_total_row += $sum_row;
                         ?>
-                        <td> <?php echo $interal; ?></td>
-                        <td> <?php echo $external; ?> </td>
-                        <td> <?php $sum_row =  $interal+$external; 
-                        echo $sum_row;
-                        $grand_total_row+= $sum_row;
-                        ?> </td>
+
+                        <td><?php echo $internal; ?></td>
+                        <td><?php echo $external; ?></td>
+                        <td><?php echo $sum_row; ?></td>
                     <?php } ?>
                    
 

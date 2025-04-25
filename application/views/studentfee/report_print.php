@@ -372,7 +372,9 @@ li {
         </div>
     </div>
     <?php  } ?>
-<?php  } ?>
+<?php  }else{
+    echo '<h3>No Record found  <a href="'.base_url('admin/resultreport').'">Go Back</a></h3>';
+} ?>
 
 </body>
 </html>

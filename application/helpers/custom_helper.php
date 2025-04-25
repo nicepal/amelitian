@@ -701,7 +701,9 @@ if (!function_exists('get_attendance_summary')) {
     function get_attendance_summary($student_session_id,$sessionData) {
         $CI =& get_instance(); // Get CI instance
         $CI->load->database(); // Ensure DB is loaded
+        if (!empty($sessionData['session'])) {
         $dates = get_academic_year_dates($sessionData['session']);
+
         $CI->db->select("
             SUM(CASE WHEN sat.type = 'Present' THEN 1 ELSE 0 END) AS present_days,
             SUM(CASE WHEN sat.type = 'Half Day' THEN 1 ELSE 0 END) AS half_days,
@@ -711,8 +713,10 @@ if (!function_exists('get_attendance_summary')) {
         $CI->db->from('student_attendences a');
         $CI->db->join('attendence_type sat', 'sat.id = a.attendence_type_id', 'left');
         $CI->db->where('a.student_session_id', $student_session_id);
-        $CI->db->where('a.date >=', $dates['start']);
-        $CI->db->where('a.date <=', $dates['end']);
+        
+            $CI->db->where('a.date >=', $dates['start']);
+            $CI->db->where('a.date <=', $dates['end']);
+        
         $query = $CI->db->get();
 
         $result = $query->row_array(); // Returns associative array
@@ -721,6 +725,11 @@ if (!function_exists('get_attendance_summary')) {
         echo "Present Days: " . $pday . ", ";
         echo "Half Days: "    . $result['half_days'] . ", ";
         echo "Absent Days: "  . $result['absent_days'];
+        }else{
+            echo "Present Days: 0, ";
+            echo "Half Days:    0, ";
+            echo "Absent Days: 0" ;
+        }
     }
     
 }

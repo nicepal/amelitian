@@ -120,11 +120,11 @@ li {
                 <td colspan="4">Roll No               :    AASS25WS511425</td>
             </tr>
             <tr height="26">
-                <td colspan="3" height="26">FATHER'S NAME      :    <?php echo $val['father_name']; ?></td>
+                <td colspan="3" height="26">FATHER'S NAME      :    <?php echo $val['father_name']??'N/A'; ?></td>
                 <td colspan="4" width="383">DATE OF BIRTH:    <?php echo $val['dob']; ?></td>
             </tr>
             <tr height="23">
-                <td colspan="3" height="23">MOTHER'S NAME    :    <?php echo $val['mother_name']; ?></td>
+                <td colspan="3" height="23">MOTHER'S NAME    :    <?php echo $val['mother_name']??'N/A'; ?></td>
                 <td colspan="4" width="383">ATTENDANCE   :    <?php get_attendance_summary( $val['student_session_id'],$sessionData); ?>
                 </td>
             </tr>

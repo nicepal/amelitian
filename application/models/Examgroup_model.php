@@ -366,7 +366,10 @@ class Examgroup_model extends MY_Model {
     public function getExamGroupByClassSection($class_id, $section_id, $session_id) {
 
         $result_array = array();
-        $sql = "SELECT student_session.*,exam_group_students.exam_group_id,exam_groups.name FROM `student_session` INNER join exam_group_students on exam_group_students.student_id=student_session.student_id INNER JOIN exam_groups on exam_groups.id=exam_group_students.exam_group_id WHERE class_id= " . $this->db->escape($class_id) . " and section_id=" . $this->db->escape($section_id) . " and session_id=" . $this->db->escape($session_id) . " GROUP BY exam_group_students.exam_group_id";
+        $sql = "SELECT student_session.*,exam_group_students.exam_group_id,exam_groups.name 
+        FROM `student_session` 
+        INNER join exam_group_students on exam_group_students.student_id=student_session.student_id 
+        INNER JOIN exam_groups on exam_groups.id=exam_group_students.exam_group_id WHERE class_id= " . $this->db->escape($class_id) . " and section_id=" . $this->db->escape($section_id) . " and session_id=" . $this->db->escape($session_id) . " GROUP BY exam_group_students.exam_group_id";
         $query = $this->db->query($sql);
 
         $result = $query->result();

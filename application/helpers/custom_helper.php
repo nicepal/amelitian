@@ -637,3 +637,112 @@ function getAgentDetail()
     $user_agent .= $agent;
     return  $user_agent;
 }
+
+function getGrade($totalMarks, $obtainedMarks) {
+    if ($totalMarks <= 0) {
+        return 'Invalid Total Marks';
+    }
+
+    $percentage = ($obtainedMarks / $totalMarks) * 100;
+
+    if ($percentage >= 91 && $percentage <= 100) {
+        return 'A1';
+    } elseif ($percentage >= 81) {
+        return 'A2';
+    } elseif ($percentage >= 71) {
+        return 'B1';
+    } elseif ($percentage >= 61) {
+        return 'B2';
+    } elseif ($percentage >= 51) {
+        return 'C1';
+    } elseif ($percentage >= 41) {
+        return 'C2';
+    } elseif ($percentage >= 33) {
+        return 'D';
+    } elseif ($percentage >= 21) {
+        return 'E1';
+    } else {
+        return 'E2';
+    }
+}
+
+function getNextClass($currentClass) {
+    // List of classes in order
+    $classes = [
+        'I CLASS',
+        'II CLASS',
+        'III CLASS',
+        'IV CLASS',
+        'V CLASS',
+        'VI CLASS',
+        'VII CLASS',
+        'VIII CLASS',
+        'IX CLASS',
+        'X CLASS',
+        '+1',
+        '+2',
+    ];
+
+    // Find the index of the current class
+    $index = array_search($currentClass, $classes);
+
+    // If not found or it's the last one, return "Passed" or null
+    if ($index === false || $index === count($classes) - 1) {
+        return 'Passed';
+    }
+
+    // Return the next class
+    return $classes[$index + 1];
+}
+
+
+
+if (!function_exists('get_attendance_summary')) {
+    function get_attendance_summary($student_session_id,$sessionData) {
+        $CI =& get_instance(); // Get CI instance
+        $CI->load->database(); // Ensure DB is loaded
+        $dates = get_academic_year_dates($sessionData['session']);
+        $CI->db->select("
+            SUM(CASE WHEN sat.type = 'Present' THEN 1 ELSE 0 END) AS present_days,
+            SUM(CASE WHEN sat.type = 'Half Day' THEN 1 ELSE 0 END) AS half_days,
+            SUM(CASE WHEN sat.type = 'Absent' THEN 1 ELSE 0 END) AS absent_days,
+            SUM(CASE WHEN sat.type = 'Late' THEN 1 ELSE 0 END) AS late_days
+        ");
+        $CI->db->from('student_attendences a');
+        $CI->db->join('attendence_type sat', 'sat.id = a.attendence_type_id', 'left');
+        $CI->db->where('a.student_session_id', $student_session_id);
+        $CI->db->where('a.date >=', $dates['start']);
+        $CI->db->where('a.date <=', $dates['end']);
+        $query = $CI->db->get();
+
+        $result = $query->row_array(); // Returns associative array
+        // Output
+        $pday = $result['present_days']+$result['late_days'];
+        echo "Present Days: " . $pday . ", ";
+        echo "Half Days: "    . $result['half_days'] . ", ";
+        echo "Absent Days: "  . $result['absent_days'];
+    }
+    
+}
+
+
+function get_academic_year_dates($session) {
+    list($startYear, $endYear) = explode('-', $session);
+
+    // Format session years (in case it's like '23-24')
+    if (strlen($startYear) == 2) {
+        $startYear = '20' . $startYear;
+    }
+    if (strlen($endYear) == 2) {
+        $endYear = '20' . $endYear;
+    }
+
+    // Academic year: June 1st to May 31st
+    $startDate = $startYear . '-06-01';
+    $endDate = $endYear . '-05-31';
+
+    return [
+        'start' => $startDate,
+        'end' => $endDate,
+    ];
+}

@@ -160,6 +160,7 @@ li {
                 <?php 
                 $counter = 0;
                 // dd($subjects);
+                $all_subjects_total = 0;
                 foreach($subjects as $subject_id_key => $subject_name){
                     if($counter == 0){ ?>
                         <tr class="yellow">
@@ -192,6 +193,7 @@ li {
                         $external = (float) ($val['subjects'][$subs['exam_id']][$subject_id_key]['external_marks'] ?? 0);
                         $sum_row = $internal + $external;
                         $grand_total_row += $sum_row;
+                        $all_subjects_total+= $sum_row;
                         ?>
 
                         <td><?php echo $internal; ?></td>
@@ -210,11 +212,24 @@ li {
             <tfoot>
                 <tr>
                 <td colspan="2" class="footer">OVERALL MARKS </td>
-                <td> 600/1200 </td>
+                <td> <?php echo $all_subjects_total; ?>/<?php echo $grand_total_header*count($val['subjects_parent']); ?> </td>
                 <td colspan="3" class="footer">PERCENTAGE</td>
-                <td colspan="2">87%</td>
-                <td colspan="2" class="footer">RESULT</td>
-                <td colspan="2">Pass </td>
+                <td colspan="2">
+                    <?php 
+                    $total_marks = $grand_total_header*count($val['subjects_parent']);
+                    $part = $all_subjects_total;    // The part value
+                    $total = $total_marks;   // The total value
+                    
+                    if ($total != 0) {
+                        $percentage = ($part / $total) * 100;
+                        echo " " . round($percentage, 2) . "%";
+                    } else {
+                        echo "-";
+                    }
+                    ?>
+                </td>
+                <td colspan="2" class="footer"></td>
+                <td colspan="2"> </td>
                 </tr>
             </table>
             <!-- <table class="table">

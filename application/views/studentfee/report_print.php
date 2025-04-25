@@ -187,8 +187,8 @@ li {
                     <?php  
                     $grand_total_row = 0;
                     foreach($val['subjects_parent'] as $subs){ 
-                            $interal = $val['subjects'][$subs['exam_id']][$subject_id_key]['internal_marks'];
-                            $external = $val['subjects'][$subs['exam_id']][$subject_id_key]['external_marks'];
+                            $interal = $val['subjects'][$subs['exam_id']][$subject_id_key]['internal_marks']??0;
+                            $external = $val['subjects'][$subs['exam_id']][$subject_id_key]['external_marks']??0;
                         ?>
                         <td> <?php echo $interal; ?></td>
                         <td> <?php echo $external; ?> </td>

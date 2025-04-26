@@ -1,6 +1,9 @@
 <?php
 $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 ?>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
 <div class="content-wrapper" style="min-height: 946px;">   
     <section class="content-header">
         <h1>
@@ -49,6 +52,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 <span class="text-danger"><?php echo form_error('section_id'); ?></span>
                                             </div> 
                                         </div>
+                                       
                                         <div class="col-sm-12">  
                                             <div class="form-group">
                                                 <button type="submit" name="search" value="search_filter" class="btn btn-primary pull-right btn-sm checkbox-toggle"><i class="fa fa-search"></i> <?php echo $this->lang->line('search'); ?></button>
@@ -92,7 +96,13 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
     </section>
 </div>
 <script>
-    
+    $("#exam_id").select2({
+        closeOnSelect: false,
+    placeholder: "Placeholder",
+    allowHtml: true,
+    allowClear: true,
+    tags: true
+		});
     $(document).on('change', '#class_id', function (e) {
             $('#section_id').html("");
             var class_id = $(this).val();
@@ -130,4 +140,44 @@ if (class_id != "") {
     });
 }
 }
+
+$(document).on("change","#examgroup_id",function(){
+        all_records();
+    });
+    function all_records() {
+        var base_url = '<?php echo base_url(); ?>';
+
+        $.ajax({
+            type: "POST",
+            url: base_url + "admin/examgroup/getexam",
+            data: {examgroup_id: $('#examgroup_id').val()}, // serializes the form's elements.
+            dataType: "JSON", // serializes the form's elements.
+            beforeSend: function () {
+
+            },
+            success: function (data)
+            {
+               let html = '<option value="">Select</option>';
+               for(let i = 0; i < data.examList.length; i++){
+                let selected = '';
+                let id = '<?php echo $exam_id; ?>';
+                if(data.examList[i].id == id){
+                    selected = ' selected="selected"';
+                }
+                html += '<option '+selected+' value="'+data.examList[i].id+'">'+data.examList[i].exam+'</option>';
+               }
+               $("#exam_id").html(html);
+
+            },
+            error: function (xhr) { // if error occured
+
+                alert("Error occurred, Please try again");
+
+            },
+            complete: function () {
+
+            }
+        });
+    }
+
 </script>

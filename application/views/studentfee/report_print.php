@@ -45,10 +45,28 @@ li {
   table{width:100%!important;}
 }
 
+@media print {
+    .report {
+        page-break-before: always;
+    }
+    .report:first-child {
+        page-break-before: auto; /* Don't add break before first report */
+    }
+    .search_filter,.exam_ids{
+        display:none;
+    }
+}
+
 </style>
 </head>
 <body>
-
+<form method="post" action="">
+                <input type="hidden" name="class_id" value="<?php echo $_POST['class_id']; ?>">
+                <input type="hidden" name="section_id" value="<?php echo $_POST['section_id']; ?>">
+                <input type="hidden" name="exam_id" id="exam_id">
+                <button type="submit" name="search" value="search_filter" class="search_filter btn btn-primary pull-right btn-sm checkbox-toggle"><i class="fa fa-search"></i> <?php echo $this->lang->line('search'); ?></button>
+                </form>
+         
     <!--  Report card here -->
 <?php if($resultlist){ 
     
@@ -64,8 +82,13 @@ li {
             $this->db->join('exam_group_class_batch_exams', 'exam_group_class_batch_exams.id = exam_group_class_batch_exam_students.exam_group_class_batch_exam_id');
             $this->db->where('exam_group_class_batch_exam_students.student_id', $val['id']);
             $this->db->where('exam_group_class_batch_exam_students.student_session_id', $val['student_session_id']);
+            if($_POST['exam_id']){
+                $this->db->where_in('exam_group_class_batch_exams.id', array_filter(explode(",",$_POST['exam_id'])));
+            }
             $query = $this->db->get();
             $res = $query->result_array(); // Get result as array
+            // var_dump($_REQUEST['exam_id']);
+            // dd($res);
             $val['subjects_parent'] = $res;
             foreach ($res as $rs) {
                 $this->db->select('egs.id as exam_subject_id, egr.*,egs.subject_id,subjects.name as subject_name,egs.min_marks,egs.max_marks');
@@ -75,7 +98,10 @@ li {
                 $this->db->join('exam_group_exam_results as egr', 
                     'egr.exam_group_class_batch_exam_student_id = egstu.id 
                      AND egr.exam_group_class_batch_exam_subject_id = egs.id');
+                // dd($_REQUEST['exam_id']);
+                // $this->db->where_in('egs.exam_group_class_batch_exams_id', implode(",",$_REQUEST['exam_id']));
                 $this->db->where_in('egs.exam_group_class_batch_exams_id', $rs['exam_id']);
+
                 // $this->db->where("exam_group_class_batch_exam_students.student_session_id",$rs['student_session_id']);
                 $query2 = $this->db->get();                                  
                 $res2 = $query2->result_array(); // or result() for objects
@@ -91,7 +117,8 @@ li {
             // print_r($val);
             // die();
             ?>
-    <div class=" text-center pt-5">
+<div class="report">
+    <div class="text-center pt-5">
         <div class="row">
             <div class="col">
             <h1>Montessori Elite EM School</h1>
@@ -133,13 +160,14 @@ li {
                 <td colspan="4"></td>
             </tr>
             </table>
+          
             <table align="center" class="table">
             <thead>
                 <tr>
                 <td colspan="1">Scholastic </td>
                 <?php  foreach($val['subjects_parent'] as $subs){ 
                     ?>
-                            <td colspan="3"> <?php echo $subs['exam'] ?></td>
+                            <td colspan="3"><label> <input type="checkbox" class="exam_ids" onclick="getIds()" value="<?php echo $subs['exam_id']; ?>"> <?php echo $subs['exam']; ?></label></td>
                         <?php } ?>
                 <td colspan="2"> Overall </td>
                 </tr>
@@ -212,11 +240,11 @@ li {
             <tfoot>
                 <tr>
                 <td colspan="2" class="footer">OVERALL MARKS </td>
-                <td> <?php echo $all_subjects_total; ?>/<?php echo $grand_total_header*count($val['subjects_parent']); ?> </td>
+                <td> <?php echo $all_subjects_total; ?>/<?php echo $grand_total_header*count($subjects); ?> </td>
                 <td colspan="3" class="footer">PERCENTAGE</td>
                 <td colspan="2">
                     <?php 
-                    $total_marks = $grand_total_header*count($val['subjects_parent']);
+                    $total_marks = $grand_total_header*count($subjects);
                     $part = $all_subjects_total;    // The part value
                     $total = $total_marks;   // The total value
                     
@@ -386,10 +414,24 @@ li {
             </table>
         </div>
     </div>
+    </div>
     <?php  } ?>
 <?php  }else{
     echo '<h3>No Record found  <a href="'.base_url('admin/resultreport').'">Go Back</a></h3>';
 } ?>
+   <script>
+                function getIds(){
+                    let ids = "";
+    const checkboxes = document.querySelectorAll(".exam_ids");
 
+    checkboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+            ids += checkbox.value + ",";
+        }
+    });
+
+    document.getElementById("exam_id").value = ids;
+                }
+            </script>
 </body>
 </html>

@@ -42,7 +42,8 @@ class ResultReport extends Admin_Controller
             $data['sessionData'] = array('session_id' => $setting[0]['session_id']);
         }
         $data['sessionList'] = $session;
-
+        $examgroup_result = $this->examgroup_model->get();
+        $data['examgrouplist'] = $examgroup_result;
         // =============
         if ($this->input->server('REQUEST_METHOD') == "GET") {
             $this->load->view('layout/header', $data);

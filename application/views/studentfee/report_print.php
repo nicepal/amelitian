@@ -152,7 +152,7 @@ li {
             </tr>
             <tr height="23">
                 <td colspan="3" height="23">MOTHER'S NAME    :    <?php echo $val['mother_name']??'N/A'; ?></td>
-                <td colspan="4" width="383">ATTENDANCE   :    <?php get_attendance_summary( $val['student_session_id'],$sessionData); ?>
+                <td colspan="4" width="383"> <?php //get_attendance_summary( $val['student_session_id'],$sessionData); ?>
                 </td>
             </tr>
             <tr height="23">
@@ -182,7 +182,7 @@ li {
                             <td> Total </td>
                         <?php } ?>
                     <td> <strong> Grand Total</strong> </td>
-                    <td rowspan="2"> <strong> Grand</strong> </td>
+                    <td> <strong> Grand</strong> </td>
                 </tr>
                
                 <?php 
@@ -191,7 +191,7 @@ li {
                 $all_subjects_total = 0;
                 foreach($subjects as $subject_id_key => $subject_name){
                     if($counter == 0){ ?>
-                        <tr class="yellow">
+                        <!-- <tr class="yellow">
                             <td></td>
                             <?php  
                            $grand_total_header=0;
@@ -209,7 +209,7 @@ li {
                             <?php } ?>
 
                             <td><strong> <?php echo $grand_total_header; ?></strong> </td>
-                        </tr>
+                        </tr> -->
                     <?php } ?>
                 <tr>
                     <td><strong><?php echo $subject_name; ?></strong></td>

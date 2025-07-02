@@ -85,21 +85,11 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 
                     <div class="row">
 
-                        <?php
-                        if (isset($student_due_fee) && !empty($student_due_fee)) {
-                            $i = 1;
-                            foreach($student_due_fee as $className => $reports){ 
-                                $totalFee = 0;
-                                $totalPaid = 0;
-                                $totalDiscount = 0;
-                                $totalFine = 0;
-                                $totalBalance = 0;
-                                $totalPrevious = 0;
-                                ?>
-
+                       
+                            <?php $i = 1; ?>
                             <div class="" id="transfee<?php echo $i; ?>">
                                 <div class="box-header ptbnull">
-                                    <h3 class="box-title titlefix"><i class="fa fa-users"></i> <?php echo $className; ?></h3>
+                                    <h3 class="box-title titlefix"><i class="fa fa-users"></i> <?php //echo $className; ?></h3>
                                 </div>                              
                                 <div class="box-body table-responsive">
                                     <div class="download_label"><?php
@@ -111,6 +101,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                     <table class="table table-striped table-hover" id="headerTable<?php echo $i; ?>">
                                             <thead>
                                                 <tr>
+                                                    <th class="text text-left">Section</th>
                                                     <th class="text text-left"><?php echo $this->lang->line('admission_no'); ?></th>
                                                     <th class="text text-left"><?php echo $this->lang->line('student_name'); ?></th>
                                                     <th class="text text-left">Registration Type</th>
@@ -136,9 +127,21 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 </tr>
                                             </thead>  
                                             <tbody> 
+                                                 <?php
+                        if (isset($student_due_fee) && !empty($student_due_fee)) {
+                            // $i = 1;
+                            foreach($student_due_fee as $className => $reports){ 
+                                $totalFee = 0;
+                                $totalPaid = 0;
+                                $totalDiscount = 0;
+                                $totalFine = 0;
+                                $totalBalance = 0;
+                                $totalPrevious = 0;
+                                ?>
                                             <?php foreach($reports as $report){  
                                                 ?>
                                                 <tr <?php echo ($previousFeeRecords[$report->admission_no]->balance != 0)?'class="bg-danger text-danger"':''; ?>>
+                                                    <td><?php echo $className; ?></td>
                                                     <td><?php echo $report->admission_no; ?></td>
                                                     <td><?php echo $report->name; ?></td>
                                                     <td><?php echo $report->category; ?></td>
@@ -156,14 +159,14 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 </tr>
                                             <?php 
                                             $bl =  $previousFeeRecords[$report->admission_no]->balance??0;
-                                        $totalFee += $report->totalfee;
-                                        $totalPaid += $report->deposit;
-                                        $totalDiscount += $report->discount;
-                                        $totalFine += $report->fine;
-                                        $totalBalance += $report->balance;
-                                        $totalPrevious += $bl;
-                                        
-                                        } ?>
+                                                $totalFee += $report->totalfee;
+                                                $totalPaid += $report->deposit;
+                                                $totalDiscount += $report->discount;
+                                                $totalFine += $report->fine;
+                                                $totalBalance += $report->balance;
+                                                $totalPrevious += $bl;
+                                                
+                                                } ?>
                                             <tr>
                                                 <td colspan="8"></td>
                                                 <td><strong>Rs.<?php echo number_format($totalFee); ?></strong></td>
@@ -174,12 +177,13 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 <td><strong>Rs.<?php echo number_format($bl); ?></strong></td>
 
                                             </tr>
-                                                
-                                            </tbody> 
-                                        </table>
+                                          
                                         <?php 
                                     $i++;
                                     } ?>
+                                          
+                                            </tbody> 
+                                        </table>
                                     </div>                            
                                 </div>                 
                             </div>

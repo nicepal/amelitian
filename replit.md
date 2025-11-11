@@ -53,10 +53,18 @@ The base URL is automatically configured:
 - Locally: Uses `http://localhost:5000/`
 
 ### Database Setup
-The application expects a MySQL database. You'll need to:
-1. Set up a MySQL database
-2. Configure the credentials via environment variables
-3. Import any SQL schema files if provided
+**IMPORTANT**: This application requires a MySQL database to function properly. Currently, the application is configured but will show database connection errors until a database is set up.
+
+To complete the setup, you need to:
+1. **Set up a MySQL database** - This can be an external MySQL service or database
+2. **Configure credentials** - Update the environment variables in Replit Secrets:
+   - `DB_HOSTNAME` - Your MySQL server hostname
+   - `DB_USERNAME` - Your MySQL username
+   - `DB_PASSWORD` - Your MySQL password  
+   - `DB_DATABASE` - Your MySQL database name
+3. **Import database schema** - You'll need to obtain and import the SQL schema for this Smart School system from the original source
+
+**Current Status**: The web server is running but database connectivity needs to be configured.
 
 ## Development
 

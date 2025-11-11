@@ -79,7 +79,14 @@ Since Replit doesn't natively support MySQL, you'll need to use an external MySQ
 
 **Current Status**: Web server runs but displays database connection errors. Once you configure an external MySQL database, the application will function fully.
 
-**Note**: The default credentials in the code (`u649349862_dev` / `Amelitian@123` / `localhost`) are placeholders and won't work without setting up your own database.
+**Note**: The SQL database file (`school630.sql` - 96MB) is ready for import. The default credentials in the code (`u649349862_dev` / `Amelitian@123` / `localhost`) are placeholders that will be replaced by your actual database credentials via environment variables.
+
+### Quick Start Guide:
+1. Sign up at **db4free.net** or **freesqldatabase.com**
+2. Create a MySQL database
+3. Import the `school630.sql` file using phpMyAdmin
+4. Add your credentials to Replit Secrets
+5. Restart the workflow - done!
 
 ## Development
 

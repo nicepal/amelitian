@@ -32,6 +32,10 @@ Thumbs.db
 *.swo
 *~
 
+# Database files
+*.sql
+mysql/
+
 # Replit
 .upm/
 .cache/

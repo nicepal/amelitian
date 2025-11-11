@@ -53,18 +53,33 @@ The base URL is automatically configured:
 - Locally: Uses `http://localhost:5000/`
 
 ### Database Setup
-**IMPORTANT**: This application requires a MySQL database to function properly. Currently, the application is configured but will show database connection errors until a database is set up.
+**IMPORTANT**: This application requires a MySQL database to function properly. Currently showing database connection errors because no database is connected.
 
-To complete the setup, you need to:
-1. **Set up a MySQL database** - This can be an external MySQL service or database
-2. **Configure credentials** - Update the environment variables in Replit Secrets:
-   - `DB_HOSTNAME` - Your MySQL server hostname
+#### Recommended Solution: Use an External MySQL Database
+
+Since Replit doesn't natively support MySQL, you'll need to use an external MySQL hosting service. Here are recommended free options:
+
+**Free MySQL Hosting Services:**
+1. **db4free.net** - Free MySQL 8.0 hosting (quick signup)
+2. **FreeMySQLHosting.net** - 5MB free database
+3. **InfinityFree** - Unlimited MySQL databases with hosting
+4. **GoogieHost** - Free hosting with MySQL support
+
+#### Setup Steps:
+1. **Sign up** for a free MySQL hosting service
+2. **Create a database** through their control panel
+3. **Get your credentials** (hostname, username, password, database name)
+4. **Add to Replit Secrets** (click the lock icon in left sidebar):
+   - `DB_HOSTNAME` - Your MySQL server hostname (e.g., sql123.example.com)
    - `DB_USERNAME` - Your MySQL username
    - `DB_PASSWORD` - Your MySQL password  
-   - `DB_DATABASE` - Your MySQL database name
-3. **Import database schema** - You'll need to obtain and import the SQL schema for this Smart School system from the original source
+   - `DB_DATABASE` - Your database name
+5. **Import database schema** - You'll need the SQL schema file for Smart School (not included in this repository)
+6. **Restart the workflow** - Changes take effect after restart
 
-**Current Status**: The web server is running but database connectivity needs to be configured.
+**Current Status**: Web server runs but displays database connection errors. Once you configure an external MySQL database, the application will function fully.
+
+**Note**: The default credentials in the code (`u649349862_dev` / `Amelitian@123` / `localhost`) are placeholders and won't work without setting up your own database.
 
 ## Development
 

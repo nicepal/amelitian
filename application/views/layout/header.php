@@ -29,6 +29,7 @@
 
         <link rel="stylesheet" href="<?php echo base_url(); ?>backend/dist/css/custom_style.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>backend/datepicker/css/bootstrap-datetimepicker.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>backend/dist/css/ui-enhancements.css">
         <!--file dropify-->
         <link rel="stylesheet" href="<?php echo base_url(); ?>backend/dist/css/dropify.min.css">
         <!--file nprogress-->
@@ -53,6 +54,7 @@
         <script src="<?php echo base_url(); ?>backend/js/school-custom.js"></script>
         <script src="<?php echo base_url(); ?>backend/js/school-admin-custom.js"></script>
         <script src="<?php echo base_url(); ?>backend/js/sstoast.js"></script>         
+        <script src="<?php echo base_url(); ?>backend/js/ui-enhancements.js"></script>
         <!-- fullCalendar -->
         <link rel="stylesheet" href="<?php echo base_url() ?>backend/fullcalendar/dist/fullcalendar.min.css">
         <link rel="stylesheet" href="<?php echo base_url() ?>backend/fullcalendar/dist/fullcalendar.print.min.css" media="print"> 

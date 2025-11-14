@@ -1,0 +1,740 @@
+/*
+ * Smart School UI Enhancements
+ * Modern visual improvements while maintaining current theme
+ */
+
+/* ==========================================
+   1. DESIGN SYSTEM VARIABLES & ANIMATIONS
+   ========================================== */
+
+:root {
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    --transition-fast: all 0.15s ease;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.04);
+    --shadow-hover: 0 14px 28px rgba(0, 0, 0, 0.12), 0 10px 10px rgba(0, 0, 0, 0.08);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+/* ==========================================
+   2. DASHBOARD CARDS - MODERN REDESIGN
+   ========================================== */
+
+.small-box,
+.info-box {
+    border-radius: 12px !important;
+    box-shadow: var(--shadow-md) !important;
+    transition: var(--transition-smooth) !important;
+    animation: fadeIn 0.5s ease-out;
+    border: none !important;
+    overflow: hidden;
+    position: relative;
+}
+
+.small-box::before,
+.info-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 100%);
+    pointer-events: none;
+}
+
+.small-box:hover,
+.info-box:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover) !important;
+}
+
+.small-box .inner h3,
+.info-box-number {
+    font-weight: 700 !important;
+    animation: countUp 0.6s ease-out;
+    letter-spacing: -0.5px;
+}
+
+.small-box .inner p,
+.info-box-text {
+    font-weight: 500;
+    opacity: 0.95;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+.small-box .icon,
+.info-box-icon {
+    transition: var(--transition-smooth);
+    opacity: 0.25;
+}
+
+.small-box:hover .icon,
+.info-box:hover .info-box-icon {
+    transform: scale(1.1) rotate(5deg);
+    opacity: 0.35;
+}
+
+.small-box-footer {
+    transition: var(--transition-fast);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.small-box:hover .small-box-footer {
+    background: rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Dashboard card stagger animation */
+.small-box:nth-child(1),
+.info-box:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.small-box:nth-child(2),
+.info-box:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.small-box:nth-child(3),
+.info-box:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.small-box:nth-child(4),
+.info-box:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+/* ==========================================
+   3. NAVIGATION & SIDEBAR ENHANCEMENTS
+   ========================================== */
+
+.main-sidebar {
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.08) !important;
+    transition: var(--transition-smooth);
+}
+
+.sidebar-menu > li {
+    transition: var(--transition-fast);
+}
+
+.sidebar-menu > li > a {
+    padding: 14px 15px 14px 20px !important;
+    transition: var(--transition-fast);
+    border-left: 3px solid transparent;
+}
+
+.sidebar-menu > li:hover > a,
+.sidebar-menu > li.active > a {
+    border-left-color: currentColor;
+    background: rgba(0, 0, 0, 0.08) !important;
+    padding-left: 23px !important;
+}
+
+.sidebar-menu li > a > .fa,
+.sidebar-menu li > a > .glyphicon,
+.sidebar-menu li > a > .ion {
+    transition: var(--transition-smooth);
+    margin-right: 12px;
+}
+
+.sidebar-menu > li:hover > a > .fa,
+.sidebar-menu > li:hover > a > .glyphicon {
+    transform: scale(1.15);
+}
+
+.treeview-menu > li > a {
+    padding: 8px 5px 8px 45px !important;
+    transition: var(--transition-fast);
+}
+
+.treeview-menu > li:hover > a {
+    background: rgba(0, 0, 0, 0.05) !important;
+    padding-left: 50px !important;
+}
+
+/* ==========================================
+   4. BREADCRUMBS ENHANCEMENT
+   ========================================== */
+
+.breadcrumb {
+    background: #fff !important;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    padding: 12px 20px !important;
+    margin-bottom: 20px;
+}
+
+.breadcrumb > li + li:before {
+    content: "\f105" !important;
+    font-family: 'FontAwesome';
+    color: #999;
+    padding: 0 8px;
+}
+
+.breadcrumb > li > a {
+    transition: var(--transition-fast);
+    font-weight: 500;
+}
+
+.breadcrumb > li > a:hover {
+    color: #3c8dbc;
+    text-decoration: none;
+}
+
+/* ==========================================
+   5. FORM ENHANCEMENTS
+   ========================================== */
+
+.form-control {
+    border-radius: 6px !important;
+    border: 2px solid #e0e0e0 !important;
+    padding: 10px 15px !important;
+    transition: var(--transition-fast) !important;
+    font-size: 14px;
+}
+
+.form-control:focus {
+    border-color: #3c8dbc !important;
+    box-shadow: 0 0 0 3px rgba(60, 141, 188, 0.1) !important;
+    transform: translateY(-1px);
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+}
+
+.input-group-addon {
+    border-radius: 6px 0 0 6px !important;
+    border: 2px solid #e0e0e0 !important;
+    border-right: none !important;
+    background: #f8f9fa !important;
+    transition: var(--transition-fast);
+}
+
+.form-control:focus + .input-group-addon,
+.form-control:focus ~ .input-group-addon {
+    border-color: #3c8dbc !important;
+}
+
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 35px !important;
+}
+
+/* ==========================================
+   6. BUTTON ENHANCEMENTS
+   ========================================== */
+
+.btn {
+    border-radius: 6px !important;
+    padding: 10px 20px !important;
+    font-weight: 600 !important;
+    transition: var(--transition-smooth) !important;
+    border: none !important;
+    letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md) !important;
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #3c8dbc 0%, #2d6fa3 100%) !important;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #00a65a 0%, #008d4c 100%) !important;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #00c0ef 0%, #0099c6 100%) !important;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #f39c12 0%, #e08e0b 100%) !important;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #dd4b39 0%, #c23321 100%) !important;
+}
+
+.btn-sm {
+    padding: 6px 14px !important;
+    font-size: 12px !important;
+}
+
+.btn-lg {
+    padding: 14px 28px !important;
+    font-size: 16px !important;
+}
+
+/* Loading button state */
+.btn.btn-loading {
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+.btn.btn-loading-input {
+    pointer-events: none;
+    opacity: 0.7;
+    cursor: not-allowed !important;
+}
+
+/* ==========================================
+   7. TABLE ENHANCEMENTS
+   ========================================== */
+
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.table thead th {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+    border-bottom: 2px solid #dee2e6 !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    padding: 15px 12px !important;
+    color: #555;
+}
+
+.table tbody tr {
+    transition: var(--transition-fast);
+}
+
+.table tbody tr:hover {
+    background: #f8f9fa !important;
+    transform: scale(1.01);
+    box-shadow: var(--shadow-sm);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.table td {
+    padding: 12px !important;
+    vertical-align: middle !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    border-radius: 6px !important;
+    margin: 0 3px;
+    transition: var(--transition-fast) !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: #3c8dbc !important;
+    color: white !important;
+    border-color: #3c8dbc !important;
+    transform: translateY(-1px);
+}
+
+/* ==========================================
+   8. BOX/PANEL ENHANCEMENTS
+   ========================================== */
+
+.box {
+    border-radius: 10px !important;
+    box-shadow: var(--shadow-md) !important;
+    border-top: none !important;
+    overflow: hidden;
+    animation: fadeIn 0.4s ease-out;
+    transition: var(--transition-smooth);
+}
+
+.box:hover {
+    box-shadow: var(--shadow-lg) !important;
+}
+
+.box-header {
+    border-radius: 10px 10px 0 0 !important;
+    padding: 15px 20px !important;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+}
+
+.box-header .box-title {
+    font-weight: 700 !important;
+    font-size: 16px;
+    letter-spacing: 0.3px;
+}
+
+.box-body {
+    padding: 20px !important;
+}
+
+.box-footer {
+    background: #f8f9fa !important;
+    border-top: 1px solid #e0e0e0 !important;
+}
+
+/* ==========================================
+   9. TYPOGRAPHY ENHANCEMENTS
+   ========================================== */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700 !important;
+    letter-spacing: -0.3px;
+    line-height: 1.3 !important;
+}
+
+.content-header > h1 {
+    font-size: 28px !important;
+    margin-bottom: 8px;
+    animation: slideInLeft 0.5s ease-out;
+}
+
+.content-header > h1 small {
+    font-size: 14px !important;
+    font-weight: 500;
+    opacity: 0.7;
+}
+
+/* ==========================================
+   10. ICONS ENHANCEMENT
+   ========================================== */
+
+.fa, .glyphicon, .ion {
+    transition: var(--transition-smooth);
+}
+
+.nav-tabs-custom > .nav-tabs > li > a > .fa,
+.box-header .fa {
+    margin-right: 6px;
+}
+
+/* Icon hover animations */
+.btn .fa,
+.btn .glyphicon {
+    transition: var(--transition-smooth);
+}
+
+.btn:hover .fa,
+.btn:hover .glyphicon {
+    transform: scale(1.1);
+}
+
+/* ==========================================
+   11. FLOATING ACTION BUTTON
+   ========================================== */
+
+.fab-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999;
+}
+
+.fab {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3c8dbc 0%, #2d6fa3 100%);
+    color: white;
+    border: none;
+    box-shadow: var(--shadow-lg);
+    font-size: 24px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fab:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: var(--shadow-xl);
+}
+
+.fab:active {
+    transform: scale(1.05) rotate(90deg);
+}
+
+/* ==========================================
+   12. LOADING STATES & SKELETONS
+   ========================================== */
+
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+}
+
+.skeleton-text {
+    height: 12px;
+    margin-bottom: 8px;
+}
+
+.skeleton-title {
+    height: 20px;
+    width: 60%;
+    margin-bottom: 12px;
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: #3c8dbc;
+    animation: spin 0.8s linear infinite;
+}
+
+/* ==========================================
+   13. ALERT & NOTIFICATION ENHANCEMENTS
+   ========================================== */
+
+.alert {
+    border-radius: 8px !important;
+    border: none !important;
+    box-shadow: var(--shadow-sm) !important;
+    padding: 15px 20px !important;
+    animation: slideInLeft 0.4s ease-out;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%) !important;
+    color: #155724 !important;
+}
+
+.alert-info {
+    background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%) !important;
+    color: #0c5460 !important;
+}
+
+.alert-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%) !important;
+    color: #856404 !important;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%) !important;
+    color: #721c24 !important;
+}
+
+/* ==========================================
+   14. BADGES & LABELS
+   ========================================== */
+
+.badge,
+.label {
+    border-radius: 12px !important;
+    padding: 4px 10px !important;
+    font-weight: 600 !important;
+    font-size: 11px !important;
+    letter-spacing: 0.3px;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ==========================================
+   15. MOBILE RESPONSIVENESS
+   ========================================== */
+
+@media (max-width: 768px) {
+    .small-box,
+    .info-box {
+        margin-bottom: 15px;
+    }
+    
+    .box {
+        margin-bottom: 15px;
+    }
+    
+    .content-header > h1 {
+        font-size: 22px !important;
+    }
+    
+    .fab-container {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .fab {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+}
+
+/* ==========================================
+   16. SMOOTH SCROLL
+   ========================================== */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* ==========================================
+   17. TRANSITIONS FOR ALL INTERACTIVE ELEMENTS
+   ========================================== */
+
+a, button, input, select, textarea {
+    transition: var(--transition-fast);
+}
+
+/* ==========================================
+   18. CONTENT WRAPPER ANIMATION
+   ========================================== */
+
+.content-wrapper {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* ==========================================
+   19. DROPDOWN ENHANCEMENTS
+   ========================================== */
+
+.dropdown-menu {
+    border-radius: 8px !important;
+    box-shadow: var(--shadow-lg) !important;
+    border: none !important;
+    padding: 8px 0 !important;
+    animation: scaleIn 0.2s ease-out;
+}
+
+.dropdown-menu > li > a {
+    padding: 10px 20px !important;
+    transition: var(--transition-fast);
+}
+
+.dropdown-menu > li > a:hover {
+    background: #f8f9fa !important;
+    padding-left: 25px !important;
+}
+
+/* ==========================================
+   20. MODAL ENHANCEMENTS
+   ========================================== */
+
+.modal-content {
+    border-radius: 12px !important;
+    border: none !important;
+    box-shadow: var(--shadow-xl) !important;
+}
+
+.modal-header {
+    border-radius: 12px 12px 0 0 !important;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 2px solid #dee2e6 !important;
+    padding: 20px 25px !important;
+}
+
+.modal-title {
+    font-weight: 700 !important;
+    font-size: 18px;
+}
+
+.modal-body {
+    padding: 25px !important;
+}
+
+.modal-footer {
+    border-top: 1px solid #e0e0e0 !important;
+    background: #f8f9fa;
+    border-radius: 0 0 12px 12px !important;
+    padding: 15px 25px !important;
+}

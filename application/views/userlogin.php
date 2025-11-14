@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>backend/usertemplate/assets/css/form-elements.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>backend/usertemplate/assets/css/style.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>backend/usertemplate/assets/css/jquery.mCustomScrollbar.min.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>backend/usertemplate/assets/css/login-enhancements.css">
         <style type="text/css">
             body{background:linear-gradient(to right,#676767 0,#dadada 100%);}
             /*.loginbg {background: #455a64;}*/

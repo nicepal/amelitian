@@ -1,0 +1,610 @@
+/*
+ * Dashboard Enhancements CSS
+ * Modern, animated dashboard components for Super Admin
+ * Compatible with AdminLTE theme
+ * Version: 1.0
+ */
+
+/* ==========================================
+   1. KEY METRICS CARDS (HIGHLIGHTED)
+   ========================================== */
+
+.dashboard-key-metrics {
+    margin-bottom: 30px;
+}
+
+.key-metric-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    padding: 30px;
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.key-metric-card:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: pulse 4s ease-in-out infinite;
+}
+
+.key-metric-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+.key-metric-card.student-attendance {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.key-metric-card.staff-attendance {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.key-metric-card.fee-collection {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.key-metric-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.key-metric-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-right: 15px;
+    animation: iconBounce 2s ease-in-out infinite;
+}
+
+.key-metric-title {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.95;
+    margin: 0;
+}
+
+.key-metric-body {
+    position: relative;
+    z-index: 1;
+}
+
+.metric-value-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.metric-value {
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.metric-count {
+    display: inline-block;
+    animation: countUp 1s ease-out;
+}
+
+.metric-total {
+    font-size: 24px;
+    opacity: 0.8;
+    margin-left: 5px;
+}
+
+.metric-circular-progress {
+    width: 80px;
+    height: 80px;
+    position: relative;
+}
+
+.circular-progress-svg {
+    transform: rotate(-90deg);
+}
+
+.progress-circle-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-width: 8;
+}
+
+.progress-circle-fill {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 251.2;
+    stroke-dashoffset: 251.2;
+    animation: progressFill 2s ease-out forwards;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+}
+
+.circular-progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.metric-subtitle {
+    font-size: 14px;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.metric-comparison {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.comparison-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.comparison-label {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.comparison-value {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.comparison-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.comparison-bar-fill {
+    height: 100%;
+    background: #fff;
+    border-radius: 3px;
+    width: 0;
+    animation: barSlide 1.5s ease-out forwards;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.comparison-bar-fill.collected {
+    animation-delay: 0.2s;
+}
+
+.comparison-bar-fill.pending {
+    animation-delay: 0.4s;
+    background: rgba(255, 255, 255, 0.6);
+}
+
+/* ==========================================
+   2. ENHANCED DASHBOARD CHARTS
+   ========================================== */
+
+.chart-container-enhanced {
+    position: relative;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.chart-loading-skeleton {
+    height: 300px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+}
+
+.chart-loaded {
+    animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ==========================================
+   3. OVERVIEW CARDS ENHANCEMENTS
+   ========================================== */
+
+.topprograssstart {
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.topprograssstart:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.pro-border {
+    position: relative;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.pro-border:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 2px;
+    animation: widthGrow 0.8s ease-out;
+}
+
+.progress-minibar {
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #f0f0f0;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.progress-minibar .progress-bar {
+    transition: width 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-minibar .progress-bar:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmerBar 2s infinite;
+}
+
+.progress-bar-aqua {
+    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.progress-bar-yellow {
+    background: linear-gradient(90deg, #ffeaa7 0%, #fdcb6e 100%);
+}
+
+.progress-bar-red {
+    background: linear-gradient(90deg, #ff6b6b 0%, #ee5a6f 100%);
+}
+
+.progress-bar-green {
+    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+}
+
+/* ==========================================
+   4. LOADING SKELETONS
+   ========================================== */
+
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+}
+
+.skeleton-text {
+    height: 16px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.skeleton-text.short {
+    width: 60%;
+}
+
+.skeleton-card {
+    height: 200px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* ==========================================
+   5. STAGGERED ANIMATIONS
+   ========================================== */
+
+.dashboard-key-metrics .key-metric-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.dashboard-key-metrics .key-metric-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.dashboard-key-metrics .key-metric-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.topprograssstart:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.topprograssstart:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.topprograssstart:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.topprograssstart:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+/* ==========================================
+   6. ENHANCED BOX STYLES
+   ========================================== */
+
+.box-primary.borderwhite,
+.box-info.borderwhite {
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.box-primary.borderwhite:hover,
+.box-info.borderwhite:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    transform: translateY(-3px);
+}
+
+.box-header.with-border {
+    border-bottom: 2px solid #f0f0f0;
+    padding: 15px 20px;
+}
+
+.box-title {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* ==========================================
+   7. KEYFRAME ANIMATIONS
+   ========================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 0.3;
+    }
+    50% {
+        transform: scale(1.1) rotate(180deg);
+        opacity: 0.5;
+    }
+}
+
+@keyframes iconBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes progressFill {
+    from {
+        stroke-dashoffset: 251.2;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes barSlide {
+    from {
+        width: 0;
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes widthGrow {
+    from {
+        width: 0;
+    }
+    to {
+        width: 50px;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes shimmerBar {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* ==========================================
+   8. RESPONSIVE DESIGN
+   ========================================== */
+
+@media (max-width: 768px) {
+    .key-metric-card {
+        padding: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .key-metric-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+    
+    .metric-value {
+        font-size: 32px;
+    }
+    
+    .metric-total {
+        font-size: 18px;
+    }
+    
+    .metric-circular-progress {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .circular-progress-text {
+        font-size: 14px;
+    }
+    
+    .dashboard-key-metrics .col-md-4 {
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .key-metric-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .key-metric-icon {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .metric-value-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .metric-circular-progress {
+        margin-top: 15px;
+    }
+}
+
+/* ==========================================
+   9. UTILITY CLASSES
+   ========================================== */
+
+.text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-glow {
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+.smooth-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.slide-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* ==========================================
+   10. ACCESSIBILITY
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus states for keyboard navigation */
+.key-metric-card:focus-within {
+    outline: 3px solid rgba(102, 126, 234, 0.5);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .key-metric-card {
+        border: 2px solid currentColor;
+    }
+}

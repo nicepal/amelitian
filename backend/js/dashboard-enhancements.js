@@ -46,6 +46,12 @@
         const circle = $svg.find('.progress-circle-fill')[0];
         if (!circle) return;
         
+        // Guard against invalid percentage values
+        if (!isFinite(percentage) || isNaN(percentage)) {
+            percentage = 0;
+        }
+        percentage = Math.max(0, Math.min(100, percentage));
+        
         const radius = 40; // SVG circle radius
         const circumference = 2 * Math.PI * radius;
         const offset = circumference - (percentage / 100) * circumference;
@@ -73,8 +79,8 @@
         const $studentCard = $('.key-metric-card.student-attendance');
         if ($studentCard.length) {
             const studentPresent = parseInt($studentCard.data('present') || 0);
-            const studentTotal = parseInt($studentCard.data('total') || 1);
-            const studentPercentage = Math.round((studentPresent / studentTotal) * 100);
+            const studentTotal = parseInt($studentCard.data('total') || 0);
+            const studentPercentage = studentTotal > 0 ? Math.round((studentPresent / studentTotal) * 100) : 0;
             
             animateCounter($studentCard.find('.metric-count'), 0, studentPresent, 2000);
             animateCircularProgress($studentCard.find('.metric-circular-progress'), studentPercentage, 2000);
@@ -85,8 +91,8 @@
         const $staffCard = $('.key-metric-card.staff-attendance');
         if ($staffCard.length) {
             const staffPresent = parseInt($staffCard.data('present') || 0);
-            const staffTotal = parseInt($staffCard.data('total') || 1);
-            const staffPercentage = Math.round((staffPresent / staffTotal) * 100);
+            const staffTotal = parseInt($staffCard.data('total') || 0);
+            const staffPercentage = staffTotal > 0 ? Math.round((staffPresent / staffTotal) * 100) : 0;
             
             animateCounter($staffCard.find('.metric-count'), 0, staffPresent, 2000);
             animateCircularProgress($staffCard.find('.metric-circular-progress'), staffPercentage, 2000);

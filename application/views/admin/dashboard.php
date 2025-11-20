@@ -43,13 +43,25 @@
 
         </div> 
 
+
+        <?php
+        // Safe variable initialization for key metrics cards
+        $safe_total_students = isset($total_students) ? (int)$total_students : 0;
+        $safe_attendence_present = isset($attendence_data) && is_array($attendence_data) 
+            ? (int)($attendence_data['total_half_day'] + $attendence_data['total_late'] + $attendence_data['total_present']) 
+            : 0;
+        $safe_staff_present = isset($Staffattendence_data) ? (int)$Staffattendence_data : 0;
+        $safe_staff_total = isset($getTotalStaff_data) ? (int)$getTotalStaff_data : 0;
+        $safe_month_collection = isset($month_collection) ? (float)$month_collection : 0;
+        $safe_month_expense = isset($month_expense) ? (float)$month_expense : 0;
+        ?>
         <!-- Key Metrics Cards (Enhanced) -->
         <div class="row dashboard-key-metrics">
             <!-- Student Attendance Card -->
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="key-metric-card student-attendance" 
-                     data-present="<?php echo 0 + $attendence_data['total_half_day'] + $attendence_data['total_late'] + $attendence_data['total_present']; ?>" 
-                     data-total="<?php echo $total_students; ?>">
+                     data-present="<?php echo 0 + $safe_attendence_present; ?>" 
+                     data-total="<?php echo $safe_total_students; ?>">
                     <div class="key-metric-header">
                         <div class="key-metric-icon">
                             <i class="fa fa-graduation-cap"></i>
@@ -59,7 +71,7 @@
                     <div class="key-metric-body">
                         <div class="metric-value-container">
                             <div class="metric-value">
-                                <span class="metric-count">0</span><span class="metric-total">/<?php echo $total_students; ?></span>
+                                <span class="metric-count">0</span><span class="metric-total">/<?php echo $safe_total_students; ?></span>
                             </div>
                             <div class="metric-circular-progress">
                                 <svg class="circular-progress-svg" width="80" height="80">
@@ -77,8 +89,8 @@
             <!-- Staff Attendance Card -->
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="key-metric-card staff-attendance" 
-                     data-present="<?php echo $Staffattendence_data + 0; ?>" 
-                     data-total="<?php echo $getTotalStaff_data; ?>">
+                     data-present="<?php echo $safe_staff_present + 0; ?>" 
+                     data-total="<?php echo $safe_staff_total; ?>">
                     <div class="key-metric-header">
                         <div class="key-metric-icon">
                             <i class="fa fa-users"></i>
@@ -88,7 +100,7 @@
                     <div class="key-metric-body">
                         <div class="metric-value-container">
                             <div class="metric-value">
-                                <span class="metric-count">0</span><span class="metric-total">/<?php echo $getTotalStaff_data; ?></span>
+                                <span class="metric-count">0</span><span class="metric-total">/<?php echo $safe_staff_total; ?></span>
                             </div>
                             <div class="metric-circular-progress">
                                 <svg class="circular-progress-svg" width="80" height="80">
@@ -106,8 +118,8 @@
             <!-- Fee Collection Card -->
             <div class="col-md-4 col-sm-12 col-xs-12">
                 <div class="key-metric-card fee-collection" 
-                     data-collected="<?php echo $month_collection; ?>" 
-                     data-pending="<?php echo $month_expense; ?>">
+                     data-collected="<?php echo $safe_month_collection; ?>" 
+                     data-pending="<?php echo $safe_month_expense; ?>">
                     <div class="key-metric-header">
                         <div class="key-metric-icon">
                             <i class="fa fa-money"></i>

@@ -4,14 +4,14 @@
 This is a PHP CodeIgniter-based school management system. The project was imported from GitHub and configured to run in the Replit environment.
 
 ## Recent Changes
-- **November 20, 2025**: Super Admin Dashboard Redesign
+- **November 20, 2025**: Super Admin Dashboard Redesign + CSS Conflict Resolution
   - **Dashboard Navigation**: Added prominent Dashboard shortcut link at top of sidebar menu
   - **Created dashboard-enhancements.css (12KB)** with:
     - 3 interactive key metric cards with gradient backgrounds (Student Attendance, Staff Attendance, Fee Collection)
     - Animated circular progress indicators with SVG animations
     - Smooth pulse animations and hover effects
     - Comparison bar animations for fee collection vs expenses
-    - Loading skeleton screens with shimmer effects
+    - Loading skeleton screens with shimmer effect
     - Enhanced chart containers with fade-in animations
     - Full mobile responsiveness with touch-friendly interactions
     - Accessibility features (reduced motion support, high contrast mode, keyboard navigation)
@@ -30,6 +30,12 @@ This is a PHP CodeIgniter-based school management system. The project was import
     - 3 highlighted key metric cards at top of dashboard
     - Proper data binding with fallback defaults
     - Maintains all existing dashboard functionality
+  - **Fixed CSS conflicts in ui-enhancements.css**:
+    - Scoped form control enhancements to exclude data tables and inline editing
+    - Added `:not()` selectors to prevent styling from affecting table cells
+    - Restored default browser styling for dropdowns inside tables
+    - Fixed transform effects on table rows with form controls
+    - Ensures inline editing dropdowns display values correctly inside fields
   - All code architect-reviewed and production-ready
   - Fully compatible with existing AdminLTE theme
   

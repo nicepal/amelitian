@@ -14,16 +14,17 @@
 }
 
 .key-metric-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #fff;
     border-radius: 16px;
     padding: 30px;
-    color: #fff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    color: #333;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
     margin-bottom: 20px;
     animation: fadeInUp 0.6s ease-out;
+    border: 2px solid #f0f0f0;
 }
 
 .key-metric-card:before {
@@ -33,25 +34,30 @@
     right: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(200, 25, 30, 0.03) 0%, transparent 70%);
     animation: pulse 4s ease-in-out infinite;
 }
 
 .key-metric-card:hover {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 20px 40px rgba(200, 25, 30, 0.15);
+    border-color: #c8191e;
 }
 
+/* Red theme gradients for each card */
 .key-metric-card.student-attendance {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #fff 0%, #fff5f5 100%);
+    border-left: 5px solid #c8191e;
 }
 
 .key-metric-card.staff-attendance {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: linear-gradient(135deg, #fff 0%, #fff5f5 100%);
+    border-left: 5px solid #e74c3c;
 }
 
 .key-metric-card.fee-collection {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    background: linear-gradient(135deg, #fff 0%, #fff5f5 100%);
+    border-left: 5px solid #a71d2a;
 }
 
 .key-metric-header {
@@ -65,7 +71,7 @@
 .key-metric-icon {
     width: 60px;
     height: 60px;
-    background: rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #c8191e 0%, #a71d2a 100%);
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -73,6 +79,8 @@
     font-size: 28px;
     margin-right: 15px;
     animation: iconBounce 2s ease-in-out infinite;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(200, 25, 30, 0.3);
 }
 
 .key-metric-title {
@@ -80,7 +88,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    opacity: 0.95;
+    color: #c8191e;
     margin: 0;
 }
 
@@ -100,7 +108,8 @@
     font-size: 42px;
     font-weight: 700;
     line-height: 1;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #c8191e;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .metric-count {
@@ -110,7 +119,7 @@
 
 .metric-total {
     font-size: 24px;
-    opacity: 0.8;
+    color: #666;
     margin-left: 5px;
 }
 
@@ -126,19 +135,19 @@
 
 .progress-circle-bg {
     fill: none;
-    stroke: rgba(255, 255, 255, 0.2);
+    stroke: rgba(200, 25, 30, 0.15);
     stroke-width: 8;
 }
 
 .progress-circle-fill {
     fill: none;
-    stroke: #fff;
+    stroke: #c8191e;
     stroke-width: 8;
     stroke-linecap: round;
     stroke-dasharray: 251.2;
     stroke-dashoffset: 251.2;
     animation: progressFill 2s ease-out forwards;
-    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+    filter: drop-shadow(0 0 4px rgba(200, 25, 30, 0.3));
 }
 
 .circular-progress-text {
@@ -148,19 +157,20 @@
     transform: translate(-50%, -50%);
     font-size: 18px;
     font-weight: 700;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    color: #c8191e;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .metric-subtitle {
     font-size: 14px;
-    opacity: 0.9;
+    color: #666;
     margin: 0;
 }
 
 .metric-comparison {
     margin-top: 15px;
     padding-top: 15px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgba(200, 25, 30, 0.15);
 }
 
 .comparison-row {
@@ -171,17 +181,18 @@
 
 .comparison-label {
     font-size: 13px;
-    opacity: 0.9;
+    color: #666;
 }
 
 .comparison-value {
     font-size: 14px;
     font-weight: 600;
+    color: #c8191e;
 }
 
 .comparison-bar {
     height: 6px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(200, 25, 30, 0.1);
     border-radius: 3px;
     overflow: hidden;
     margin-top: 8px;
@@ -189,11 +200,11 @@
 
 .comparison-bar-fill {
     height: 100%;
-    background: #fff;
+    background: linear-gradient(90deg, #c8191e 0%, #a71d2a 100%);
     border-radius: 3px;
     width: 0;
     animation: barSlide 1.5s ease-out forwards;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px rgba(200, 25, 30, 0.3);
 }
 
 .comparison-bar-fill.collected {
@@ -202,7 +213,7 @@
 
 .comparison-bar-fill.pending {
     animation-delay: 0.4s;
-    background: rgba(255, 255, 255, 0.6);
+    background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%);
 }
 
 /* ==========================================
@@ -253,7 +264,7 @@
     left: 0;
     width: 50px;
     height: 3px;
-    background: linear-gradient(90deg, #667eea, #764ba2);
+    background: linear-gradient(90deg, #c8191e, #a71d2a);
     border-radius: 2px;
     animation: widthGrow 0.8s ease-out;
 }

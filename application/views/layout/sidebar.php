@@ -14,6 +14,11 @@
     <section class="sidebar" id="sibe-box">
         <?php $this->load->view('layout/top_sidemenu'); ?>
         <ul class="sidebar-menu verttop">
+            <li class="<?php echo (uri_string() == 'admin/admin/dashboard') ? 'active' : ''; ?>">
+                <a href="<?php echo base_url(); ?>admin/admin/dashboard">
+                    <i class="fa fa-dashboard"></i> <span><?php echo $this->lang->line('dashboard'); ?></span>
+                </a>
+            </li>
             <?php
             if ($this->module_lib->hasActive('front_office')) {
                 if (($this->rbac->hasPrivilege('admission_enquiry', 'can_view') ||

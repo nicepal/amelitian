@@ -1,4 +1,5 @@
 <?php $currency_symbol = $this->customlib->getSchoolCurrencyFormat(); ?>
+<link rel="stylesheet" href="<?php echo base_url(); ?>backend/dist/css/dashboard-enhancements.css">
 <style type="text/css">
     .borderwhite{border-top-color: #fff !important;}
     .box-header>.box-tools {display: none;}
@@ -41,6 +42,107 @@
             ?>
 
         </div> 
+
+        <!-- Key Metrics Cards (Enhanced) -->
+        <div class="row dashboard-key-metrics">
+            <!-- Student Attendance Card -->
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="key-metric-card student-attendance" 
+                     data-present="<?php echo 0 + $attendence_data['total_half_day'] + $attendence_data['total_late'] + $attendence_data['total_present']; ?>" 
+                     data-total="<?php echo $total_students; ?>">
+                    <div class="key-metric-header">
+                        <div class="key-metric-icon">
+                            <i class="fa fa-graduation-cap"></i>
+                        </div>
+                        <h4 class="key-metric-title">Student Attendance</h4>
+                    </div>
+                    <div class="key-metric-body">
+                        <div class="metric-value-container">
+                            <div class="metric-value">
+                                <span class="metric-count">0</span><span class="metric-total">/<?php echo $total_students; ?></span>
+                            </div>
+                            <div class="metric-circular-progress">
+                                <svg class="circular-progress-svg" width="80" height="80">
+                                    <circle class="progress-circle-bg" cx="40" cy="40" r="36"></circle>
+                                    <circle class="progress-circle-fill" cx="40" cy="40" r="36"></circle>
+                                </svg>
+                                <div class="circular-progress-text">0%</div>
+                            </div>
+                        </div>
+                        <p class="metric-subtitle">Students Present Today</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Staff Attendance Card -->
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="key-metric-card staff-attendance" 
+                     data-present="<?php echo $Staffattendence_data + 0; ?>" 
+                     data-total="<?php echo $getTotalStaff_data; ?>">
+                    <div class="key-metric-header">
+                        <div class="key-metric-icon">
+                            <i class="fa fa-users"></i>
+                        </div>
+                        <h4 class="key-metric-title">Staff Attendance</h4>
+                    </div>
+                    <div class="key-metric-body">
+                        <div class="metric-value-container">
+                            <div class="metric-value">
+                                <span class="metric-count">0</span><span class="metric-total">/<?php echo $getTotalStaff_data; ?></span>
+                            </div>
+                            <div class="metric-circular-progress">
+                                <svg class="circular-progress-svg" width="80" height="80">
+                                    <circle class="progress-circle-bg" cx="40" cy="40" r="36"></circle>
+                                    <circle class="progress-circle-fill" cx="40" cy="40" r="36"></circle>
+                                </svg>
+                                <div class="circular-progress-text">0%</div>
+                            </div>
+                        </div>
+                        <p class="metric-subtitle">Staff Present Today</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fee Collection Card -->
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <div class="key-metric-card fee-collection" 
+                     data-collected="<?php echo $month_collection; ?>" 
+                     data-pending="<?php echo $month_expense; ?>">
+                    <div class="key-metric-header">
+                        <div class="key-metric-icon">
+                            <i class="fa fa-money"></i>
+                        </div>
+                        <h4 class="key-metric-title">Fee Collection</h4>
+                    </div>
+                    <div class="key-metric-body">
+                        <p class="metric-subtitle">This Month Overview</p>
+                        <div class="metric-comparison">
+                            <div class="comparison-row">
+                                <span class="comparison-label">Collected</span>
+                                <span class="comparison-value collected-amount">
+                                    <?php echo $currency_symbol; ?><span class="amount-number">0</span>
+                                </span>
+                            </div>
+                            <div class="comparison-bar">
+                                <div class="comparison-bar-fill collected" style="width: 0%"></div>
+                            </div>
+                            
+                            <div class="comparison-row" style="margin-top: 15px;">
+                                <span class="comparison-label">Expenses</span>
+                                <span class="comparison-value pending-amount">
+                                    <?php echo $currency_symbol; ?><span class="amount-number">0</span>
+                                </span>
+                            </div>
+                            <div class="comparison-bar">
+                                <div class="comparison-bar-fill pending" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Key Metrics Cards -->
+
         <div class="row">
             <?php
             if ($this->module_lib->hasActive('fees_collection')) {
@@ -1002,4 +1104,5 @@ if (($this->module_lib->hasActive('fees_collection')) || ($this->module_lib->has
     });
     });
     });
-</script>
+</script></script>
+<script src="<?php echo base_url(); ?>backend/js/dashboard-enhancements.js"></script>

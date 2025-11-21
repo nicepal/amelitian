@@ -18,6 +18,7 @@
         </a>
 
         <ul class="dropdown-menu verticalmenu" style="min-width:194px;font-size:10pt;left:3px;">
+            <li role="presentation"><a style="color:#c8191e; font-family: 'Roboto-Bold';padding:6px 20px;" role="menuitem" tabindex="-1" href="<?php echo base_url(); ?>admin/admin/dashboard"><i class="fa fa-dashboard"></i><?php echo $this->lang->line('dashboard'); ?></a></li>
             <?php if ($this->rbac->hasPrivilege('student', 'can_view')) { ?>
                 <li role="presentation"><a style="color:#282828; font-family: 'Roboto-Bold';padding:6px 20px;" role="menuitem" tabindex="-1" href="<?php echo base_url(); ?>student/move_student"><i class="fa fa-user-plus"></i><?php echo $this->lang->line('move_student'); ?></a></li>
 

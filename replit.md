@@ -4,8 +4,15 @@
 This is a PHP CodeIgniter-based school management system. The project was imported from GitHub and configured to run in the Replit environment.
 
 ## Recent Changes
+- **November 21, 2025**: Dashboard Navigation Link Added
+  - Added Dashboard shortcut to Quick Links dropdown menu (first item)
+  - Uses red color (#c8191e) to match school branding and stand out
+  - Dashboard link now accessible from Quick Links dropdown in sidebar
+  - Original Dashboard link in main sidebar menu remains intact
+  - All changes architect-reviewed and approved
+
 - **November 20, 2025**: Super Admin Dashboard Redesign + Comprehensive CSS Fix (Red/White Theme)
-  - **Dashboard Navigation**: Added prominent Dashboard shortcut link at top of sidebar menu
+  - **Dashboard Design**: Created modern animated dashboard with red/white theme
   - **Created dashboard-enhancements.css** with:
     - 3 interactive key metric cards with **red/white theme** (matching school branding)
     - White card backgrounds with red accent borders and icons

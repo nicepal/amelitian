@@ -572,7 +572,14 @@
                             if ($this->rbac->hasPrivilege('promote_student', 'can_view')) {
                                 ?>
 
-                                <li class="<?php echo set_Submenu('stdtransfer/index'); ?>"><a href="<?php echo base_url(); ?>admin/stdtransfer"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('promote_students'); ?></a></li>
+                                <li class="<?php echo set_Submenu('stdtransfer/index'); ?>"><a href="<?php echo base_url(); ?>admin/stdtransfer"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('promote_students'); ?> upto 10th</a></li>
+                                <?php
+                            }
+
+                            if ($this->rbac->hasPrivilege('promote_student', 'can_view')) {
+                                ?>
+
+                                <li class="<?php echo set_Submenu('stdtransferclone/index'); ?>"><a href="<?php echo base_url(); ?>admin/stdtransferclone"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('promote_students'); ?> upto 12th</a></li>
                                 <?php
                             }
                             if ($this->rbac->hasPrivilege('subject_group', 'can_view')) {

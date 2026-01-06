@@ -360,10 +360,12 @@ class Transaction extends Admin_Controller {
             // Get all previous sessions (all sessions before current session) - Calculate once outside the loop
             $all_previous_sessions = $this->session_model->get();
             $previous_sessions = array();
+            $count = 0;
             foreach($all_previous_sessions as $session) {
-                if($session['id'] < $current_session) {
+                if($session['id'] < $current_session && $count < 2) {
                     $previous_sessions[] = $session;
-                }
+                    $count++;
+                }   
             }
             
             // Sort by id descending to get most recent sessions first

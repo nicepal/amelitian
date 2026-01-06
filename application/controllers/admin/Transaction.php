@@ -353,6 +353,65 @@ class Transaction extends Admin_Controller {
 
             $section = array();
             
+            $setting_result = $this->setting_model->get();
+            $current_session = $setting_result[0]['session_id'];
+            $data['current_session'] = $current_session;
+            
+            // Get all previous sessions (all sessions before current session) - Calculate once outside the loop
+            $all_previous_sessions = $this->session_model->get();
+            $previous_sessions = array();
+            foreach($all_previous_sessions as $session) {
+                if($session['id'] < $current_session) {
+                    $previous_sessions[] = $session;
+                }
+            }
+            
+            // Sort by id descending to get most recent sessions first
+            usort($previous_sessions, function($a, $b) {
+                return $b['id'] - $a['id'];
+            });
+            
+            // Get only the last 2 previous sessions
+            $previous_sessions = array_slice($previous_sessions, 0, 2);
+            
+            // Initialize array to store summed balances for each student - Calculate once for all class/sections
+            $previousFeeRecords = array();
+            
+            // Loop through last 2 previous sessions and sum balances
+            foreach($previous_sessions as $pre_session) {
+                $student_Array = array();
+                $student_Array = json_decode($this->findPreviousBalanceFees($pre_session['id'], $class_id, $section_id, $current_session));
+                
+                if($student_Array && isset($student_Array->student_Array)) {
+                    // Track students processed in this session to avoid duplicates
+                    $session_students = array();
+                    
+                    foreach($student_Array->student_Array as $key => $val) {
+                        $admission_no = $val->admission_no;
+                        
+                        // Skip if we've already processed this student in this session
+                        if(isset($session_students[$admission_no])) {
+                            continue;
+                        }
+                        
+                        // Mark this student as processed for this session
+                        $session_students[$admission_no] = true;
+                        
+                        // Initialize if not exists
+                        if(!isset($previousFeeRecords[$admission_no])) {
+                            $previousFeeRecords[$admission_no] = new stdClass();
+                            $previousFeeRecords[$admission_no]->admission_no = $admission_no;
+                            $previousFeeRecords[$admission_no]->balance = 0;
+                            $previousFeeRecords[$admission_no]->name = $val->name;
+                        }
+                        
+                        // Sum up the balance
+                        $balance = isset($val->balance) ? floatval($val->balance) : 0;
+                        $previousFeeRecords[$admission_no]->balance += $balance;
+                    }
+                }
+            }
+            
             $classlist = $this->student_model->getAllClassSection($class_id, $section_id);
             // $classlist = $this->student_model->getAllClassSection($class_id, null);
             foreach ($classlist as $key => $value) {
@@ -360,53 +419,6 @@ class Transaction extends Admin_Controller {
                 $sectionid = $value['section_id'];
 
                 $studentlist =         $this->student_model->reportClassSection($classid,$section_id);
-                $setting_result = $this->setting_model->get();
-                $current_session = $setting_result[0]['session_id'];
-                $data['current_session'] = $current_session;
-                
-                // Get all previous sessions (all sessions before current session)
-                $all_previous_sessions = $this->session_model->get();
-                $previous_sessions = array();
-                foreach($all_previous_sessions as $session) {
-                    if($session['id'] < $current_session) {
-                        $previous_sessions[] = $session;
-                    }
-                }
-                
-                // Sort by id descending to get most recent sessions first
-                usort($previous_sessions, function($a, $b) {
-                    return $b['id'] - $a['id'];
-                });
-                
-                // Get only the last 2 previous sessions
-                $previous_sessions = array_slice($previous_sessions, 0, 2);
-                
-                // Initialize array to store summed balances for each student
-                $previousFeeRecords = array();
-                
-                // Loop through last 2 previous sessions and sum balances
-                foreach($previous_sessions as $pre_session) {
-                    $student_Array = array();
-                    $student_Array = json_decode($this->findPreviousBalanceFees($pre_session['id'], $class_id, $section_id, $current_session));
-                    
-                    if($student_Array && isset($student_Array->student_Array)) {
-                        foreach($student_Array->student_Array as $key => $val) {
-                            $admission_no = $val->admission_no;
-                            
-                            // Initialize if not exists
-                            if(!isset($previousFeeRecords[$admission_no])) {
-                                $previousFeeRecords[$admission_no] = new stdClass();
-                                $previousFeeRecords[$admission_no]->admission_no = $admission_no;
-                                $previousFeeRecords[$admission_no]->balance = 0;
-                                $previousFeeRecords[$admission_no]->name = $val->name;
-                            }
-                            
-                            // Sum up the balance
-                            $balance = isset($val->balance) ? floatval($val->balance) : 0;
-                            $previousFeeRecords[$admission_no]->balance += $balance;
-                        }
-                    }
-                }
                 $student_Array = array();
                 if (!empty($studentlist)) {
                     foreach ($studentlist as $key => $eachstudent) {

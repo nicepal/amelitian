@@ -137,10 +137,63 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                 $totalFine = 0;
                                 $totalBalance = 0;
                                 $totalPrevious = 0;
+                                $totalDueamount = 0;
+
                                 ?>
                                             <?php foreach($reports as $report){  
+                                                
+                                                $resultlist = $this->student_model->searchAllSessionsStudents($report->student_id);
+                                                $fee_paid = 0;
+                                                $fee_discount = 0;
+                                                $fee_fine = 0;
+                                                $fees_fine_amount = 0;
+                                                $total_amount = 0;
+                                                $total_balance_amount = 0;
+    
+                                                $newBalance = 0;
+                                                $newTotalFeePaid = 0;
+                                                $total_fees_fine_amount = 0;
+                                                foreach ($resultlist as $student) {
+                                                   
+                                                    if($report->student_session_id != $student['student_session_id']){ 
+                                                        $student_due_fee123 = $this->studentfeemaster_model->getStudentFees($student['student_session_id']);
+                                                       
+                                                        foreach ($student_due_fee123 as $key => $fee) {
+
+                                                            foreach ($fee->fees as $fee_key => $fee_value) {
+                                                                
+                                                                if (!empty($fee_value->amount_detail)) {
+                                                                    $fee_deposits = json_decode(($fee_value->amount_detail));
+
+                                                                    foreach ($fee_deposits as $fee_deposits_key => $fee_deposits_value) {
+                                                                        $fee_paid = $fee_paid + $fee_deposits_value->amount;
+                                                                        $fee_discount = $fee_discount + $fee_deposits_value->amount_discount;
+                                                                        $fee_fine = $fee_fine + $fee_deposits_value->amount_fine;
+                                                                    }
+                                                                }
+                                                                if (($fee_value->due_date != "0000-00-00" && $fee_value->due_date != NULL) && (strtotime($fee_value->due_date) < strtotime(date('Y-m-d')))) {
+                                                                    $fees_fine_amount=$fee_value->fine_amount;
+                                                                    // $total_fees_fine_amount=$total_fees_fine_amount+$fee_value->fine_amount;
+                                                            }
+                
+                                                            
+                                                                $total_amount = $total_amount + $fee_value->amount;
+                                                                // $total_discount_amount = $total_discount_amount + $fee_discount;
+                                                                // $total_deposite_amount += $total_deposite_amount + $fee_paid + $fee_discount;
+                                                                // $total_fine_amount += $total_fine_amount + $fee_fine;
+                                                                // $feetype_balance += $fee_value->amount - ($fee_paid);
+                                                                $total_balance_amount += $total_amount + $fee_paid;
+                                                            }
+                                                        
+                                                        }
+            
+                                                    
+                                                        $newTotalFeePaid = $fee_paid + $fee_discount;
+                                                    }
+                                                }
+                                                $totalDueamount = $total_amount-$newTotalFeePaid;
                                                 ?>
-                                                <tr <?php echo (isset($previousFeeRecords[$report->admission_no]) && $previousFeeRecords[$report->admission_no]->balance != 0)?'class="bg-danger text-danger"':''; ?>>
+                                                <tr <?php echo ($totalDueamount != 0)?'class="bg-danger text-danger"':''; ?>>
                                                     <td><?php echo $className; ?></td>
                                                     <td><?php echo $report->admission_no; ?></td>
                                                     <td><?php echo $report->name; ?></td>
@@ -155,10 +208,10 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                     <td><?php echo $report->discount; ?></td>
                                                     <td><?php echo $report->fine; ?></td>
                                                     <td><?php echo $report->balance; ?></td>
-                                                    <td><?php echo isset($previousFeeRecords[$report->admission_no]) ? $previousFeeRecords[$report->admission_no]->balance : 0; ?></td>
+                                                    <td><?php echo $totalDueamount ; ?></td>
                                                 </tr>
                                             <?php 
-                                            $bl = isset($previousFeeRecords[$report->admission_no]) ? $previousFeeRecords[$report->admission_no]->balance : 0;
+                                            $bl = $totalDueamount;
                                                 $totalFee += $report->totalfee;
                                                 $totalPaid += $report->deposit;
                                                 $totalDiscount += $report->discount;

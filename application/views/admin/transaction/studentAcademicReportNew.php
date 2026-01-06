@@ -140,7 +140,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                 ?>
                                             <?php foreach($reports as $report){  
                                                 ?>
-                                                <tr <?php echo ($previousFeeRecords[$report->admission_no]->balance != 0)?'class="bg-danger text-danger"':''; ?>>
+                                                <tr <?php echo (isset($previousFeeRecords[$report->admission_no]) && $previousFeeRecords[$report->admission_no]->balance != 0)?'class="bg-danger text-danger"':''; ?>>
                                                     <td><?php echo $className; ?></td>
                                                     <td><?php echo $report->admission_no; ?></td>
                                                     <td><?php echo $report->name; ?></td>
@@ -155,10 +155,10 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                     <td><?php echo $report->discount; ?></td>
                                                     <td><?php echo $report->fine; ?></td>
                                                     <td><?php echo $report->balance; ?></td>
-                                                    <td><?php echo $previousFeeRecords[$report->admission_no]->balance??0; ?></td>
+                                                    <td><?php echo isset($previousFeeRecords[$report->admission_no]) ? $previousFeeRecords[$report->admission_no]->balance : 0; ?></td>
                                                 </tr>
                                             <?php 
-                                            $bl =  $previousFeeRecords[$report->admission_no]->balance??0;
+                                            $bl = isset($previousFeeRecords[$report->admission_no]) ? $previousFeeRecords[$report->admission_no]->balance : 0;
                                                 $totalFee += $report->totalfee;
                                                 $totalPaid += $report->deposit;
                                                 $totalDiscount += $report->discount;
@@ -174,7 +174,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 <td><strong>Rs.<?php echo number_format($totalDiscount); ?></strong></td>
                                                 <td><strong>Rs.<?php echo number_format($totalFine); ?></strong></td>
                                                 <td><strong>Rs.<?php echo number_format($totalBalance); ?></strong></td>
-                                                <td><strong>Rs.<?php echo number_format($bl); ?></strong></td>
+                                                <td><strong>Rs.<?php echo number_format($totalPrevious); ?></strong></td>
 
                                             </tr>
                                           

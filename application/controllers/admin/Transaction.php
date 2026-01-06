@@ -373,10 +373,18 @@ class Transaction extends Admin_Controller {
                     }
                 }
                 
+                // Sort by id descending to get most recent sessions first
+                usort($previous_sessions, function($a, $b) {
+                    return $b['id'] - $a['id'];
+                });
+                
+                // Get only the last 2 previous sessions
+                $previous_sessions = array_slice($previous_sessions, 0, 2);
+                
                 // Initialize array to store summed balances for each student
                 $previousFeeRecords = array();
                 
-                // Loop through all previous sessions and sum balances
+                // Loop through last 2 previous sessions and sum balances
                 foreach($previous_sessions as $pre_session) {
                     $student_Array = array();
                     $student_Array = json_decode($this->findPreviousBalanceFees($pre_session['id'], $class_id, $section_id, $current_session));

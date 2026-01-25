@@ -1102,6 +1102,103 @@ class Report extends Admin_Controller
         $this->load->view('layout/footer', $data);
     }
 
+    public function all_fee()
+    {
+        $this->session->set_userdata('top_menu', 'Reports');
+        $this->session->set_userdata('sub_menu', 'Reports/finance');
+        $this->session->set_userdata('subsub_menu', 'Reports/finance/all_fee');
+        
+        $data = array();
+        
+        // Handle date range from POST or set defaults
+        if (isset($_POST['from_date']) && isset($_POST['to_date'])) {
+            $start_date = date('Y-m-d', strtotime($_POST['from_date']));
+            $end_date = date('Y-m-d', strtotime($_POST['to_date']));
+            $data['from_date'] = $_POST['from_date'];
+            $data['to_date'] = $_POST['to_date'];
+        } else {
+            // Default to current year
+            $dates = $this->customlib->get_betweendate('this_year');
+            $start_date = date('Y-m-d', strtotime($dates['from_date']));
+            $end_date = date('Y-m-d', strtotime($dates['to_date']));
+            $data['from_date'] = $dates['from_date'];
+            $data['to_date'] = $dates['to_date'];
+        }
+        
+        // Check if Excel export is requested
+        if (isset($_POST['export_excel']) && $_POST['export_excel'] == '1') {
+            $this->exportAllFeeExcel($start_date, $end_date);
+            return;
+        }
+        
+        // Get payment data
+        $data['payments'] = $this->studentfeemaster_model->getAllFeePayments($start_date, $end_date);
+        $data['label'] = date($this->customlib->getSchoolDateFormat(), strtotime($start_date)) . " " . $this->lang->line('to') . " " . date($this->customlib->getSchoolDateFormat(), strtotime($end_date));
+        
+        $this->load->view('layout/header', $data);
+        $this->load->view('reports/all_fee', $data);
+        $this->load->view('layout/footer', $data);
+    }
+    
+    private function exportAllFeeExcel($start_date, $end_date)
+    {
+        $payments = $this->studentfeemaster_model->getAllFeePayments($start_date, $end_date);
+        
+        // Set headers for Excel download
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="All_Fee_Report_' . date('Y-m-d', strtotime($start_date)) . '_to_' . date('Y-m-d', strtotime($end_date)) . '.xls"');
+        header('Cache-Control: max-age=0');
+        
+        echo '<html xmlns:x="urn:schemas-microsoft-com:office:excel">
+                <head>
+                    <meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">
+                    <xml>
+                        <x:ExcelWorkbook>
+                            <x:ExcelWorksheets>
+                                <x:ExcelWorksheet>
+                                    <x:Name>All Fee Report</x:Name>
+                                    <x:WorksheetOptions>
+                                        <x:Panes></x:Panes>
+                                    </x:WorksheetOptions>
+                                </x:ExcelWorksheet>
+                            </x:ExcelWorksheets>
+                        </x:ExcelWorkbook>
+                    </xml>
+                </head>
+                <body>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>Date of Transaction</th>
+                                <th>Student ID</th>
+                                <th>Class Name</th>
+                                <th>Section</th>
+                                <th>Student Name</th>
+                                <th>Amount Collected</th>
+                                <th>Details linked to the receipt</th>
+                            </tr>
+                        </thead>
+                        <tbody>';
+        
+        foreach ($payments as $payment) {
+            echo '<tr>';
+            echo '<td>' . (isset($payment['date']) ? date($this->customlib->getSchoolDateFormat(), strtotime($payment['date'])) : '') . '</td>';
+            echo '<td>' . (isset($payment['student_id']) ? htmlspecialchars($payment['student_id']) : '') . '</td>';
+            echo '<td>' . (isset($payment['class_name']) ? htmlspecialchars($payment['class_name']) : '') . '</td>';
+            echo '<td>' . (isset($payment['section']) ? htmlspecialchars($payment['section']) : '') . '</td>';
+            echo '<td>' . (isset($payment['student_name']) ? htmlspecialchars($payment['student_name']) : '') . '</td>';
+            echo '<td>' . (isset($payment['amount_collected']) ? number_format($payment['amount_collected'], 2) : '0.00') . '</td>';
+            echo '<td>' . (isset($payment['receipt_details']) ? htmlspecialchars($payment['receipt_details']) : '') . '</td>';
+            echo '</tr>';
+        }
+        
+        echo '</tbody>
+                    </table>
+                </body>
+              </html>';
+        exit;
+    }
+
     public function incomegroup()
     {
 

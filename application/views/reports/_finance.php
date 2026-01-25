@@ -55,6 +55,7 @@
                         <li class="col-lg-4 col-md-4 col-sm-6 <?php echo set_SubSubmenu('Reports/finance/expensegroup'); ?>"><a href="<?php echo base_url(); ?>report/expensegroup"><i class="fa fa-file-text-o"></i> <?php echo $this->lang->line('expense') . " " . $this->lang->line('group') . " " . $this->lang->line('report'); ?></a></li>
                     <?php } ?>
                     <li class="col-lg-4 col-md-4 col-sm-6 <?php echo set_SubSubmenu('Reports/finance/fee_cancellation'); ?>"><a href="<?php echo base_url(); ?>report/fee_cancellation"><i class="fa fa-file-text-o"></i> Fee Cancellation Report</a></li>
+                    <li class="col-lg-4 col-md-4 col-sm-6 <?php echo set_SubSubmenu('Reports/finance/all_fee'); ?>"><a href="<?php echo base_url(); ?>report/all_fee"><i class="fa fa-file-text-o"></i> All Fee</a></li>
 
                 </ul>
             </div>

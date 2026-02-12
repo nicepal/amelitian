@@ -466,6 +466,10 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 }
                                                 ?>" ></td>
                                         </tr>
+                                            <tr>
+                                                <td>Father Aadhar Card Number</td>
+                                                <td><?php echo $student['father_aadhar']; ?></td>
+                                            </tr>
                                         <?php } if ($sch_setting->father_phone) {  ?>
                                         <tr>
                                             <td><?php echo $this->lang->line('father_phone'); ?></td>
@@ -488,6 +492,10 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 }
                                                 ?>" ></td>
                                         </tr>
+                                            <tr>
+                                                <td>Mother Aadhar Card Number</td>
+                                                <td><?php echo $student['mother_aadhar']; ?></td>
+                                            </tr>
                                         <?php } if ($sch_setting->mother_phone) { ?>
                                         <tr>
                                             <td><?php echo $this->lang->line('mother_phone'); ?></td>
@@ -559,7 +567,6 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <div class="table-responsive around10 pt0">
                                             <table class="table table-hover table-striped tmb0">
                                                 <tbody>
-
                                                     <tr>
                                                         <td  class="col-md-4"><?php echo $this->lang->line('route'); ?></td>
                                                         <td  class="col-md-5"><?php echo $student['route_title']; ?></td>
@@ -661,7 +668,12 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 <td  class="col-md-4"><?php echo $this->lang->line('national_identification_no'); ?></td>
                                                 <td  class="col-md-5"><?php echo $student['adhar_no']; ?></td>
                                             </tr>
-                                            <?php } if ($sch_setting->local_identification_no) { ?>
+                                            <?php } ?>
+                                            <tr>
+                                                <td  class="col-md-4">Student Aadhar Card Number</td>
+                                                <td  class="col-md-5"><?php echo isset($student['student_aadhar']) ? $student['student_aadhar'] : ''; ?></td>
+                                            </tr>
+                                            <?php if ($sch_setting->local_identification_no) { ?>
                                             <tr>
                                                 <td><?php echo $this->lang->line('local_identification_no'); ?></td>
                                                 <td><?php echo $student['samagra_id']; ?></td>

@@ -386,6 +386,9 @@ class Student extends Admin_Controller
             )
         );
         $this->form_validation->set_rules('guardian_email', $this->lang->line('guardian_email'), 'trim|valid_email|xss_clean');
+        $this->form_validation->set_rules('student_aadhar', 'Student Aadhar', 'trim|xss_clean|callback__valid_aadhar_format');
+        $this->form_validation->set_rules('father_aadhar', 'Father Aadhar', 'trim|xss_clean|callback__valid_aadhar_format');
+        $this->form_validation->set_rules('mother_aadhar', 'Mother Aadhar', 'trim|xss_clean|callback__valid_aadhar_format');
 
         if (!$this->sch_setting_detail->adm_auto_insert) {
 
@@ -444,6 +447,9 @@ class Student extends Admin_Controller
                 'permanent_address'   => $this->input->post('permanent_address'),
 
                 'adhar_no'            => $this->input->post('adhar_no'),
+                'student_aadhar'      => $this->_normalize_aadhar($this->input->post('student_aadhar')),
+                'father_aadhar'       => $this->_normalize_aadhar($this->input->post('father_aadhar')),
+                'mother_aadhar'       => $this->_normalize_aadhar($this->input->post('mother_aadhar')),
                 'samagra_id'          => $this->input->post('samagra_id'),
                 'bank_account_no'     => $this->input->post('bank_account_no'),
                 'bank_name'           => $this->input->post('bank_name'),
@@ -1352,6 +1358,9 @@ class Student extends Admin_Controller
             )
         );
         $this->form_validation->set_rules('guardian_email', $this->lang->line('guardian_email'), 'trim|valid_email|xss_clean');
+        $this->form_validation->set_rules('student_aadhar', 'Student Aadhar', 'trim|xss_clean|callback__valid_aadhar_format');
+        $this->form_validation->set_rules('father_aadhar', 'Father Aadhar', 'trim|xss_clean|callback__valid_aadhar_format');
+        $this->form_validation->set_rules('mother_aadhar', 'Mother Aadhar', 'trim|xss_clean|callback__valid_aadhar_format');
         if (!$this->sch_setting_detail->adm_auto_insert) {
 
             $this->form_validation->set_rules('admission_no', $this->lang->line('admission_no'), array('required', array('check_admission_no_exists', array($this->student_model, 'valid_student_admission_no'))));
@@ -1413,6 +1422,9 @@ class Student extends Admin_Controller
                 'current_address'     => $this->input->post('current_address'),
                 'permanent_address'   => $this->input->post('permanent_address'),
                 'adhar_no'            => $this->input->post('adhar_no'),
+                'student_aadhar'      => $this->_normalize_aadhar($this->input->post('student_aadhar')),
+                'father_aadhar'       => $this->_normalize_aadhar($this->input->post('father_aadhar')),
+                'mother_aadhar'       => $this->_normalize_aadhar($this->input->post('mother_aadhar')),
                 'samagra_id'          => $this->input->post('samagra_id'),
                 'bank_account_no'     => $this->input->post('bank_account_no'),
                 'bank_name'           => $this->input->post('bank_name'),
@@ -2432,6 +2444,43 @@ class Student extends Admin_Controller
         }
 
         echo json_encode($array);
+    }
+
+    /**
+     * Normalize Aadhar value to xxxx-xxxx-xxxx (12 digits). Strips non-digits; if 12 digits, formats with hyphens.
+     *
+     * @param string|null $value
+     * @return string
+     */
+    private function _normalize_aadhar($value)
+    {
+        if ($value === null || $value === '') {
+            return '';
+        }
+        $digits = preg_replace('/\D/', '', $value);
+        if (strlen($digits) === 12) {
+            return substr($digits, 0, 4) . '-' . substr($digits, 4, 4) . '-' . substr($digits, 8, 4);
+        }
+        return trim($value);
+    }
+
+    /**
+     * Form validation callback: Aadhar must be empty or valid (12 digits or xxxx-xxxx-xxxx).
+     *
+     * @param string $str
+     * @return bool
+     */
+    public function _valid_aadhar_format($str)
+    {
+        if ($str === null || trim($str) === '') {
+            return true;
+        }
+        $digits = preg_replace('/\D/', '', $str);
+        if (strlen($digits) !== 12) {
+            $this->form_validation->set_message('_valid_aadhar_format', 'Aadhar must be 12 digits (format: xxxx-xxxx-xxxx).');
+            return false;
+        }
+        return true;
     }
 
 }

@@ -88,6 +88,13 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 <span class="text-danger"><?php echo form_error('first_name'); ?></span>
                                             </div>
                                         </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="student_aadhar">Student Aadhar Card Number</label>
+                                                    <input id="student_aadhar" name="student_aadhar" placeholder="xxxx-xxxx-xxxx" maxlength="14" type="text" class="form-control aadhar-input" value="<?php echo set_value('student_aadhar', $student['student_aadhar']); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('student_aadhar'); ?></span>
+                                                </div>
+                                            </div>
                                           <?php if ($sch_setting->middlename) { ?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
@@ -487,6 +494,13 @@ if (!empty($siblings)) {
                                                     <span class="text-danger"><?php echo form_error('father_name'); ?></span>
                                                 </div>
                                             </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="father_aadhar">Father Aadhar Card Number</label>
+                                                    <input id="father_aadhar" name="father_aadhar" placeholder="xxxx-xxxx-xxxx" maxlength="14" type="text" class="form-control aadhar-input" value="<?php echo set_value('father_aadhar', $student['father_aadhar']); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('father_aadhar'); ?></span>
+                                                </div>
+                                            </div>
 <?php }if ($sch_setting->father_phone) { ?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
@@ -522,6 +536,13 @@ if (!empty($siblings)) {
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('mother_name'); ?></label>
                                                     <input id="mother_name" name="mother_name" placeholder="" type="text" class="form-control"  value="<?php echo set_value('mother_name', $student['mother_name']); ?>" />
                                                     <span class="text-danger"><?php echo form_error('mother_name'); ?></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="mother_aadhar">Mother Aadhar Card Number</label>
+                                                    <input id="mother_aadhar" name="mother_aadhar" placeholder="xxxx-xxxx-xxxx" maxlength="14" type="text" class="form-control aadhar-input" value="<?php echo set_value('mother_aadhar', $student['mother_aadhar']); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('mother_aadhar'); ?></span>
                                                 </div>
                                             </div>
 <?php }if ($sch_setting->mother_phone) { ?>
@@ -1175,7 +1196,15 @@ if (!empty($siblings)) {
             $('.sibling_div').remove();
         });
 
-
+        // Aadhar format: xxxx-xxxx-xxxx (allow only digits, auto-insert hyphens)
+        $(document).on('input paste', '.aadhar-input', function () {
+            var $el = $(this);
+            var val = $el.val().replace(/\D/g, '');
+            if (val.length > 12) val = val.slice(0, 12);
+            if (val.length > 8) val = val.slice(0, 4) + '-' + val.slice(4, 8) + '-' + val.slice(8);
+            else if (val.length > 4) val = val.slice(0, 4) + '-' + val.slice(4);
+            $el.val(val);
+        });
     });
 </script>
 

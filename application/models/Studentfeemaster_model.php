@@ -1002,4 +1002,50 @@ class Studentfeemaster_model extends MY_Model
         return $return_array;
     }
 
+    /**
+     * Get fee dues breakdown by fee type for a student.
+     * Returns: ['total_dues' => x, 'by_type' => [feetype => ['total' => x, 'paid' => y, 'balance' => z]]]
+     */
+    public function getStudentFeeDuesByType($student_session_id)
+    {
+        $student_fees = $this->getStudentFees($student_session_id);
+        $by_type = array();
+        $total_dues = 0;
+
+        if (empty($student_fees)) {
+            return array('total_dues' => 0, 'by_type' => array());
+        }
+
+        foreach ($student_fees as $fee_group) {
+            if (empty($fee_group->fees)) {
+                continue;
+            }
+            foreach ($fee_group->fees as $fee) {
+                $amount = isset($fee->amount) ? floatval($fee->amount) : 0;
+                if ($fee_group->is_system != 0 && isset($fee_group->amount)) {
+                    $amount = floatval($fee_group->amount);
+                }
+                $paid = 0;
+                if (!empty($fee->amount_detail) && $fee->amount_detail != '0') {
+                    $detail = json_decode($fee->amount_detail, true);
+                    if (is_array($detail)) {
+                        foreach ($detail as $d) {
+                            $paid += (isset($d['amount']) ? floatval($d['amount']) : 0) + (isset($d['amount_discount']) ? floatval($d['amount_discount']) : 0);
+                        }
+                    }
+                }
+                $balance = $amount - $paid;
+                $fee_name = isset($fee->type) ? $fee->type : 'Fee';
+                if (!isset($by_type[$fee_name])) {
+                    $by_type[$fee_name] = array('total' => 0, 'paid' => 0, 'balance' => 0);
+                }
+                $by_type[$fee_name]['total'] += $amount;
+                $by_type[$fee_name]['paid'] += $paid;
+                $by_type[$fee_name]['balance'] += $balance;
+                $total_dues += $balance;
+            }
+        }
+        return array('total_dues' => $total_dues, 'by_type' => $by_type);
+    }
+
 }

@@ -56,6 +56,7 @@
                     <?php } ?>
                     <li class="col-lg-4 col-md-4 col-sm-6 <?php echo set_SubSubmenu('Reports/finance/fee_cancellation'); ?>"><a href="<?php echo base_url(); ?>report/fee_cancellation"><i class="fa fa-file-text-o"></i> Fee Cancellation Report</a></li>
                     <li class="col-lg-4 col-md-4 col-sm-6 <?php echo set_SubSubmenu('Reports/finance/all_fee'); ?>"><a href="<?php echo base_url(); ?>report/all_fee"><i class="fa fa-file-text-o"></i> All Fee</a></li>
+                    <li class="col-lg-4 col-md-4 col-sm-6 <?php echo set_SubSubmenu('Reports/finance/class_section_fee_dues'); ?>"><a href="<?php echo base_url(); ?>report/class_section_fee_dues"><i class="fa fa-file-text-o"></i> Class Section Fee Dues</a></li>
 
                 </ul>
             </div>

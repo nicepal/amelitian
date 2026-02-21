@@ -2042,4 +2042,63 @@ class Report extends Admin_Controller
 
     }
 
+    /**
+     * Class Section Fee Dues report: select class, section, list students with columns
+     * Student name, Admission no, Total dues, then per-fee-type: Total | Balance
+     */
+    public function class_section_fee_dues()
+    {
+        $this->session->set_userdata('top_menu', 'Reports');
+        $this->session->set_userdata('sub_menu', 'Reports/finance');
+        $this->session->set_userdata('subsub_menu', 'Reports/finance/class_section_fee_dues');
+        $data['title']       = 'Class Section Fee Dues';
+        $data['sch_setting'] = $this->sch_setting_detail;
+        $data['classlist']   = $this->class_model->get();
+        $data['section_list'] = array();
+        $data['class_id']    = '';
+        $data['section_id']  = '';
+        $data['students']    = array();
+        $data['fee_columns'] = array();
+        $data['currency_symbol'] = $this->customlib->getSchoolCurrencyFormat();
+
+        $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('section_id', $this->lang->line('section'), 'trim|required|xss_clean');
+
+        if ($this->form_validation->run() == true) {
+            $class_id   = $this->input->post('class_id');
+            $section_id = $this->input->post('section_id');
+            $data['class_id']   = $class_id;
+            $data['section_id'] = $section_id;
+            $data['section_list'] = $this->section_model->getClassBySection($class_id);
+
+            $students = $this->student_model->searchByClassSection($class_id, $section_id);
+            $fee_columns = array();
+            $rows = array();
+
+            foreach ($students as $stu) {
+                $student_session_id = $stu['student_session_id'];
+                $fee_dues = $this->studentfeemaster_model->getStudentFeeDuesByType($student_session_id);
+                $name = $this->customlib->getFullName($stu['firstname'], $stu['middlename'], $stu['lastname'], $this->sch_setting_detail->middlename, $this->sch_setting_detail->lastname);
+                $row = array(
+                    'name'         => $name,
+                    'admission_no' => $stu['admission_no'],
+                    'total_dues'   => $fee_dues['total_dues'],
+                    'by_type'      => $fee_dues['by_type']
+                );
+                $rows[] = $row;
+                foreach (array_keys($fee_dues['by_type']) as $ft) {
+                    if (!in_array($ft, $fee_columns)) {
+                        $fee_columns[] = $ft;
+                    }
+                }
+            }
+            $data['students']    = $rows;
+            $data['fee_columns'] = $fee_columns;
+        }
+
+        $this->load->view('layout/header', $data);
+        $this->load->view('reports/class_section_fee_dues', $data);
+        $this->load->view('layout/footer', $data);
+    }
+
 }

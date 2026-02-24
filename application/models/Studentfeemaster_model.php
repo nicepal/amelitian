@@ -422,7 +422,7 @@ class Studentfeemaster_model extends MY_Model
     public function getFeeCollectionReport($start_date, $end_date, $received_by = null, $group = null)
     {
 
-      $this->db->select('`student_fees_deposite`.*,students.firstname,students.middlename,students.lastname,student_session.class_id,classes.class,sections.section,student_session.section_id,student_session.student_id,`fee_groups`.`name`, `feetype`.`type`, `feetype`.`code`,student_fees_master.student_session_id')->from('student_fees_deposite');
+      $this->db->select('`student_fees_deposite`.*,students.firstname,students.admission_no,students.middlename,students.lastname,student_session.class_id,classes.class,sections.section,student_session.section_id,student_session.student_id,`fee_groups`.`name`, `feetype`.`type`, `feetype`.`code`,student_fees_master.student_session_id')->from('student_fees_deposite');
         $this->db->join('fee_groups_feetype', 'fee_groups_feetype.id = student_fees_deposite.fee_groups_feetype_id');
         $this->db->join('fee_groups', 'fee_groups.id = fee_groups_feetype.fee_groups_id');
         $this->db->join('feetype', 'feetype.id = fee_groups_feetype.feetype_id');
@@ -456,6 +456,7 @@ class Studentfeemaster_model extends MY_Model
                         $a['student_fees_master_id'] = $value->student_fees_master_id;
                         $a['fee_groups_feetype_id']  = $value->fee_groups_feetype_id;
                         $a['firstname']              = $value->firstname;
+                        $a['admission_no']           = $value->admission_no;
                         $a['middlename']             = $value->middlename;
                         $a['lastname']               = $value->lastname;
                         $a['class_id']               = $value->class_id;

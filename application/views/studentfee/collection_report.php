@@ -95,6 +95,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                             <table class="table table-striped  table-hover " id="headerTable">
                                 <thead class="header">
                                     <tr>
+                                        <th><?php echo $this->lang->line('admission_no'); ?></th>
                                         <th><?php echo $this->lang->line('payment_id'); ?></th>
                                         <th><?php echo $this->lang->line('date'); ?></th>
                                         <th><?php echo $this->lang->line('name'); ?></th>
@@ -139,9 +140,11 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                             $fineLabel = array();
                                             $TotalLabel = array();
                                             $note = array();
+                                            $admission_no = array();
                                             foreach ($value as $collect) {
                                                 $payment_id[] = $collect['inv_no'];
                                                 $date[] = date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($collect['date']));
+                                                $admission_no[] = $collect['admission_no'];
                                                 $student_name[] = $this->customlib->getFullName($collect['firstname'],$collect['middlename'],$collect['lastname'],$sch_setting->middlename,$sch_setting->lastname);
                                                 $student_class[] = $collect['class'] . " (" . $collect['section'] . ")";
                                                 $fees_type[] = $collect['type'];
@@ -161,6 +164,13 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                             }
                                             ?>
                                             <tr>
+                                                <td>
+                                                    <table width="100%"><?php foreach ($admission_no as $admission_no_val) {
+                                                            ?>
+                                                            <tr><td class="text-left-md"><?php echo $admission_no_val; ?></td></tr>
+                                                        <?php }
+                                                        ?></table>
+                                                </td>
                                                 <td>
                                                     <table width="100%"><?php foreach ($payment_id as $p_ides) {
                                                 ?>
@@ -281,6 +291,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
+                                                <td></td>
                                                 <td style="font-weight:bold"><?php echo $this->lang->line('sub') . " " . $this->lang->line('total') ?></td>
                                                 <td class="text text-right" style="font-weight:bold"><?php echo array_sum($amountLabel); ?></td>
                                                 <td class="text text-right" style="font-weight:bold" ><?php echo array_sum($discountLabel); ?></td>
@@ -295,6 +306,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         }
                                         ?>
                                         <tr>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>

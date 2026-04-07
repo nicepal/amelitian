@@ -13,6 +13,7 @@
                     if ($this->rbac->hasPrivilege('fees_statement', 'can_view')) {
                         ?>
                         <li class="col-lg-4 col-md-4 col-sm-6 <?php echo set_SubSubmenu('Reports/finance/reportbyname'); ?>"><a href="<?php echo base_url(); ?>studentfee/reportbyname"><i class="fa fa-file-text-o"></i> <?php echo $this->lang->line('fees_statement'); ?></a></li>
+                        <li class="col-lg-4 col-md-4 col-sm-6 <?php echo set_SubSubmenu('Reports/finance/student_session_fee_summary'); ?>"><a href="<?php echo base_url(); ?>report/student_session_fee_summary"><i class="fa fa-file-text-o"></i> Year-wise Student Fee Summary</a></li>
                         <?php
                     }
                     if ($this->rbac->hasPrivilege('balance_fees_report', 'can_view')) {

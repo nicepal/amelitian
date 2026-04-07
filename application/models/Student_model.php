@@ -447,6 +447,76 @@ class Student_model extends MY_Model
         return $query->result_array();
     }
 
+    /**
+     * Same shape as searchByClassSection but for an explicit academic session (year).
+     */
+    public function searchByClassSectionSession($class_id = null, $section_id = null, $session_id = null, $hostel_id = null, $hostel_room_id = null, $vehroute_id = null)
+    {
+        if ($session_id === null || $session_id === '') {
+            return array();
+        }
+
+        $i = 1;
+
+        $custom_fields   = $this->customfield_model->get_custom_fields('students', 1);
+        $field_var_array = array();
+        if (!empty($custom_fields)) {
+            foreach ($custom_fields as $custom_fields_key => $custom_fields_value) {
+                $tb_counter = "table_custom_" . $i;
+                array_push($field_var_array, 'table_custom_' . $i . '.field_value as ' . $custom_fields_value->name);
+                $this->db->join('custom_field_values as ' . $tb_counter, 'students.id = ' . $tb_counter . '.belong_table_id AND ' . $tb_counter . '.custom_field_id = ' . $custom_fields_value->id, 'left');
+                $i++;
+            }
+        }
+
+        $field_variable = implode(',', $field_var_array);
+
+        $this->db->select('classes.id AS `class_id`,student_session.id as student_session_id,students.id,classes.class,sections.id AS `section_id`,sections.section,students.id,students.admission_no , students.roll_no,students.admission_date,students.firstname,students.middlename,  students.lastname,students.image,    students.mobileno, students.email ,students.state ,   students.city , students.pincode ,     students.religion,     students.dob ,students.current_address,    students.permanent_address,IFNULL(students.category_id, 0) as `category_id`,IFNULL(categories.category, "") as `category`,students.adhar_no,students.samagra_id,students.bank_account_no,students.bank_name, students.ifsc_code , students.guardian_name , students.guardian_relation,students.guardian_phone,students.guardian_address,students.is_active ,students.created_at ,students.updated_at,students.father_name,students.app_key,students.parent_app_key,students.rte,students.gender,' . $field_variable)->from('students');
+        $this->db->join('student_session', 'student_session.student_id = students.id');
+        $this->db->join('classes', 'student_session.class_id = classes.id');
+        $this->db->join('sections', 'sections.id = student_session.section_id');
+        $this->db->join('categories', 'students.category_id = categories.id', 'left');
+        $this->db->where('student_session.session_id', $session_id);
+        if ($hostel_room_id != null) {
+            $this->db->where('students.hostel_room_id', $hostel_room_id);
+        }
+        if ($vehroute_id != null) {
+            $this->db->where('students.vehroute_id', $vehroute_id);
+        }
+
+        $this->db->where('students.is_active', "yes");
+        if ($class_id != null) {
+            $this->db->where('student_session.class_id', $class_id);
+        }
+        if ($section_id != null) {
+            $this->db->where('student_session.section_id', $section_id);
+        }
+        $this->db->order_by('students.admission_no', 'asc');
+
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+    /**
+     * One enrolment row for fee reports: validates class/section match for the session.
+     */
+    public function getStudentSessionRowByStudentAndSession($student_id, $session_id, $class_id, $section_id)
+    {
+        $this->db->select('student_session.id as student_session_id, classes.class, sections.section,
+            students.firstname, students.middlename, students.lastname, students.admission_no');
+        $this->db->from('student_session');
+        $this->db->join('students', 'students.id = student_session.student_id');
+        $this->db->join('classes', 'student_session.class_id = classes.id');
+        $this->db->join('sections', 'sections.id = student_session.section_id');
+        $this->db->where('student_session.student_id', $student_id);
+        $this->db->where('student_session.session_id', $session_id);
+        $this->db->where('student_session.class_id', $class_id);
+        $this->db->where('student_session.section_id', $section_id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
     public function searchByClassSectionWithoutCurrent($class_id = null, $section_id = null, $student_id = null)
     {
         $this->db->select('classes.id AS `class_id`,student_session.id as student_session_id,students.id,classes.class,sections.id AS `section_id`,sections.section,students.id,students.admission_no , students.roll_no,students.admission_date,students.firstname,students.middlename,  students.lastname,students.image,    students.mobileno, students.email ,students.state ,   students.city , students.pincode ,     students.religion,     students.dob ,students.current_address,    students.permanent_address,IFNULL(students.category_id, 0) as `category_id`,IFNULL(categories.category, "") as `category`,students.adhar_no,students.samagra_id,students.bank_account_no,students.bank_name, students.ifsc_code , students.guardian_name , students.guardian_relation,students.guardian_phone,students.guardian_address,students.is_active ,students.created_at ,students.updated_at,students.father_name,students.rte,students.gender')->from('students');

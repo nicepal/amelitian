@@ -2036,6 +2036,21 @@ class Student extends Admin_Controller
         echo json_encode($resultlist);
     }
 
+    public function getByClassSectionSession()
+    {
+        $class       = $this->input->get('class_id');
+        $section     = $this->input->get('section_id');
+        $session_id  = $this->input->get('session_id');
+        $resultlist  = array();
+        if ($session_id !== null && $session_id !== '') {
+            $resultlist = $this->student_model->searchByClassSectionSession($class, $section, $session_id);
+        }
+        foreach ($resultlist as $key => $value) {
+            $resultlist[$key]['full_name'] = $this->customlib->getFullName($value['firstname'], $value['middlename'], $value['lastname'], $this->sch_setting_detail->middlename, $this->sch_setting_detail->lastname);
+        }
+        echo json_encode($resultlist);
+    }
+
     public function getByClassAndSectionExcludeMe()
     {
         $class      = $this->input->get('class_id');

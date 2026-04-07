@@ -2101,4 +2101,150 @@ class Report extends Admin_Controller
         $this->load->view('layout/footer', $data);
     }
 
+    /**
+     * Year-wise fee summary (assigned / paid / balance) for all students in class/section and session.
+     */
+    public function student_session_fee_summary()
+    {
+        if (!$this->rbac->hasPrivilege('fees_statement', 'can_view')) {
+            access_denied();
+        }
+
+        $this->session->set_userdata('top_menu', 'Reports');
+        $this->session->set_userdata('sub_menu', 'Reports/finance');
+        $this->session->set_userdata('subsub_menu', 'Reports/finance/student_session_fee_summary');
+
+        $data['title']             = 'Year-wise Student Fee Summary';
+        $data['sch_setting']       = $this->sch_setting_detail;
+        $data['classlist']         = $this->class_model->get();
+        $data['sessionlist']       = $this->session_model->getAllSession();
+        $data['section_list']      = array();
+        $data['session_id']        = '';
+        $data['class_id']          = '';
+        $data['section_id']        = '';
+        $data['currency_symbol']   = $this->customlib->getSchoolCurrencyFormat();
+        $data['report']            = null;
+        $data['error_message']     = '';
+
+        $this->form_validation->set_rules('session_id', $this->lang->line('session'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('section_id', $this->lang->line('section'), 'trim|required|xss_clean');
+
+        $post_class = $this->input->post('class_id');
+        if ($post_class) {
+            $data['class_id']     = $post_class;
+            $data['section_list'] = $this->section_model->getClassBySection($post_class);
+        }
+        $data['session_id'] = $this->input->post('session_id');
+        $data['section_id'] = $this->input->post('section_id');
+
+        if ($this->form_validation->run() == true) {
+            $session_id = $this->input->post('session_id');
+            $class_id   = $this->input->post('class_id');
+            $section_id = $this->input->post('section_id');
+
+            $data['session_id']   = $session_id;
+            $data['class_id']     = $class_id;
+            $data['section_id']   = $section_id;
+            $data['section_list'] = $this->section_model->getClassBySection($class_id);
+
+            $session_row   = $this->session_model->get($session_id);
+            $session_label = is_array($session_row) && isset($session_row['session']) ? $session_row['session'] : '';
+
+            $students = $this->student_model->searchByClassSectionSession($class_id, $section_id, $session_id);
+            if (empty($students)) {
+                $data['error_message'] = $this->lang->line('no_record_found');
+            } else {
+                $summary_rows   = array();
+                $breakdown_rows = array();
+
+                foreach ($students as $stu) {
+                    $student_session_id = $stu['student_session_id'];
+                    $student_name       = $this->customlib->getFullName(
+                        isset($stu['firstname']) ? $stu['firstname'] : '',
+                        isset($stu['middlename']) ? $stu['middlename'] : '',
+                        isset($stu['lastname']) ? $stu['lastname'] : '',
+                        $this->sch_setting_detail->middlename,
+                        $this->sch_setting_detail->lastname
+                    );
+                    $class_section = trim((isset($stu['class']) ? $stu['class'] : '') . ' / ' . (isset($stu['section']) ? $stu['section'] : ''));
+
+                    $fee_dues = $this->studentfeemaster_model->getStudentFeeDuesByType($student_session_id);
+                    $agg      = $this->_feeSummaryAggregateByType($fee_dues['by_type']);
+
+                    $summary_rows[] = array(
+                        'student_name'  => $student_name,
+                        'admission_no'  => isset($stu['admission_no']) ? $stu['admission_no'] : '',
+                        'class_section' => $class_section,
+                        'tuition'       => $agg['tuition'],
+                        'mess'          => $agg['mess'],
+                        'totals'        => $agg['totals'],
+                        'total_dues'    => $fee_dues['total_dues'],
+                    );
+
+                    if (!empty($fee_dues['by_type']) && is_array($fee_dues['by_type'])) {
+                        foreach ($fee_dues['by_type'] as $ftype => $vals) {
+                            $breakdown_rows[] = array(
+                                'student_name' => $student_name,
+                                'admission_no' => isset($stu['admission_no']) ? $stu['admission_no'] : '',
+                                'fee_type'     => $ftype,
+                                'assigned'     => isset($vals['total']) ? $vals['total'] : 0,
+                                'paid'         => isset($vals['paid']) ? $vals['paid'] : 0,
+                                'balance'      => isset($vals['balance']) ? $vals['balance'] : 0,
+                            );
+                        }
+                    }
+                }
+
+                $data['report'] = array(
+                    'session_label'   => $session_label,
+                    'rows'            => $summary_rows,
+                    'breakdown_rows'  => $breakdown_rows,
+                );
+            }
+        }
+
+        $this->load->view('layout/header', $data);
+        $this->load->view('reports/student_session_fee_summary', $data);
+        $this->load->view('layout/footer', $data);
+    }
+
+    /**
+     * @param array $by_type fee type => [ total, paid, balance ]
+     */
+    private function _feeSummaryAggregateByType($by_type)
+    {
+        $tuition = array('assigned' => 0, 'paid' => 0, 'balance' => 0);
+        $mess    = array('assigned' => 0, 'paid' => 0, 'balance' => 0);
+        $totals  = array('assigned' => 0, 'paid' => 0, 'balance' => 0);
+
+        if (empty($by_type) || !is_array($by_type)) {
+            return array('tuition' => $tuition, 'mess' => $mess, 'totals' => $totals);
+        }
+
+        foreach ($by_type as $name => $vals) {
+            $a = isset($vals['total']) ? floatval($vals['total']) : 0;
+            $p = isset($vals['paid']) ? floatval($vals['paid']) : 0;
+            $b = isset($vals['balance']) ? floatval($vals['balance']) : 0;
+
+            $totals['assigned'] += $a;
+            $totals['paid'] += $p;
+            $totals['balance'] += $b;
+
+            $ln = strtolower((string) $name);
+            if (strpos($ln, 'tuition') !== false) {
+                $tuition['assigned'] += $a;
+                $tuition['paid'] += $p;
+                $tuition['balance'] += $b;
+            }
+            if (strpos($ln, 'mess') !== false) {
+                $mess['assigned'] += $a;
+                $mess['paid'] += $p;
+                $mess['balance'] += $b;
+            }
+        }
+
+        return array('tuition' => $tuition, 'mess' => $mess, 'totals' => $totals);
+    }
+
 }

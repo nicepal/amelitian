@@ -39,6 +39,21 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                         </div>
                     </form>
 
+                    <?php if ($this->rbac->hasPrivilege('fees_statement', 'can_view')) { ?>
+                    <div class="box-header with-border" style="border-top: 1px solid #f4f4f4;">
+                        <h3 class="box-title"><i class="fa fa-calendar-check-o"></i> Year-wise student fee summary</h3>
+                    </div>
+                    <div class="box-body">
+                        <p class="text-muted" style="margin-bottom: 10px;">
+                            View assigned, paid, and balance amounts by academic session for all students in a class and section
+                            (e.g. Academic 24-25, tuition and mess fees, with paid and balance breakdown).
+                        </p>
+                        <a href="<?php echo site_url('report/student_session_fee_summary'); ?>" class="btn btn-info btn-sm">
+                            <i class="fa fa-external-link"></i> Open year-wise student fee report
+                        </a>
+                    </div>
+                    <?php } ?>
+
                     <?php if (isset($payments) && !empty($payments)) { ?>
                         <div class="">
                             <div class="box-header ptbnull"></div>
